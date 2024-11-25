@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
         matrix:
-          go-version: [ latest ]
+          go-version: [ stable ]
     steps:
     - uses: actions/checkout@v4
     - name: Set up Go
