@@ -17,7 +17,7 @@ func NewRestClient[T any](config torboxapiconfig.Config) *RestClient[T] {
 	responseValidationHandler := handlers.NewResponseValidationHandler[T]()
 	unmarshalHandler := handlers.NewUnmarshalHandler[T]()
 	requestValidationHandler := handlers.NewRequestValidationHandler[T]()
-	hookHandler := handlers.NewHookHandler[T](hooks.NewDefaultHook())
+	hookHandler := handlers.NewHookHandler[T](hooks.NewCustomHook())
 	terminatingHandler := handlers.NewTerminatingHandler[T]()
 
 	handlers := handlers.BuildHandlerChain[T]().

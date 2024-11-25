@@ -1,8 +1,10 @@
 package notifications
 
 type GetNotificationFeedOkResponse struct {
-	Data   []GetNotificationFeedOkResponseData `json:"data,omitempty"`
-	Detail *string                             `json:"detail,omitempty"`
+	Data    []GetNotificationFeedOkResponseData `json:"data,omitempty"`
+	Detail  *string                             `json:"detail,omitempty"`
+	Error   any                                 `json:"error,omitempty"`
+	Success *bool                               `json:"success,omitempty"`
 }
 
 func (g *GetNotificationFeedOkResponse) SetData(data []GetNotificationFeedOkResponseData) {
@@ -25,6 +27,28 @@ func (g *GetNotificationFeedOkResponse) GetDetail() *string {
 		return nil
 	}
 	return g.Detail
+}
+
+func (g *GetNotificationFeedOkResponse) SetError(error any) {
+	g.Error = error
+}
+
+func (g *GetNotificationFeedOkResponse) GetError() any {
+	if g == nil {
+		return nil
+	}
+	return g.Error
+}
+
+func (g *GetNotificationFeedOkResponse) SetSuccess(success bool) {
+	g.Success = &success
+}
+
+func (g *GetNotificationFeedOkResponse) GetSuccess() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.Success
 }
 
 type GetNotificationFeedOkResponseData struct {

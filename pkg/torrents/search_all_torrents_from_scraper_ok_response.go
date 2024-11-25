@@ -1,8 +1,10 @@
 package torrents
 
 type SearchAllTorrentsFromScraperOkResponse struct {
-	Data   []SearchAllTorrentsFromScraperOkResponseData `json:"data,omitempty"`
-	Detail *string                                      `json:"detail,omitempty"`
+	Data    []SearchAllTorrentsFromScraperOkResponseData `json:"data,omitempty"`
+	Detail  *string                                      `json:"detail,omitempty"`
+	Error   any                                          `json:"error,omitempty"`
+	Success *bool                                        `json:"success,omitempty"`
 }
 
 func (s *SearchAllTorrentsFromScraperOkResponse) SetData(data []SearchAllTorrentsFromScraperOkResponseData) {
@@ -25,6 +27,28 @@ func (s *SearchAllTorrentsFromScraperOkResponse) GetDetail() *string {
 		return nil
 	}
 	return s.Detail
+}
+
+func (s *SearchAllTorrentsFromScraperOkResponse) SetError(error any) {
+	s.Error = error
+}
+
+func (s *SearchAllTorrentsFromScraperOkResponse) GetError() any {
+	if s == nil {
+		return nil
+	}
+	return s.Error
+}
+
+func (s *SearchAllTorrentsFromScraperOkResponse) SetSuccess(success bool) {
+	s.Success = &success
+}
+
+func (s *SearchAllTorrentsFromScraperOkResponse) GetSuccess() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Success
 }
 
 type SearchAllTorrentsFromScraperOkResponseData struct {

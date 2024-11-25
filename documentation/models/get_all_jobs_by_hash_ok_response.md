@@ -6,6 +6,7 @@
 | :------ | :-------------------------------------------- | :------- | :---------- |
 | Data    | []integrations.GetAllJobsByHashOkResponseData | ❌       |             |
 | Detail  | string                                        | ❌       |             |
+| Error   | any                                           | ❌       |             |
 | Success | bool                                          | ❌       |             |
 
 # GetAllJobsByHashOkResponseData

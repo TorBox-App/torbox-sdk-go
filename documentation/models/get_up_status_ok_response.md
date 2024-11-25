@@ -2,6 +2,9 @@
 
 **Properties**
 
-| Name   | Type   | Required | Description |
-| :----- | :----- | :------- | :---------- |
-| Detail | string | ❌       |             |
+| Name    | Type   | Required | Description |
+| :------ | :----- | :------- | :---------- |
+| Data    | any    | ❌       |             |
+| Detail  | string | ❌       |             |
+| Error   | any    | ❌       |             |
+| Success | bool   | ❌       |             |

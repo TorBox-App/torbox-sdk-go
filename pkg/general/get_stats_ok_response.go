@@ -1,8 +1,10 @@
 package general
 
 type GetStatsOkResponse struct {
-	Data   *GetStatsOkResponseData `json:"data,omitempty"`
-	Detail *string                 `json:"detail,omitempty"`
+	Data    *GetStatsOkResponseData `json:"data,omitempty"`
+	Detail  *string                 `json:"detail,omitempty"`
+	Error   *bool                   `json:"error,omitempty"`
+	Success *bool                   `json:"success,omitempty"`
 }
 
 func (g *GetStatsOkResponse) SetData(data GetStatsOkResponseData) {
@@ -25,6 +27,28 @@ func (g *GetStatsOkResponse) GetDetail() *string {
 		return nil
 	}
 	return g.Detail
+}
+
+func (g *GetStatsOkResponse) SetError(error bool) {
+	g.Error = &error
+}
+
+func (g *GetStatsOkResponse) GetError() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.Error
+}
+
+func (g *GetStatsOkResponse) SetSuccess(success bool) {
+	g.Success = &success
+}
+
+func (g *GetStatsOkResponse) GetSuccess() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.Success
 }
 
 type GetStatsOkResponseData struct {

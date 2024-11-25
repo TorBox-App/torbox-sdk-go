@@ -6,6 +6,7 @@
 | :------ | :----------------------------------- | :------- | :---------- |
 | Data    | torrents.CreateTorrentOkResponseData | ❌       |             |
 | Detail  | string                               | ❌       |             |
+| Error   | any                                  | ❌       |             |
 | Success | bool                                 | ❌       |             |
 
 # CreateTorrentOkResponseData

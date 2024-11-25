@@ -1,8 +1,10 @@
 package torrents
 
 type ExportTorrentDataOkResponse struct {
-	Data   *string `json:"data,omitempty"`
-	Detail *string `json:"detail,omitempty"`
+	Data    *string `json:"data,omitempty"`
+	Detail  *string `json:"detail,omitempty"`
+	Error   any     `json:"error,omitempty"`
+	Success *bool   `json:"success,omitempty"`
 }
 
 func (e *ExportTorrentDataOkResponse) SetData(data string) {
@@ -25,4 +27,26 @@ func (e *ExportTorrentDataOkResponse) GetDetail() *string {
 		return nil
 	}
 	return e.Detail
+}
+
+func (e *ExportTorrentDataOkResponse) SetError(error any) {
+	e.Error = error
+}
+
+func (e *ExportTorrentDataOkResponse) GetError() any {
+	if e == nil {
+		return nil
+	}
+	return e.Error
+}
+
+func (e *ExportTorrentDataOkResponse) SetSuccess(success bool) {
+	e.Success = &success
+}
+
+func (e *ExportTorrentDataOkResponse) GetSuccess() *bool {
+	if e == nil {
+		return nil
+	}
+	return e.Success
 }

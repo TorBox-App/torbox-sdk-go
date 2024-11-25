@@ -6,6 +6,7 @@
 | :------ | :----------------------------------- | :------- | :---------- |
 | Data    | []usenet.GetUsenetListOkResponseData | ❌       |             |
 | Detail  | string                               | ❌       |             |
+| Error   | any                                  | ❌       |             |
 | Success | bool                                 | ❌       |             |
 
 # GetUsenetListOkResponseData

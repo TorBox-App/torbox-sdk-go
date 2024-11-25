@@ -3,6 +3,7 @@ package usenet
 type CreateUsenetDownloadOkResponse struct {
 	Data    *CreateUsenetDownloadOkResponseData `json:"data,omitempty"`
 	Detail  *string                             `json:"detail,omitempty"`
+	Error   any                                 `json:"error,omitempty"`
 	Success *bool                               `json:"success,omitempty"`
 }
 
@@ -26,6 +27,17 @@ func (c *CreateUsenetDownloadOkResponse) GetDetail() *string {
 		return nil
 	}
 	return c.Detail
+}
+
+func (c *CreateUsenetDownloadOkResponse) SetError(error any) {
+	c.Error = error
+}
+
+func (c *CreateUsenetDownloadOkResponse) GetError() any {
+	if c == nil {
+		return nil
+	}
+	return c.Error
 }
 
 func (c *CreateUsenetDownloadOkResponse) SetSuccess(success bool) {

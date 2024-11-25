@@ -3,6 +3,7 @@ package torrents
 type GetTorrentListOkResponse struct {
 	Data    []GetTorrentListOkResponseData `json:"data,omitempty"`
 	Detail  *string                        `json:"detail,omitempty"`
+	Error   any                            `json:"error,omitempty"`
 	Success *bool                          `json:"success,omitempty"`
 }
 
@@ -26,6 +27,17 @@ func (g *GetTorrentListOkResponse) GetDetail() *string {
 		return nil
 	}
 	return g.Detail
+}
+
+func (g *GetTorrentListOkResponse) SetError(error any) {
+	g.Error = error
+}
+
+func (g *GetTorrentListOkResponse) GetError() any {
+	if g == nil {
+		return nil
+	}
+	return g.Error
 }
 
 func (g *GetTorrentListOkResponse) SetSuccess(success bool) {

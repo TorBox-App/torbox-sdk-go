@@ -6,6 +6,7 @@
 | :------ | :---------------------------------------- | :------- | :---------- |
 | Data    | usenet.CreateUsenetDownloadOkResponseData | ❌       |             |
 | Detail  | string                                    | ❌       |             |
+| Error   | any                                       | ❌       |             |
 | Success | bool                                      | ❌       |             |
 
 # CreateUsenetDownloadOkResponseData

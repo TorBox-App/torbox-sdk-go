@@ -3,6 +3,7 @@ package usenet
 type GetUsenetListOkResponse struct {
 	Data    []GetUsenetListOkResponseData `json:"data,omitempty"`
 	Detail  *string                       `json:"detail,omitempty"`
+	Error   any                           `json:"error,omitempty"`
 	Success *bool                         `json:"success,omitempty"`
 }
 
@@ -26,6 +27,17 @@ func (g *GetUsenetListOkResponse) GetDetail() *string {
 		return nil
 	}
 	return g.Detail
+}
+
+func (g *GetUsenetListOkResponse) SetError(error any) {
+	g.Error = error
+}
+
+func (g *GetUsenetListOkResponse) GetError() any {
+	if g == nil {
+		return nil
+	}
+	return g.Error
 }
 
 func (g *GetUsenetListOkResponse) SetSuccess(success bool) {

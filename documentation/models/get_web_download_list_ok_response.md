@@ -2,10 +2,12 @@
 
 **Properties**
 
-| Name   | Type                                                  | Required | Description |
-| :----- | :---------------------------------------------------- | :------- | :---------- |
-| Data   | []webdownloadsdebrid.GetWebDownloadListOkResponseData | ❌       |             |
-| Detail | string                                                | ❌       |             |
+| Name    | Type                                                  | Required | Description |
+| :------ | :---------------------------------------------------- | :------- | :---------- |
+| Data    | []webdownloadsdebrid.GetWebDownloadListOkResponseData | ❌       |             |
+| Detail  | string                                                | ❌       |             |
+| Error   | any                                                   | ❌       |             |
+| Success | bool                                                  | ❌       |             |
 
 # GetWebDownloadListOkResponseData
 

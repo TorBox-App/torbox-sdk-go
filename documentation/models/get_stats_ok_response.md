@@ -2,10 +2,12 @@
 
 **Properties**
 
-| Name   | Type                           | Required | Description |
-| :----- | :----------------------------- | :------- | :---------- |
-| Data   | general.GetStatsOkResponseData | ❌       |             |
-| Detail | string                         | ❌       |             |
+| Name    | Type                           | Required | Description |
+| :------ | :----------------------------- | :------- | :---------- |
+| Data    | general.GetStatsOkResponseData | ❌       |             |
+| Detail  | string                         | ❌       |             |
+| Error   | bool                           | ❌       |             |
+| Success | bool                           | ❌       |             |
 
 # GetStatsOkResponseData
 

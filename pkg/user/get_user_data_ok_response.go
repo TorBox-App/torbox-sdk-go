@@ -3,6 +3,7 @@ package user
 type GetUserDataOkResponse struct {
 	Data    *GetUserDataOkResponseData `json:"data,omitempty"`
 	Detail  *string                    `json:"detail,omitempty"`
+	Error   any                        `json:"error,omitempty"`
 	Success *bool                      `json:"success,omitempty"`
 }
 
@@ -26,6 +27,17 @@ func (g *GetUserDataOkResponse) GetDetail() *string {
 		return nil
 	}
 	return g.Detail
+}
+
+func (g *GetUserDataOkResponse) SetError(error any) {
+	g.Error = error
+}
+
+func (g *GetUserDataOkResponse) GetError() any {
+	if g == nil {
+		return nil
+	}
+	return g.Error
 }
 
 func (g *GetUserDataOkResponse) SetSuccess(success bool) {

@@ -3,6 +3,7 @@ package integrations
 type GetAllJobsOkResponse struct {
 	Data    []GetAllJobsOkResponseData `json:"data,omitempty"`
 	Detail  *string                    `json:"detail,omitempty"`
+	Error   any                        `json:"error,omitempty"`
 	Success *bool                      `json:"success,omitempty"`
 }
 
@@ -26,6 +27,17 @@ func (g *GetAllJobsOkResponse) GetDetail() *string {
 		return nil
 	}
 	return g.Detail
+}
+
+func (g *GetAllJobsOkResponse) SetError(error any) {
+	g.Error = error
+}
+
+func (g *GetAllJobsOkResponse) GetError() any {
+	if g == nil {
+		return nil
+	}
+	return g.Error
 }
 
 func (g *GetAllJobsOkResponse) SetSuccess(success bool) {

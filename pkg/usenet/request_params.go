@@ -6,6 +6,7 @@ type RequestDownloadLink1RequestParams struct {
 	FileId      *string `queryParam:"file_id"`
 	ZipLink     *string `queryParam:"zip_link"`
 	TorrentFile *string `queryParam:"torrent_file"`
+	UserIp      *string `queryParam:"user_ip"`
 }
 
 func (params *RequestDownloadLink1RequestParams) SetToken(token string) {
@@ -22,6 +23,9 @@ func (params *RequestDownloadLink1RequestParams) SetZipLink(zipLink string) {
 }
 func (params *RequestDownloadLink1RequestParams) SetTorrentFile(torrentFile string) {
 	params.TorrentFile = &torrentFile
+}
+func (params *RequestDownloadLink1RequestParams) SetUserIp(userIp string) {
+	params.UserIp = &userIp
 }
 
 type GetUsenetListRequestParams struct {

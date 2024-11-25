@@ -3,6 +3,7 @@ package user
 type AddReferralToAccountOkResponse struct {
 	Data    any     `json:"data,omitempty"`
 	Detail  *string `json:"detail,omitempty"`
+	Error   any     `json:"error,omitempty"`
 	Success *bool   `json:"success,omitempty"`
 }
 
@@ -26,6 +27,17 @@ func (a *AddReferralToAccountOkResponse) GetDetail() *string {
 		return nil
 	}
 	return a.Detail
+}
+
+func (a *AddReferralToAccountOkResponse) SetError(error any) {
+	a.Error = error
+}
+
+func (a *AddReferralToAccountOkResponse) GetError() any {
+	if a == nil {
+		return nil
+	}
+	return a.Error
 }
 
 func (a *AddReferralToAccountOkResponse) SetSuccess(success bool) {

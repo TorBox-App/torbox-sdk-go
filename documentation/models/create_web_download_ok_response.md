@@ -6,6 +6,7 @@
 | :------ | :------------------------------------------------- | :------- | :---------- |
 | Data    | webdownloadsdebrid.CreateWebDownloadOkResponseData | ❌       |             |
 | Detail  | string                                             | ❌       |             |
+| Error   | any                                                | ❌       |             |
 | Success | bool                                               | ❌       |             |
 
 # CreateWebDownloadOkResponseData

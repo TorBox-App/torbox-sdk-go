@@ -6,6 +6,7 @@
 | :------ | :-------------------------------------- | :------- | :---------- |
 | Data    | []torrents.GetTorrentListOkResponseData | ❌       |             |
 | Detail  | string                                  | ❌       |             |
+| Error   | any                                     | ❌       |             |
 | Success | bool                                    | ❌       |             |
 
 # GetTorrentListOkResponseData

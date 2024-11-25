@@ -6,6 +6,7 @@
 | :------ | :----------------------------- | :------- | :---------- |
 | Data    | user.GetUserDataOkResponseData | ❌       |             |
 | Detail  | string                         | ❌       |             |
+| Error   | any                            | ❌       |             |
 | Success | bool                           | ❌       |             |
 
 # GetUserDataOkResponseData

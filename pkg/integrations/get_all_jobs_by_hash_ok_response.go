@@ -3,6 +3,7 @@ package integrations
 type GetAllJobsByHashOkResponse struct {
 	Data    []GetAllJobsByHashOkResponseData `json:"data,omitempty"`
 	Detail  *string                          `json:"detail,omitempty"`
+	Error   any                              `json:"error,omitempty"`
 	Success *bool                            `json:"success,omitempty"`
 }
 
@@ -26,6 +27,17 @@ func (g *GetAllJobsByHashOkResponse) GetDetail() *string {
 		return nil
 	}
 	return g.Detail
+}
+
+func (g *GetAllJobsByHashOkResponse) SetError(error any) {
+	g.Error = error
+}
+
+func (g *GetAllJobsByHashOkResponse) GetError() any {
+	if g == nil {
+		return nil
+	}
+	return g.Error
 }
 
 func (g *GetAllJobsByHashOkResponse) SetSuccess(success bool) {

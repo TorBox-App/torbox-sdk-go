@@ -1,8 +1,10 @@
 package webdownloadsdebrid
 
 type GetWebDownloadListOkResponse struct {
-	Data   []GetWebDownloadListOkResponseData `json:"data,omitempty"`
-	Detail *string                            `json:"detail,omitempty"`
+	Data    []GetWebDownloadListOkResponseData `json:"data,omitempty"`
+	Detail  *string                            `json:"detail,omitempty"`
+	Error   any                                `json:"error,omitempty"`
+	Success *bool                              `json:"success,omitempty"`
 }
 
 func (g *GetWebDownloadListOkResponse) SetData(data []GetWebDownloadListOkResponseData) {
@@ -25,6 +27,28 @@ func (g *GetWebDownloadListOkResponse) GetDetail() *string {
 		return nil
 	}
 	return g.Detail
+}
+
+func (g *GetWebDownloadListOkResponse) SetError(error any) {
+	g.Error = error
+}
+
+func (g *GetWebDownloadListOkResponse) GetError() any {
+	if g == nil {
+		return nil
+	}
+	return g.Error
+}
+
+func (g *GetWebDownloadListOkResponse) SetSuccess(success bool) {
+	g.Success = &success
+}
+
+func (g *GetWebDownloadListOkResponse) GetSuccess() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.Success
 }
 
 type GetWebDownloadListOkResponseData struct {

@@ -6,6 +6,7 @@
 | :------ | :-------------------------------------- | :------- | :---------- |
 | Data    | []integrations.GetAllJobsOkResponseData | ❌       |             |
 | Detail  | string                                  | ❌       |             |
+| Error   | any                                     | ❌       |             |
 | Success | bool                                    | ❌       |             |
 
 # GetAllJobsOkResponseData
