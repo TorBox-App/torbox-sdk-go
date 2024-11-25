@@ -1,23 +1,19 @@
-# TorboxApi Go SDK 1.0.0
-
-Welcome to the TorboxApi SDK documentation. This guide will help you get started with integrating and using the TorboxApi SDK in your project.
-
-## Versions
-
-- API version: `1.0.0`
-- SDK version: `1.0.0`
+![Logo](https://raw.githubusercontent.com/TorBox-App/torbox-sdk-go/main/assets/banner.png)
 
 ## Table of Contents
 
-- [Setup & Configuration](#setup--configuration)
+- [Setup \& Configuration](#setup--configuration)
   - [Supported Language Versions](#supported-language-versions)
-  - [Installation](#installation)
-- [Authentication](#authentication)
-  - [Access Token Authentication](#access-token-authentication)
-- [Services](#services)
-  - [Response Wrappers](#response-wrappers)
-- [Models](#models)
-- [License](#license)
+  - [Authentication](#authentication)
+    - [Access Token Authentication](#access-token-authentication)
+      - [Setting the Access Token](#setting-the-access-token)
+  - [Services](#services)
+    - [Response Wrappers](#response-wrappers)
+      - [`TorboxApiResponse[T]`](#torboxapiresponset)
+      - [`TorboxApiError`](#torboxapierror)
+      - [`TorboxApiResponseMetadata`](#torboxapiresponsemetadata)
+  - [Models](#models)
+  - [License](#license)
 
 # Setup & Configuration
 
