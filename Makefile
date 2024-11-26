@@ -6,6 +6,6 @@ install-go-test-coverage:
 
 .PHONY: check-coverage
 check-coverage: install-go-test-coverage
-	go test ./... -coverprofile=./coverage/cover.out -covermode=set -coverpkg=./...
-	go tool cover -html=./coverage/cover.out -o=./coverage/cover.html
+	go test ./... -coverprofile=./cover.out -covermode=set -coverpkg=./...
+	go tool cover -html=./cover.out -o=./cover.html
 	${GOBIN}/go-test-coverage --config=./config/.testcoverage.yml
