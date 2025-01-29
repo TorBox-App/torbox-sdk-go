@@ -14,10 +14,15 @@ type TorrentsService struct {
 	manager *configmanager.ConfigManager
 }
 
-func NewTorrentsService(manager *configmanager.ConfigManager) *TorrentsService {
+func NewTorrentsService() *TorrentsService {
 	return &TorrentsService{
-		manager: manager,
+		manager: configmanager.NewConfigManager(torboxapiconfig.Config{}),
 	}
+}
+
+func (api *TorrentsService) WithConfigManager(manager *configmanager.ConfigManager) *TorrentsService {
+	api.manager = manager
+	return api
 }
 
 func (api *TorrentsService) getConfig() *torboxapiconfig.Config {
@@ -103,39 +108,6 @@ func (api *TorrentsService) ControlTorrent(ctx context.Context, apiVersion strin
 	}
 
 	return shared.NewTorboxApiResponse[ControlTorrentOkResponse](resp), nil
-}
-
-// ### Overview
-//
-// Controls a queued torrent. By sending the queued torrent's ID and the type of operation you want to perform, it will perform that action on the queued torrent.
-//
-// Operations are either:
-//
-// - **Delete** `deletes the queued torrent from your account`
-//
-// ### Authorization
-//
-// Requires an API key using the Authorization Bearer Header.
-func (api *TorrentsService) ControlQueuedTorrent(ctx context.Context, apiVersion string) (*shared.TorboxApiResponse[ControlQueuedTorrentOkResponse], *shared.TorboxApiError) {
-	config := *api.getConfig()
-
-	request := httptransport.NewRequestBuilder().WithContext(ctx).
-		WithMethod("POST").
-		WithPath("/{api_version}/api/torrents/controlqueued").
-		WithConfig(config).
-		AddHeader("CONTENT-TYPE", "application/json").
-		AddPathParam("api_version", apiVersion).
-		WithContentType(httptransport.ContentTypeJson).
-		WithResponseContentType(httptransport.ContentTypeJson).
-		Build()
-
-	client := restClient.NewRestClient[ControlQueuedTorrentOkResponse](config)
-	resp, err := client.Call(*request)
-	if err != nil {
-		return nil, shared.NewTorboxApiError[ControlQueuedTorrentOkResponse](err)
-	}
-
-	return shared.NewTorboxApiResponse[ControlQueuedTorrentOkResponse](resp), nil
 }
 
 // ### Overview
@@ -253,37 +225,6 @@ func (api *TorrentsService) GetTorrentCachedAvailability(ctx context.Context, ap
 
 // ### Overview
 //
-// Uses Meilisearch to search for scraped torrents. This is a basic torrent aggregator system and has no real relation to TorBox. It is simply a tool you can use. It does not have cache information, or anything special like that, and will not have any of that information. This is simply a torrent search, nothing more.
-//
-// You may use this for anything. TorBox uses it in the website to make it easy for users to find torrents without having to go and find them on sketchy websites.
-//
-// ### Authorization
-//
-// None required.
-func (api *TorrentsService) SearchAllTorrentsFromScraper(ctx context.Context, apiVersion string, params SearchAllTorrentsFromScraperRequestParams) (*shared.TorboxApiResponse[SearchAllTorrentsFromScraperOkResponse], *shared.TorboxApiError) {
-	config := *api.getConfig()
-
-	request := httptransport.NewRequestBuilder().WithContext(ctx).
-		WithMethod("GET").
-		WithPath("/{api_version}/api/torrents/search").
-		WithConfig(config).
-		AddPathParam("api_version", apiVersion).
-		WithOptions(params).
-		WithContentType(httptransport.ContentTypeJson).
-		WithResponseContentType(httptransport.ContentTypeJson).
-		Build()
-
-	client := restClient.NewRestClient[SearchAllTorrentsFromScraperOkResponse](config)
-	resp, err := client.Call(*request)
-	if err != nil {
-		return nil, shared.NewTorboxApiError[SearchAllTorrentsFromScraperOkResponse](err)
-	}
-
-	return shared.NewTorboxApiResponse[SearchAllTorrentsFromScraperOkResponse](resp), nil
-}
-
-// ### Overview
-//
 // Exports the magnet or torrent file. Requires a type to be passed. If type is **magnet**, it will return a JSON response with the magnet as a string in the _data_ key. If type is **file**, it will return a bittorrent file as a download. Not compatible with cached downloads.
 //
 // ### Authorization
@@ -338,32 +279,4 @@ func (api *TorrentsService) GetTorrentInfo(ctx context.Context, apiVersion strin
 	}
 
 	return shared.NewTorboxApiResponse[GetTorrentInfoOkResponse](resp), nil
-}
-
-// ### Overview
-//
-// Retrieves all of a user's queued torrents.
-//
-// ### Authorization
-//
-// Requires an API key using the Authorization Bearer Header.
-func (api *TorrentsService) GetQueuedTorrents(ctx context.Context, apiVersion string) (*shared.TorboxApiResponse[any], *shared.TorboxApiError) {
-	config := *api.getConfig()
-
-	request := httptransport.NewRequestBuilder().WithContext(ctx).
-		WithMethod("GET").
-		WithPath("/{api_version}/api/torrents/getqueued").
-		WithConfig(config).
-		AddPathParam("api_version", apiVersion).
-		WithContentType(httptransport.ContentTypeJson).
-		WithResponseContentType(httptransport.ContentTypeJson).
-		Build()
-
-	client := restClient.NewRestClient[any](config)
-	resp, err := client.Call(*request)
-	if err != nil {
-		return nil, shared.NewTorboxApiError[any](err)
-	}
-
-	return shared.NewTorboxApiResponse[any](resp), nil
 }

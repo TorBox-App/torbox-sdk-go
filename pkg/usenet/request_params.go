@@ -1,12 +1,12 @@
 package usenet
 
 type RequestDownloadLink1RequestParams struct {
-	Token       *string `queryParam:"token"`
-	UsenetId    *string `queryParam:"usenet_id"`
-	FileId      *string `queryParam:"file_id"`
-	ZipLink     *string `queryParam:"zip_link"`
-	TorrentFile *string `queryParam:"torrent_file"`
-	UserIp      *string `queryParam:"user_ip"`
+	Token       *string `explode:"true" serializationStyle:"form" queryParam:"token"`
+	UsenetId    *string `explode:"true" serializationStyle:"form" queryParam:"usenet_id"`
+	FileId      *string `explode:"true" serializationStyle:"form" queryParam:"file_id"`
+	ZipLink     *string `explode:"true" serializationStyle:"form" queryParam:"zip_link"`
+	TorrentFile *string `explode:"true" serializationStyle:"form" queryParam:"torrent_file"`
+	UserIp      *string `explode:"true" serializationStyle:"form" queryParam:"user_ip"`
 }
 
 func (params *RequestDownloadLink1RequestParams) SetToken(token string) {
@@ -29,10 +29,10 @@ func (params *RequestDownloadLink1RequestParams) SetUserIp(userIp string) {
 }
 
 type GetUsenetListRequestParams struct {
-	BypassCache *string `queryParam:"bypass_cache"`
-	Id          *string `queryParam:"id"`
-	Offset      *string `queryParam:"offset"`
-	Limit       *string `queryParam:"limit"`
+	BypassCache *string `explode:"true" serializationStyle:"form" queryParam:"bypass_cache"`
+	Id          *string `explode:"true" serializationStyle:"form" queryParam:"id"`
+	Offset      *string `explode:"true" serializationStyle:"form" queryParam:"offset"`
+	Limit       *string `explode:"true" serializationStyle:"form" queryParam:"limit"`
 }
 
 func (params *GetUsenetListRequestParams) SetBypassCache(bypassCache string) {
@@ -49,8 +49,8 @@ func (params *GetUsenetListRequestParams) SetLimit(limit string) {
 }
 
 type GetUsenetCachedAvailabilityRequestParams struct {
-	Hash   *string `queryParam:"hash"`
-	Format *string `queryParam:"format"`
+	Hash   *string `explode:"true" serializationStyle:"form" queryParam:"hash"`
+	Format *string `explode:"true" serializationStyle:"form" queryParam:"format"`
 }
 
 func (params *GetUsenetCachedAvailabilityRequestParams) SetHash(hash string) {

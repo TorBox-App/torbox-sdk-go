@@ -76,6 +76,7 @@ The SDK provides various services to interact with the API.
 | [UserService](documentation/services/user_service.md)                               |
 | [RssFeedsService](documentation/services/rss_feeds_service.md)                      |
 | [IntegrationsService](documentation/services/integrations_service.md)               |
+| [QueuedService](documentation/services/queued_service.md)                           |
 
 </details>
 
@@ -125,31 +126,30 @@ The SDK includes several models that represent the data structures used in API r
 <details> 
 <summary>Below is a list of all available models with links to their detailed documentation:</summary>
 
-| Name                                                                                                           | Description |
-| :------------------------------------------------------------------------------------------------------------- | :---------- |
-| [CreateTorrentRequest](documentation/models/create_torrent_request.md)                                         |             |
-| [CreateTorrentOkResponse](documentation/models/create_torrent_ok_response.md)                                  |             |
-| [ControlTorrentOkResponse](documentation/models/control_torrent_ok_response.md)                                |             |
-| [ControlQueuedTorrentOkResponse](documentation/models/control_queued_torrent_ok_response.md)                   |             |
-| [RequestDownloadLinkOkResponse](documentation/models/request_download_link_ok_response.md)                     |             |
-| [GetTorrentListOkResponse](documentation/models/get_torrent_list_ok_response.md)                               |             |
-| [GetTorrentCachedAvailabilityOkResponse](documentation/models/get_torrent_cached_availability_ok_response.md)  |             |
-| [SearchAllTorrentsFromScraperOkResponse](documentation/models/search_all_torrents_from_scraper_ok_response.md) |             |
-| [ExportTorrentDataOkResponse](documentation/models/export_torrent_data_ok_response.md)                         |             |
-| [GetTorrentInfoOkResponse](documentation/models/get_torrent_info_ok_response.md)                               |             |
-| [CreateUsenetDownloadRequest](documentation/models/create_usenet_download_request.md)                          |             |
-| [CreateUsenetDownloadOkResponse](documentation/models/create_usenet_download_ok_response.md)                   |             |
-| [GetUsenetListOkResponse](documentation/models/get_usenet_list_ok_response.md)                                 |             |
-| [CreateWebDownloadRequest](documentation/models/create_web_download_request.md)                                |             |
-| [CreateWebDownloadOkResponse](documentation/models/create_web_download_ok_response.md)                         |             |
-| [GetWebDownloadListOkResponse](documentation/models/get_web_download_list_ok_response.md)                      |             |
-| [GetUpStatusOkResponse](documentation/models/get_up_status_ok_response.md)                                     |             |
-| [GetStatsOkResponse](documentation/models/get_stats_ok_response.md)                                            |             |
-| [GetNotificationFeedOkResponse](documentation/models/get_notification_feed_ok_response.md)                     |             |
-| [GetUserDataOkResponse](documentation/models/get_user_data_ok_response.md)                                     |             |
-| [AddReferralToAccountOkResponse](documentation/models/add_referral_to_account_ok_response.md)                  |             |
-| [GetAllJobsOkResponse](documentation/models/get_all_jobs_ok_response.md)                                       |             |
-| [GetAllJobsByHashOkResponse](documentation/models/get_all_jobs_by_hash_ok_response.md)                         |             |
+| Name                                                                                                          | Description |
+| :------------------------------------------------------------------------------------------------------------ | :---------- |
+| [CreateTorrentRequest](documentation/models/create_torrent_request.md)                                        |             |
+| [CreateTorrentOkResponse](documentation/models/create_torrent_ok_response.md)                                 |             |
+| [ControlTorrentOkResponse](documentation/models/control_torrent_ok_response.md)                               |             |
+| [RequestDownloadLinkOkResponse](documentation/models/request_download_link_ok_response.md)                    |             |
+| [GetTorrentListOkResponse](documentation/models/get_torrent_list_ok_response.md)                              |             |
+| [GetTorrentCachedAvailabilityOkResponse](documentation/models/get_torrent_cached_availability_ok_response.md) |             |
+| [ExportTorrentDataOkResponse](documentation/models/export_torrent_data_ok_response.md)                        |             |
+| [GetTorrentInfoOkResponse](documentation/models/get_torrent_info_ok_response.md)                              |             |
+| [CreateUsenetDownloadRequest](documentation/models/create_usenet_download_request.md)                         |             |
+| [CreateUsenetDownloadOkResponse](documentation/models/create_usenet_download_ok_response.md)                  |             |
+| [GetUsenetListOkResponse](documentation/models/get_usenet_list_ok_response.md)                                |             |
+| [CreateWebDownloadRequest](documentation/models/create_web_download_request.md)                               |             |
+| [CreateWebDownloadOkResponse](documentation/models/create_web_download_ok_response.md)                        |             |
+| [GetWebDownloadListOkResponse](documentation/models/get_web_download_list_ok_response.md)                     |             |
+| [GetHosterListOkResponse](documentation/models/get_hoster_list_ok_response.md)                                |             |
+| [GetUpStatusOkResponse](documentation/models/get_up_status_ok_response.md)                                    |             |
+| [GetStatsOkResponse](documentation/models/get_stats_ok_response.md)                                           |             |
+| [GetNotificationFeedOkResponse](documentation/models/get_notification_feed_ok_response.md)                    |             |
+| [GetUserDataOkResponse](documentation/models/get_user_data_ok_response.md)                                    |             |
+| [AddReferralToAccountOkResponse](documentation/models/add_referral_to_account_ok_response.md)                 |             |
+| [GetAllJobsOkResponse](documentation/models/get_all_jobs_ok_response.md)                                      |             |
+| [GetAllJobsByHashOkResponse](documentation/models/get_all_jobs_by_hash_ok_response.md)                        |             |
 
 </details>
 

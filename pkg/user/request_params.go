@@ -1,7 +1,7 @@
 package user
 
 type GetUserDataRequestParams struct {
-	Settings *string `queryParam:"settings"`
+	Settings *string `explode:"true" serializationStyle:"form" queryParam:"settings"`
 }
 
 func (params *GetUserDataRequestParams) SetSettings(settings string) {
@@ -9,7 +9,7 @@ func (params *GetUserDataRequestParams) SetSettings(settings string) {
 }
 
 type AddReferralToAccountRequestParams struct {
-	Referral *string `queryParam:"referral"`
+	Referral *string `explode:"true" serializationStyle:"form" queryParam:"referral"`
 }
 
 func (params *AddReferralToAccountRequestParams) SetReferral(referral string) {

@@ -16,8 +16,8 @@
 | Name                   | Type    | Required | Description |
 | :--------------------- | :------ | :------- | :---------- |
 | ActiveLimit            | float64 | ❌       |             |
+| AuthId                 | string  | ❌       |             |
 | CurrentActiveDownloads | float64 | ❌       |             |
 | Hash                   | string  | ❌       |             |
-| Name                   | string  | ❌       |             |
 | QueuedId               | float64 | ❌       |             |
 | TorrentId              | float64 | ❌       |             |

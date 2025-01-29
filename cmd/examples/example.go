@@ -19,8 +19,12 @@ func main() {
 	client := torboxapi.NewTorboxApi(config)
 
 	request := torrents.CreateTorrentRequest{}
+	request.SetAllowZip("AllowZip")
+	request.SetAsQueued("AsQueued")
 	request.SetFile("")
 	request.SetMagnet("Magnet")
+	request.SetName("Name")
+	request.SetSeed("Seed")
 
 	response, err := client.Torrents.CreateTorrent(context.Background(), "apiVersion", request)
 	if err != nil {

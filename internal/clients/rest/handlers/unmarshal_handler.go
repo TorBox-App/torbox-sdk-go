@@ -44,8 +44,18 @@ func (h *UnmarshalHandler[T]) Handle(request httptransport.Request) (*httptransp
 		if err != nil {
 			return nil, httptransport.NewErrorResponse[T](err, resp)
 		}
+	} else if request.ResponseContentType == httptransport.ContentTypeText {
+		err := contenttypes.FromText[T](resp.Body, target)
+		if err != nil {
+			return nil, httptransport.NewErrorResponse[T](err, resp)
+		}
+	} else if request.ResponseContentType == httptransport.ContentTypeBinary {
+		err := contenttypes.FromBinary(resp.Body, target)
+		if err != nil {
+			return nil, httptransport.NewErrorResponse[T](err, resp)
+		}
 	} else {
-		err := contenttypes.FromJson(resp.Body, target)
+		err := contenttypes.FromBinary(resp.Body, target)
 		if err != nil {
 			return nil, httptransport.NewErrorResponse[T](err, resp)
 		}

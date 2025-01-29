@@ -1,8 +1,8 @@
 package webdownloadsdebrid
 
 type ControlWebDownloadRequestParams struct {
-	BypassCache *string `queryParam:"bypass_cache"`
-	Id          *string `queryParam:"id"`
+	BypassCache *string `explode:"true" serializationStyle:"form" queryParam:"bypass_cache"`
+	Id          *string `explode:"true" serializationStyle:"form" queryParam:"id"`
 }
 
 func (params *ControlWebDownloadRequestParams) SetBypassCache(bypassCache string) {
@@ -13,12 +13,12 @@ func (params *ControlWebDownloadRequestParams) SetId(id string) {
 }
 
 type RequestDownloadLink2RequestParams struct {
-	Token       *string `queryParam:"token"`
-	WebId       *string `queryParam:"web_id"`
-	FileId      *string `queryParam:"file_id"`
-	ZipLink     *string `queryParam:"zip_link"`
-	TorrentFile *string `queryParam:"torrent_file"`
-	UserIp      *string `queryParam:"user_ip"`
+	Token       *string `explode:"true" serializationStyle:"form" queryParam:"token"`
+	WebId       *string `explode:"true" serializationStyle:"form" queryParam:"web_id"`
+	FileId      *string `explode:"true" serializationStyle:"form" queryParam:"file_id"`
+	ZipLink     *string `explode:"true" serializationStyle:"form" queryParam:"zip_link"`
+	TorrentFile *string `explode:"true" serializationStyle:"form" queryParam:"torrent_file"`
+	UserIp      *string `explode:"true" serializationStyle:"form" queryParam:"user_ip"`
 }
 
 func (params *RequestDownloadLink2RequestParams) SetToken(token string) {
@@ -41,10 +41,10 @@ func (params *RequestDownloadLink2RequestParams) SetUserIp(userIp string) {
 }
 
 type GetWebDownloadListRequestParams struct {
-	BypassCache *string `queryParam:"bypass_cache"`
-	Id          *string `queryParam:"id"`
-	Offset      *string `queryParam:"offset"`
-	Limit       *string `queryParam:"limit"`
+	BypassCache *string `explode:"true" serializationStyle:"form" queryParam:"bypass_cache"`
+	Id          *string `explode:"true" serializationStyle:"form" queryParam:"id"`
+	Offset      *string `explode:"true" serializationStyle:"form" queryParam:"offset"`
+	Limit       *string `explode:"true" serializationStyle:"form" queryParam:"limit"`
 }
 
 func (params *GetWebDownloadListRequestParams) SetBypassCache(bypassCache string) {
@@ -61,8 +61,8 @@ func (params *GetWebDownloadListRequestParams) SetLimit(limit string) {
 }
 
 type GetWebDownloadCachedAvailabilityRequestParams struct {
-	Hash   *string `queryParam:"hash"`
-	Format *string `queryParam:"format"`
+	Hash   *string `explode:"true" serializationStyle:"form" queryParam:"hash"`
+	Format *string `explode:"true" serializationStyle:"form" queryParam:"format"`
 }
 
 func (params *GetWebDownloadCachedAvailabilityRequestParams) SetHash(hash string) {

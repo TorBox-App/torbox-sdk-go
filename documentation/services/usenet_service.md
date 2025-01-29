@@ -53,7 +53,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## ControlUsenetDownload
@@ -93,7 +93,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## RequestDownloadLink1
@@ -138,7 +138,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## GetUsenetList
@@ -183,7 +183,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## GetUsenetCachedAvailability
@@ -228,5 +228,5 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```

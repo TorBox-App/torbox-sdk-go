@@ -2,7 +2,6 @@ package configmanager
 
 import (
 	"time"
-
 	"torbox-sdk-go/pkg/torboxapiconfig"
 )
 
@@ -15,6 +14,7 @@ type ConfigManager struct {
 	User               torboxapiconfig.Config
 	RssFeeds           torboxapiconfig.Config
 	Integrations       torboxapiconfig.Config
+	Queued             torboxapiconfig.Config
 }
 
 func NewConfigManager(config torboxapiconfig.Config) *ConfigManager {
@@ -27,6 +27,7 @@ func NewConfigManager(config torboxapiconfig.Config) *ConfigManager {
 		User:               config,
 		RssFeeds:           config,
 		Integrations:       config,
+		Queued:             config,
 	}
 }
 
@@ -39,6 +40,7 @@ func (c *ConfigManager) SetBaseUrl(baseUrl string) {
 	c.User.SetBaseUrl(baseUrl)
 	c.RssFeeds.SetBaseUrl(baseUrl)
 	c.Integrations.SetBaseUrl(baseUrl)
+	c.Queued.SetBaseUrl(baseUrl)
 }
 
 func (c *ConfigManager) SetTimeout(timeout time.Duration) {
@@ -50,6 +52,7 @@ func (c *ConfigManager) SetTimeout(timeout time.Duration) {
 	c.User.SetTimeout(timeout)
 	c.RssFeeds.SetTimeout(timeout)
 	c.Integrations.SetTimeout(timeout)
+	c.Queued.SetTimeout(timeout)
 }
 
 func (c *ConfigManager) SetAccessToken(accessToken string) {
@@ -61,6 +64,7 @@ func (c *ConfigManager) SetAccessToken(accessToken string) {
 	c.User.SetAccessToken(accessToken)
 	c.RssFeeds.SetAccessToken(accessToken)
 	c.Integrations.SetAccessToken(accessToken)
+	c.Queued.SetAccessToken(accessToken)
 }
 
 func (c *ConfigManager) UpdateAccessToken(originalValue string, newValue string) {
@@ -96,6 +100,10 @@ func (c *ConfigManager) UpdateAccessToken(originalValue string, newValue string)
 	if c.Integrations.AccessToken != nil && *c.Integrations.AccessToken == originalValue {
 		c.Integrations.SetAccessToken(newValue)
 	}
+
+	if c.Queued.AccessToken != nil && *c.Queued.AccessToken == originalValue {
+		c.Queued.SetAccessToken(newValue)
+	}
 }
 
 func (c *ConfigManager) GetTorrents() *torboxapiconfig.Config {
@@ -121,4 +129,7 @@ func (c *ConfigManager) GetRssFeeds() *torboxapiconfig.Config {
 }
 func (c *ConfigManager) GetIntegrations() *torboxapiconfig.Config {
 	return &c.Integrations
+}
+func (c *ConfigManager) GetQueued() *torboxapiconfig.Config {
+	return &c.Queued
 }

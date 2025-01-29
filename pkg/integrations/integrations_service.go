@@ -14,10 +14,15 @@ type IntegrationsService struct {
 	manager *configmanager.ConfigManager
 }
 
-func NewIntegrationsService(manager *configmanager.ConfigManager) *IntegrationsService {
+func NewIntegrationsService() *IntegrationsService {
 	return &IntegrationsService{
-		manager: manager,
+		manager: configmanager.NewConfigManager(torboxapiconfig.Config{}),
 	}
+}
+
+func (api *IntegrationsService) WithConfigManager(manager *configmanager.ConfigManager) *IntegrationsService {
+	api.manager = manager
+	return api
 }
 
 func (api *IntegrationsService) getConfig() *torboxapiconfig.Config {

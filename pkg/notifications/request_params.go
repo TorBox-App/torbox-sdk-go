@@ -1,7 +1,7 @@
 package notifications
 
 type GetRssNotificationFeedRequestParams struct {
-	Token *string `queryParam:"token"`
+	Token *string `explode:"true" serializationStyle:"form" queryParam:"token"`
 }
 
 func (params *GetRssNotificationFeedRequestParams) SetToken(token string) {

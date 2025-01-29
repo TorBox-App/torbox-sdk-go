@@ -42,7 +42,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## GetStats
@@ -81,5 +81,5 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```

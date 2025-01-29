@@ -1,12 +1,12 @@
 package torrents
 
 type RequestDownloadLinkRequestParams struct {
-	Token       *string `queryParam:"token"`
-	TorrentId   *string `queryParam:"torrent_id"`
-	FileId      *string `queryParam:"file_id"`
-	ZipLink     *string `queryParam:"zip_link"`
-	TorrentFile *string `queryParam:"torrent_file"`
-	UserIp      *string `queryParam:"user_ip"`
+	Token       *string `explode:"true" serializationStyle:"form" queryParam:"token"`
+	TorrentId   *string `explode:"true" serializationStyle:"form" queryParam:"torrent_id"`
+	FileId      *string `explode:"true" serializationStyle:"form" queryParam:"file_id"`
+	ZipLink     *string `explode:"true" serializationStyle:"form" queryParam:"zip_link"`
+	TorrentFile *string `explode:"true" serializationStyle:"form" queryParam:"torrent_file"`
+	UserIp      *string `explode:"true" serializationStyle:"form" queryParam:"user_ip"`
 }
 
 func (params *RequestDownloadLinkRequestParams) SetToken(token string) {
@@ -29,10 +29,10 @@ func (params *RequestDownloadLinkRequestParams) SetUserIp(userIp string) {
 }
 
 type GetTorrentListRequestParams struct {
-	BypassCache *string `queryParam:"bypass_cache"`
-	Id          *string `queryParam:"id"`
-	Offset      *string `queryParam:"offset"`
-	Limit       *string `queryParam:"limit"`
+	BypassCache *string `explode:"true" serializationStyle:"form" queryParam:"bypass_cache"`
+	Id          *string `explode:"true" serializationStyle:"form" queryParam:"id"`
+	Offset      *string `explode:"true" serializationStyle:"form" queryParam:"offset"`
+	Limit       *string `explode:"true" serializationStyle:"form" queryParam:"limit"`
 }
 
 func (params *GetTorrentListRequestParams) SetBypassCache(bypassCache string) {
@@ -49,9 +49,9 @@ func (params *GetTorrentListRequestParams) SetLimit(limit string) {
 }
 
 type GetTorrentCachedAvailabilityRequestParams struct {
-	Hash      *string `queryParam:"hash"`
-	Format    *string `queryParam:"format"`
-	ListFiles *string `queryParam:"list_files"`
+	Hash      *string `explode:"true" serializationStyle:"form" queryParam:"hash"`
+	Format    *string `explode:"true" serializationStyle:"form" queryParam:"format"`
+	ListFiles *string `explode:"true" serializationStyle:"form" queryParam:"list_files"`
 }
 
 func (params *GetTorrentCachedAvailabilityRequestParams) SetHash(hash string) {
@@ -64,17 +64,9 @@ func (params *GetTorrentCachedAvailabilityRequestParams) SetListFiles(listFiles 
 	params.ListFiles = &listFiles
 }
 
-type SearchAllTorrentsFromScraperRequestParams struct {
-	Query *string `queryParam:"query"`
-}
-
-func (params *SearchAllTorrentsFromScraperRequestParams) SetQuery(query string) {
-	params.Query = &query
-}
-
 type ExportTorrentDataRequestParams struct {
-	TorrentId *string `queryParam:"torrent_id"`
-	Type_     *string `queryParam:"type"`
+	TorrentId *string `explode:"true" serializationStyle:"form" queryParam:"torrent_id"`
+	Type_     *string `explode:"true" serializationStyle:"form" queryParam:"type"`
 }
 
 func (params *ExportTorrentDataRequestParams) SetTorrentId(torrentId string) {
@@ -85,8 +77,8 @@ func (params *ExportTorrentDataRequestParams) SetType_(type_ string) {
 }
 
 type GetTorrentInfoRequestParams struct {
-	Hash    *string `queryParam:"hash"`
-	Timeout *string `queryParam:"timeout"`
+	Hash    *string `explode:"true" serializationStyle:"form" queryParam:"hash"`
+	Timeout *string `explode:"true" serializationStyle:"form" queryParam:"timeout"`
 }
 
 func (params *GetTorrentInfoRequestParams) SetHash(hash string) {

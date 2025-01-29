@@ -52,7 +52,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## GetNotificationFeed
@@ -91,7 +91,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## ClearAllNotifications
@@ -130,7 +130,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## ClearSingleNotification
@@ -170,7 +170,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## SendTestNotification
@@ -209,5 +209,5 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```

@@ -50,7 +50,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## QueueGoogleDrive
@@ -90,7 +90,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## QueueOnedrive
@@ -130,7 +130,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## QueueGofile
@@ -170,7 +170,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## Queue1fichier
@@ -210,7 +210,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## GetAllJobs
@@ -249,7 +249,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## GetSpecificJob
@@ -289,7 +289,7 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```
 
 ## GetAllJobsByHash
@@ -329,5 +329,5 @@ if err != nil {
   panic(err)
 }
 
-fmt.Print(response)
+fmt.Println(response)
 ```

@@ -14,10 +14,15 @@ type UsenetService struct {
 	manager *configmanager.ConfigManager
 }
 
-func NewUsenetService(manager *configmanager.ConfigManager) *UsenetService {
+func NewUsenetService() *UsenetService {
 	return &UsenetService{
-		manager: manager,
+		manager: configmanager.NewConfigManager(torboxapiconfig.Config{}),
 	}
+}
+
+func (api *UsenetService) WithConfigManager(manager *configmanager.ConfigManager) *UsenetService {
+	api.manager = manager
+	return api
 }
 
 func (api *UsenetService) getConfig() *torboxapiconfig.Config {

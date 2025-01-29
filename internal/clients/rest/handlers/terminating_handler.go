@@ -16,7 +16,10 @@ func NewTerminatingHandler[T any]() *TerminatingHandler[T] {
 func (h *TerminatingHandler[T]) Handle(request httptransport.Request) (*httptransport.Response[T], *httptransport.ErrorResponse[T]) {
 	requestClone := request.Clone()
 
-	client := http.Client{Timeout: *requestClone.Config.Timeout}
+	client := http.Client{}
+	if requestClone.Config.Timeout != nil {
+		client.Timeout = *requestClone.Config.Timeout
+	}
 
 	req, err := requestClone.CreateHttpRequest()
 	if err != nil {

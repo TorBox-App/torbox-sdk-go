@@ -14,10 +14,15 @@ type NotificationsService struct {
 	manager *configmanager.ConfigManager
 }
 
-func NewNotificationsService(manager *configmanager.ConfigManager) *NotificationsService {
+func NewNotificationsService() *NotificationsService {
 	return &NotificationsService{
-		manager: manager,
+		manager: configmanager.NewConfigManager(torboxapiconfig.Config{}),
 	}
+}
+
+func (api *NotificationsService) WithConfigManager(manager *configmanager.ConfigManager) *NotificationsService {
+	api.manager = manager
+	return api
 }
 
 func (api *NotificationsService) getConfig() *torboxapiconfig.Config {

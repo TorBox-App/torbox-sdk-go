@@ -14,10 +14,15 @@ type GeneralService struct {
 	manager *configmanager.ConfigManager
 }
 
-func NewGeneralService(manager *configmanager.ConfigManager) *GeneralService {
+func NewGeneralService() *GeneralService {
 	return &GeneralService{
-		manager: manager,
+		manager: configmanager.NewConfigManager(torboxapiconfig.Config{}),
 	}
+}
+
+func (api *GeneralService) WithConfigManager(manager *configmanager.ConfigManager) *GeneralService {
+	api.manager = manager
+	return api
 }
 
 func (api *GeneralService) getConfig() *torboxapiconfig.Config {
