@@ -24,3 +24,6 @@ go.work.sum
 # env file
 .env
 deployment
+
+# html file output from `make check-coverage`
+cover.html
