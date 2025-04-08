@@ -34,6 +34,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
   "torbox-sdk-go/pkg/queued"
 )
 
@@ -41,8 +42,9 @@ config := torboxapiconfig.NewConfig()
 client := torboxapi.NewTorboxApi(config)
 
 
-params := queued.GetQueuedDownloadsRequestParams{}
+params := queued.GetQueuedDownloadsRequestParams{
 
+}
 
 response, err := client.Queued.GetQueuedDownloads(context.Background(), "apiVersion", params)
 if err != nil {
@@ -79,6 +81,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
 )
 
 config := torboxapiconfig.NewConfig()

@@ -2,14 +2,14 @@ package notifications
 
 import (
 	"encoding/json"
+	"torbox-sdk-go/pkg/util"
 )
 
 type GetNotificationFeedOkResponse struct {
 	Data    []GetNotificationFeedOkResponseData `json:"data,omitempty"`
 	Detail  *string                             `json:"detail,omitempty"`
-	Error   any                                 `json:"error,omitempty"`
+	Error   *util.Nullable[any]                 `json:"error,omitempty"`
 	Success *bool                               `json:"success,omitempty"`
-	touched map[string]bool
 }
 
 func (g *GetNotificationFeedOkResponse) GetData() []GetNotificationFeedOkResponseData {
@@ -20,19 +20,7 @@ func (g *GetNotificationFeedOkResponse) GetData() []GetNotificationFeedOkRespons
 }
 
 func (g *GetNotificationFeedOkResponse) SetData(data []GetNotificationFeedOkResponseData) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Data"] = true
 	g.Data = data
-}
-
-func (g *GetNotificationFeedOkResponse) SetDataNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Data"] = true
-	g.Data = nil
 }
 
 func (g *GetNotificationFeedOkResponse) GetDetail() *string {
@@ -43,42 +31,22 @@ func (g *GetNotificationFeedOkResponse) GetDetail() *string {
 }
 
 func (g *GetNotificationFeedOkResponse) SetDetail(detail string) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Detail"] = true
 	g.Detail = &detail
 }
 
-func (g *GetNotificationFeedOkResponse) SetDetailNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Detail"] = true
-	g.Detail = nil
-}
-
-func (g *GetNotificationFeedOkResponse) GetError() any {
+func (g *GetNotificationFeedOkResponse) GetError() *util.Nullable[any] {
 	if g == nil {
 		return nil
 	}
 	return g.Error
 }
 
-func (g *GetNotificationFeedOkResponse) SetError(error any) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Error"] = true
-	g.Error = error
+func (g *GetNotificationFeedOkResponse) SetError(error util.Nullable[any]) {
+	g.Error = &error
 }
 
-func (g *GetNotificationFeedOkResponse) SetErrorNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Error"] = true
-	g.Error = nil
+func (g *GetNotificationFeedOkResponse) SetErrorNull() {
+	g.Error = &util.Nullable[any]{IsNull: true}
 }
 
 func (g *GetNotificationFeedOkResponse) GetSuccess() *bool {
@@ -89,49 +57,7 @@ func (g *GetNotificationFeedOkResponse) GetSuccess() *bool {
 }
 
 func (g *GetNotificationFeedOkResponse) SetSuccess(success bool) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Success"] = true
 	g.Success = &success
-}
-
-func (g *GetNotificationFeedOkResponse) SetSuccessNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Success"] = true
-	g.Success = nil
-}
-
-func (g GetNotificationFeedOkResponse) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if g.touched["Data"] && g.Data == nil {
-		data["data"] = nil
-	} else if g.Data != nil {
-		data["data"] = g.Data
-	}
-
-	if g.touched["Detail"] && g.Detail == nil {
-		data["detail"] = nil
-	} else if g.Detail != nil {
-		data["detail"] = g.Detail
-	}
-
-	if g.touched["Error"] && g.Error == nil {
-		data["error"] = nil
-	} else if g.Error != nil {
-		data["error"] = g.Error
-	}
-
-	if g.touched["Success"] && g.Success == nil {
-		data["success"] = nil
-	} else if g.Success != nil {
-		data["success"] = g.Success
-	}
-
-	return json.Marshal(data)
 }
 
 func (g GetNotificationFeedOkResponse) String() string {
@@ -148,7 +74,6 @@ type GetNotificationFeedOkResponseData struct {
 	Id        *float64 `json:"id,omitempty"`
 	Message   *string  `json:"message,omitempty"`
 	Title     *string  `json:"title,omitempty"`
-	touched   map[string]bool
 }
 
 func (g *GetNotificationFeedOkResponseData) GetAuthId() *string {
@@ -159,19 +84,7 @@ func (g *GetNotificationFeedOkResponseData) GetAuthId() *string {
 }
 
 func (g *GetNotificationFeedOkResponseData) SetAuthId(authId string) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["AuthId"] = true
 	g.AuthId = &authId
-}
-
-func (g *GetNotificationFeedOkResponseData) SetAuthIdNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["AuthId"] = true
-	g.AuthId = nil
 }
 
 func (g *GetNotificationFeedOkResponseData) GetCreatedAt() *string {
@@ -182,19 +95,7 @@ func (g *GetNotificationFeedOkResponseData) GetCreatedAt() *string {
 }
 
 func (g *GetNotificationFeedOkResponseData) SetCreatedAt(createdAt string) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["CreatedAt"] = true
 	g.CreatedAt = &createdAt
-}
-
-func (g *GetNotificationFeedOkResponseData) SetCreatedAtNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["CreatedAt"] = true
-	g.CreatedAt = nil
 }
 
 func (g *GetNotificationFeedOkResponseData) GetId() *float64 {
@@ -205,19 +106,7 @@ func (g *GetNotificationFeedOkResponseData) GetId() *float64 {
 }
 
 func (g *GetNotificationFeedOkResponseData) SetId(id float64) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Id"] = true
 	g.Id = &id
-}
-
-func (g *GetNotificationFeedOkResponseData) SetIdNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Id"] = true
-	g.Id = nil
 }
 
 func (g *GetNotificationFeedOkResponseData) GetMessage() *string {
@@ -228,19 +117,7 @@ func (g *GetNotificationFeedOkResponseData) GetMessage() *string {
 }
 
 func (g *GetNotificationFeedOkResponseData) SetMessage(message string) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Message"] = true
 	g.Message = &message
-}
-
-func (g *GetNotificationFeedOkResponseData) SetMessageNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Message"] = true
-	g.Message = nil
 }
 
 func (g *GetNotificationFeedOkResponseData) GetTitle() *string {
@@ -251,55 +128,7 @@ func (g *GetNotificationFeedOkResponseData) GetTitle() *string {
 }
 
 func (g *GetNotificationFeedOkResponseData) SetTitle(title string) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Title"] = true
 	g.Title = &title
-}
-
-func (g *GetNotificationFeedOkResponseData) SetTitleNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Title"] = true
-	g.Title = nil
-}
-
-func (g GetNotificationFeedOkResponseData) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if g.touched["AuthId"] && g.AuthId == nil {
-		data["auth_id"] = nil
-	} else if g.AuthId != nil {
-		data["auth_id"] = g.AuthId
-	}
-
-	if g.touched["CreatedAt"] && g.CreatedAt == nil {
-		data["created_at"] = nil
-	} else if g.CreatedAt != nil {
-		data["created_at"] = g.CreatedAt
-	}
-
-	if g.touched["Id"] && g.Id == nil {
-		data["id"] = nil
-	} else if g.Id != nil {
-		data["id"] = g.Id
-	}
-
-	if g.touched["Message"] && g.Message == nil {
-		data["message"] = nil
-	} else if g.Message != nil {
-		data["message"] = g.Message
-	}
-
-	if g.touched["Title"] && g.Title == nil {
-		data["title"] = nil
-	} else if g.Title != nil {
-		data["title"] = g.Title
-	}
-
-	return json.Marshal(data)
 }
 
 func (g GetNotificationFeedOkResponseData) String() string {

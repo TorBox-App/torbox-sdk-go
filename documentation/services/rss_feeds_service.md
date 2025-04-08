@@ -37,6 +37,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
 )
 
 config := torboxapiconfig.NewConfig()
@@ -77,6 +78,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
 )
 
 config := torboxapiconfig.NewConfig()
@@ -117,6 +119,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
 )
 
 config := torboxapiconfig.NewConfig()
@@ -157,6 +160,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
   "torbox-sdk-go/pkg/rssfeeds"
 )
 
@@ -164,8 +168,9 @@ config := torboxapiconfig.NewConfig()
 client := torboxapi.NewTorboxApi(config)
 
 
-params := rssfeeds.GetUserRssFeedsRequestParams{}
+params := rssfeeds.GetUserRssFeedsRequestParams{
 
+}
 
 response, err := client.RssFeeds.GetUserRssFeeds(context.Background(), "apiVersion", params)
 if err != nil {
@@ -202,6 +207,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
   "torbox-sdk-go/pkg/rssfeeds"
 )
 
@@ -209,8 +215,9 @@ config := torboxapiconfig.NewConfig()
 client := torboxapi.NewTorboxApi(config)
 
 
-params := rssfeeds.GetRssFeedItemsRequestParams{}
+params := rssfeeds.GetRssFeedItemsRequestParams{
 
+}
 
 response, err := client.RssFeeds.GetRssFeedItems(context.Background(), "apiVersion", params)
 if err != nil {

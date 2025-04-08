@@ -273,6 +273,35 @@ func (api *IntegrationsService) GetSpecificJob(ctx context.Context, apiVersion s
 
 // ### Overview
 //
+// Cancels a job or deletes the job. Cancels while in progess (pending, uploading), or deletes the job any other time. It will delete it from the database completely.
+//
+// ### Authorization
+//
+// Requires an API key using the Authorization Bearer Header.
+func (api *IntegrationsService) CancelSpecificJob(ctx context.Context, apiVersion string, jobId string) (*shared.TorboxApiResponse[any], *shared.TorboxApiError) {
+	config := *api.getConfig()
+
+	request := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("DELETE").
+		WithPath("/{api_version}/api/integration/job/{job_id}").
+		WithConfig(config).
+		AddPathParam("api_version", apiVersion).
+		AddPathParam("job_id", jobId).
+		WithContentType(httptransport.ContentTypeJson).
+		WithResponseContentType(httptransport.ContentTypeJson).
+		Build()
+
+	client := restClient.NewRestClient[any](config)
+	resp, err := client.Call(*request)
+	if err != nil {
+		return nil, shared.NewTorboxApiError[any](err)
+	}
+
+	return shared.NewTorboxApiResponse[any](resp), nil
+}
+
+// ### Overview
+//
 // Gets all jobs that match a specific hash. Good for checking on specific downloads such as a download page, that could contain a lot of jobs.
 //
 // ### Statuses

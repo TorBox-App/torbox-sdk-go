@@ -40,7 +40,10 @@ func encode(key string, v reflect.Value, writer *multipart.Writer) error {
 
 	switch v.Kind() {
 	case reflect.Array, reflect.Slice:
-		return fmt.Errorf("encoding error: arrays and slices are not supported")
+		if v.Type().Elem().Kind() == reflect.Uint8 {
+			return writer.WriteField(key, string(v.Bytes()))
+		}
+		return fmt.Errorf("encoding error: only byte arrays/slices are supported")
 
 	case reflect.Map:
 		return fmt.Errorf("encoding error: maps are not supported")

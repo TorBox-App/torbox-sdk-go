@@ -36,6 +36,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
 )
 
 config := torboxapiconfig.NewConfig()
@@ -76,6 +77,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
   "torbox-sdk-go/pkg/user"
 )
 
@@ -83,8 +85,9 @@ config := torboxapiconfig.NewConfig()
 client := torboxapi.NewTorboxApi(config)
 
 
-params := user.GetUserDataRequestParams{}
+params := user.GetUserDataRequestParams{
 
+}
 
 response, err := client.User.GetUserData(context.Background(), "apiVersion", params)
 if err != nil {
@@ -121,6 +124,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
   "torbox-sdk-go/pkg/user"
 )
 
@@ -128,8 +132,9 @@ config := torboxapiconfig.NewConfig()
 client := torboxapi.NewTorboxApi(config)
 
 
-params := user.AddReferralToAccountRequestParams{}
+params := user.AddReferralToAccountRequestParams{
 
+}
 
 response, err := client.User.AddReferralToAccount(context.Background(), "apiVersion", params)
 if err != nil {
@@ -165,6 +170,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
 )
 
 config := torboxapiconfig.NewConfig()

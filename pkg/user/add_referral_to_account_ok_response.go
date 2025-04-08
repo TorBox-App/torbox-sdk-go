@@ -2,37 +2,29 @@ package user
 
 import (
 	"encoding/json"
+	"torbox-sdk-go/pkg/util"
 )
 
 type AddReferralToAccountOkResponse struct {
-	Data    any     `json:"data,omitempty"`
-	Detail  *string `json:"detail,omitempty"`
-	Error   any     `json:"error,omitempty"`
-	Success *bool   `json:"success,omitempty"`
-	touched map[string]bool
+	Data    *util.Nullable[any] `json:"data,omitempty"`
+	Detail  *string             `json:"detail,omitempty"`
+	Error   *util.Nullable[any] `json:"error,omitempty"`
+	Success *bool               `json:"success,omitempty"`
 }
 
-func (a *AddReferralToAccountOkResponse) GetData() any {
+func (a *AddReferralToAccountOkResponse) GetData() *util.Nullable[any] {
 	if a == nil {
 		return nil
 	}
 	return a.Data
 }
 
-func (a *AddReferralToAccountOkResponse) SetData(data any) {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["Data"] = true
-	a.Data = data
+func (a *AddReferralToAccountOkResponse) SetData(data util.Nullable[any]) {
+	a.Data = &data
 }
 
-func (a *AddReferralToAccountOkResponse) SetDataNil() {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["Data"] = true
-	a.Data = nil
+func (a *AddReferralToAccountOkResponse) SetDataNull() {
+	a.Data = &util.Nullable[any]{IsNull: true}
 }
 
 func (a *AddReferralToAccountOkResponse) GetDetail() *string {
@@ -43,42 +35,22 @@ func (a *AddReferralToAccountOkResponse) GetDetail() *string {
 }
 
 func (a *AddReferralToAccountOkResponse) SetDetail(detail string) {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["Detail"] = true
 	a.Detail = &detail
 }
 
-func (a *AddReferralToAccountOkResponse) SetDetailNil() {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["Detail"] = true
-	a.Detail = nil
-}
-
-func (a *AddReferralToAccountOkResponse) GetError() any {
+func (a *AddReferralToAccountOkResponse) GetError() *util.Nullable[any] {
 	if a == nil {
 		return nil
 	}
 	return a.Error
 }
 
-func (a *AddReferralToAccountOkResponse) SetError(error any) {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["Error"] = true
-	a.Error = error
+func (a *AddReferralToAccountOkResponse) SetError(error util.Nullable[any]) {
+	a.Error = &error
 }
 
-func (a *AddReferralToAccountOkResponse) SetErrorNil() {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["Error"] = true
-	a.Error = nil
+func (a *AddReferralToAccountOkResponse) SetErrorNull() {
+	a.Error = &util.Nullable[any]{IsNull: true}
 }
 
 func (a *AddReferralToAccountOkResponse) GetSuccess() *bool {
@@ -89,49 +61,7 @@ func (a *AddReferralToAccountOkResponse) GetSuccess() *bool {
 }
 
 func (a *AddReferralToAccountOkResponse) SetSuccess(success bool) {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["Success"] = true
 	a.Success = &success
-}
-
-func (a *AddReferralToAccountOkResponse) SetSuccessNil() {
-	if a.touched == nil {
-		a.touched = map[string]bool{}
-	}
-	a.touched["Success"] = true
-	a.Success = nil
-}
-
-func (a AddReferralToAccountOkResponse) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if a.touched["Data"] && a.Data == nil {
-		data["data"] = nil
-	} else if a.Data != nil {
-		data["data"] = a.Data
-	}
-
-	if a.touched["Detail"] && a.Detail == nil {
-		data["detail"] = nil
-	} else if a.Detail != nil {
-		data["detail"] = a.Detail
-	}
-
-	if a.touched["Error"] && a.Error == nil {
-		data["error"] = nil
-	} else if a.Error != nil {
-		data["error"] = a.Error
-	}
-
-	if a.touched["Success"] && a.Success == nil {
-		data["success"] = nil
-	} else if a.Success != nil {
-		data["success"] = a.Success
-	}
-
-	return json.Marshal(data)
 }
 
 func (a AddReferralToAccountOkResponse) String() string {

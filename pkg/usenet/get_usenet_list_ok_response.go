@@ -2,14 +2,14 @@ package usenet
 
 import (
 	"encoding/json"
+	"torbox-sdk-go/pkg/util"
 )
 
 type GetUsenetListOkResponse struct {
 	Data    []GetUsenetListOkResponseData `json:"data,omitempty"`
 	Detail  *string                       `json:"detail,omitempty"`
-	Error   any                           `json:"error,omitempty"`
+	Error   *util.Nullable[any]           `json:"error,omitempty"`
 	Success *bool                         `json:"success,omitempty"`
-	touched map[string]bool
 }
 
 func (g *GetUsenetListOkResponse) GetData() []GetUsenetListOkResponseData {
@@ -20,19 +20,7 @@ func (g *GetUsenetListOkResponse) GetData() []GetUsenetListOkResponseData {
 }
 
 func (g *GetUsenetListOkResponse) SetData(data []GetUsenetListOkResponseData) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Data"] = true
 	g.Data = data
-}
-
-func (g *GetUsenetListOkResponse) SetDataNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Data"] = true
-	g.Data = nil
 }
 
 func (g *GetUsenetListOkResponse) GetDetail() *string {
@@ -43,42 +31,22 @@ func (g *GetUsenetListOkResponse) GetDetail() *string {
 }
 
 func (g *GetUsenetListOkResponse) SetDetail(detail string) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Detail"] = true
 	g.Detail = &detail
 }
 
-func (g *GetUsenetListOkResponse) SetDetailNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Detail"] = true
-	g.Detail = nil
-}
-
-func (g *GetUsenetListOkResponse) GetError() any {
+func (g *GetUsenetListOkResponse) GetError() *util.Nullable[any] {
 	if g == nil {
 		return nil
 	}
 	return g.Error
 }
 
-func (g *GetUsenetListOkResponse) SetError(error any) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Error"] = true
-	g.Error = error
+func (g *GetUsenetListOkResponse) SetError(error util.Nullable[any]) {
+	g.Error = &error
 }
 
-func (g *GetUsenetListOkResponse) SetErrorNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Error"] = true
-	g.Error = nil
+func (g *GetUsenetListOkResponse) SetErrorNull() {
+	g.Error = &util.Nullable[any]{IsNull: true}
 }
 
 func (g *GetUsenetListOkResponse) GetSuccess() *bool {
@@ -89,49 +57,7 @@ func (g *GetUsenetListOkResponse) GetSuccess() *bool {
 }
 
 func (g *GetUsenetListOkResponse) SetSuccess(success bool) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Success"] = true
 	g.Success = &success
-}
-
-func (g *GetUsenetListOkResponse) SetSuccessNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Success"] = true
-	g.Success = nil
-}
-
-func (g GetUsenetListOkResponse) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if g.touched["Data"] && g.Data == nil {
-		data["data"] = nil
-	} else if g.Data != nil {
-		data["data"] = g.Data
-	}
-
-	if g.touched["Detail"] && g.Detail == nil {
-		data["detail"] = nil
-	} else if g.Detail != nil {
-		data["detail"] = g.Detail
-	}
-
-	if g.touched["Error"] && g.Error == nil {
-		data["error"] = nil
-	} else if g.Error != nil {
-		data["error"] = g.Error
-	}
-
-	if g.touched["Success"] && g.Success == nil {
-		data["success"] = nil
-	} else if g.Success != nil {
-		data["success"] = g.Success
-	}
-
-	return json.Marshal(data)
 }
 
 func (g GetUsenetListOkResponse) String() string {
@@ -164,7 +90,6 @@ type GetUsenetListOkResponseData struct {
 	TorrentFile      *bool        `json:"torrent_file,omitempty"`
 	UpdatedAt        *string      `json:"updated_at,omitempty"`
 	UploadSpeed      *float64     `json:"upload_speed,omitempty"`
-	touched          map[string]bool
 }
 
 func (g *GetUsenetListOkResponseData) GetActive() *bool {
@@ -175,19 +100,7 @@ func (g *GetUsenetListOkResponseData) GetActive() *bool {
 }
 
 func (g *GetUsenetListOkResponseData) SetActive(active bool) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Active"] = true
 	g.Active = &active
-}
-
-func (g *GetUsenetListOkResponseData) SetActiveNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Active"] = true
-	g.Active = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetAuthId() *string {
@@ -198,19 +111,7 @@ func (g *GetUsenetListOkResponseData) GetAuthId() *string {
 }
 
 func (g *GetUsenetListOkResponseData) SetAuthId(authId string) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["AuthId"] = true
 	g.AuthId = &authId
-}
-
-func (g *GetUsenetListOkResponseData) SetAuthIdNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["AuthId"] = true
-	g.AuthId = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetAvailability() *float64 {
@@ -221,19 +122,7 @@ func (g *GetUsenetListOkResponseData) GetAvailability() *float64 {
 }
 
 func (g *GetUsenetListOkResponseData) SetAvailability(availability float64) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Availability"] = true
 	g.Availability = &availability
-}
-
-func (g *GetUsenetListOkResponseData) SetAvailabilityNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Availability"] = true
-	g.Availability = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetCreatedAt() *string {
@@ -244,19 +133,7 @@ func (g *GetUsenetListOkResponseData) GetCreatedAt() *string {
 }
 
 func (g *GetUsenetListOkResponseData) SetCreatedAt(createdAt string) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["CreatedAt"] = true
 	g.CreatedAt = &createdAt
-}
-
-func (g *GetUsenetListOkResponseData) SetCreatedAtNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["CreatedAt"] = true
-	g.CreatedAt = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetDownloadFinished() *bool {
@@ -267,19 +144,7 @@ func (g *GetUsenetListOkResponseData) GetDownloadFinished() *bool {
 }
 
 func (g *GetUsenetListOkResponseData) SetDownloadFinished(downloadFinished bool) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["DownloadFinished"] = true
 	g.DownloadFinished = &downloadFinished
-}
-
-func (g *GetUsenetListOkResponseData) SetDownloadFinishedNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["DownloadFinished"] = true
-	g.DownloadFinished = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetDownloadPresent() *bool {
@@ -290,19 +155,7 @@ func (g *GetUsenetListOkResponseData) GetDownloadPresent() *bool {
 }
 
 func (g *GetUsenetListOkResponseData) SetDownloadPresent(downloadPresent bool) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["DownloadPresent"] = true
 	g.DownloadPresent = &downloadPresent
-}
-
-func (g *GetUsenetListOkResponseData) SetDownloadPresentNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["DownloadPresent"] = true
-	g.DownloadPresent = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetDownloadSpeed() *float64 {
@@ -313,19 +166,7 @@ func (g *GetUsenetListOkResponseData) GetDownloadSpeed() *float64 {
 }
 
 func (g *GetUsenetListOkResponseData) SetDownloadSpeed(downloadSpeed float64) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["DownloadSpeed"] = true
 	g.DownloadSpeed = &downloadSpeed
-}
-
-func (g *GetUsenetListOkResponseData) SetDownloadSpeedNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["DownloadSpeed"] = true
-	g.DownloadSpeed = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetDownloadState() *string {
@@ -336,19 +177,7 @@ func (g *GetUsenetListOkResponseData) GetDownloadState() *string {
 }
 
 func (g *GetUsenetListOkResponseData) SetDownloadState(downloadState string) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["DownloadState"] = true
 	g.DownloadState = &downloadState
-}
-
-func (g *GetUsenetListOkResponseData) SetDownloadStateNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["DownloadState"] = true
-	g.DownloadState = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetEta() *float64 {
@@ -359,19 +188,7 @@ func (g *GetUsenetListOkResponseData) GetEta() *float64 {
 }
 
 func (g *GetUsenetListOkResponseData) SetEta(eta float64) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Eta"] = true
 	g.Eta = &eta
-}
-
-func (g *GetUsenetListOkResponseData) SetEtaNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Eta"] = true
-	g.Eta = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetExpiresAt() *string {
@@ -382,19 +199,7 @@ func (g *GetUsenetListOkResponseData) GetExpiresAt() *string {
 }
 
 func (g *GetUsenetListOkResponseData) SetExpiresAt(expiresAt string) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["ExpiresAt"] = true
 	g.ExpiresAt = &expiresAt
-}
-
-func (g *GetUsenetListOkResponseData) SetExpiresAtNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["ExpiresAt"] = true
-	g.ExpiresAt = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetFiles() []DataFiles3 {
@@ -405,19 +210,7 @@ func (g *GetUsenetListOkResponseData) GetFiles() []DataFiles3 {
 }
 
 func (g *GetUsenetListOkResponseData) SetFiles(files []DataFiles3) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Files"] = true
 	g.Files = files
-}
-
-func (g *GetUsenetListOkResponseData) SetFilesNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Files"] = true
-	g.Files = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetHash() *string {
@@ -428,19 +221,7 @@ func (g *GetUsenetListOkResponseData) GetHash() *string {
 }
 
 func (g *GetUsenetListOkResponseData) SetHash(hash string) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Hash"] = true
 	g.Hash = &hash
-}
-
-func (g *GetUsenetListOkResponseData) SetHashNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Hash"] = true
-	g.Hash = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetId() *float64 {
@@ -451,19 +232,7 @@ func (g *GetUsenetListOkResponseData) GetId() *float64 {
 }
 
 func (g *GetUsenetListOkResponseData) SetId(id float64) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Id"] = true
 	g.Id = &id
-}
-
-func (g *GetUsenetListOkResponseData) SetIdNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Id"] = true
-	g.Id = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetInactiveCheck() *float64 {
@@ -474,19 +243,7 @@ func (g *GetUsenetListOkResponseData) GetInactiveCheck() *float64 {
 }
 
 func (g *GetUsenetListOkResponseData) SetInactiveCheck(inactiveCheck float64) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["InactiveCheck"] = true
 	g.InactiveCheck = &inactiveCheck
-}
-
-func (g *GetUsenetListOkResponseData) SetInactiveCheckNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["InactiveCheck"] = true
-	g.InactiveCheck = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetName() *string {
@@ -497,19 +254,7 @@ func (g *GetUsenetListOkResponseData) GetName() *string {
 }
 
 func (g *GetUsenetListOkResponseData) SetName(name string) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Name"] = true
 	g.Name = &name
-}
-
-func (g *GetUsenetListOkResponseData) SetNameNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Name"] = true
-	g.Name = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetProgress() *float64 {
@@ -520,19 +265,7 @@ func (g *GetUsenetListOkResponseData) GetProgress() *float64 {
 }
 
 func (g *GetUsenetListOkResponseData) SetProgress(progress float64) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Progress"] = true
 	g.Progress = &progress
-}
-
-func (g *GetUsenetListOkResponseData) SetProgressNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Progress"] = true
-	g.Progress = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetServer() *float64 {
@@ -543,19 +276,7 @@ func (g *GetUsenetListOkResponseData) GetServer() *float64 {
 }
 
 func (g *GetUsenetListOkResponseData) SetServer(server float64) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Server"] = true
 	g.Server = &server
-}
-
-func (g *GetUsenetListOkResponseData) SetServerNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Server"] = true
-	g.Server = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetSize() *float64 {
@@ -566,19 +287,7 @@ func (g *GetUsenetListOkResponseData) GetSize() *float64 {
 }
 
 func (g *GetUsenetListOkResponseData) SetSize(size float64) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Size"] = true
 	g.Size = &size
-}
-
-func (g *GetUsenetListOkResponseData) SetSizeNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["Size"] = true
-	g.Size = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetTorrentFile() *bool {
@@ -589,19 +298,7 @@ func (g *GetUsenetListOkResponseData) GetTorrentFile() *bool {
 }
 
 func (g *GetUsenetListOkResponseData) SetTorrentFile(torrentFile bool) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["TorrentFile"] = true
 	g.TorrentFile = &torrentFile
-}
-
-func (g *GetUsenetListOkResponseData) SetTorrentFileNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["TorrentFile"] = true
-	g.TorrentFile = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetUpdatedAt() *string {
@@ -612,19 +309,7 @@ func (g *GetUsenetListOkResponseData) GetUpdatedAt() *string {
 }
 
 func (g *GetUsenetListOkResponseData) SetUpdatedAt(updatedAt string) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["UpdatedAt"] = true
 	g.UpdatedAt = &updatedAt
-}
-
-func (g *GetUsenetListOkResponseData) SetUpdatedAtNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["UpdatedAt"] = true
-	g.UpdatedAt = nil
 }
 
 func (g *GetUsenetListOkResponseData) GetUploadSpeed() *float64 {
@@ -635,151 +320,7 @@ func (g *GetUsenetListOkResponseData) GetUploadSpeed() *float64 {
 }
 
 func (g *GetUsenetListOkResponseData) SetUploadSpeed(uploadSpeed float64) {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["UploadSpeed"] = true
 	g.UploadSpeed = &uploadSpeed
-}
-
-func (g *GetUsenetListOkResponseData) SetUploadSpeedNil() {
-	if g.touched == nil {
-		g.touched = map[string]bool{}
-	}
-	g.touched["UploadSpeed"] = true
-	g.UploadSpeed = nil
-}
-
-func (g GetUsenetListOkResponseData) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if g.touched["Active"] && g.Active == nil {
-		data["active"] = nil
-	} else if g.Active != nil {
-		data["active"] = g.Active
-	}
-
-	if g.touched["AuthId"] && g.AuthId == nil {
-		data["auth_id"] = nil
-	} else if g.AuthId != nil {
-		data["auth_id"] = g.AuthId
-	}
-
-	if g.touched["Availability"] && g.Availability == nil {
-		data["availability"] = nil
-	} else if g.Availability != nil {
-		data["availability"] = g.Availability
-	}
-
-	if g.touched["CreatedAt"] && g.CreatedAt == nil {
-		data["created_at"] = nil
-	} else if g.CreatedAt != nil {
-		data["created_at"] = g.CreatedAt
-	}
-
-	if g.touched["DownloadFinished"] && g.DownloadFinished == nil {
-		data["download_finished"] = nil
-	} else if g.DownloadFinished != nil {
-		data["download_finished"] = g.DownloadFinished
-	}
-
-	if g.touched["DownloadPresent"] && g.DownloadPresent == nil {
-		data["download_present"] = nil
-	} else if g.DownloadPresent != nil {
-		data["download_present"] = g.DownloadPresent
-	}
-
-	if g.touched["DownloadSpeed"] && g.DownloadSpeed == nil {
-		data["download_speed"] = nil
-	} else if g.DownloadSpeed != nil {
-		data["download_speed"] = g.DownloadSpeed
-	}
-
-	if g.touched["DownloadState"] && g.DownloadState == nil {
-		data["download_state"] = nil
-	} else if g.DownloadState != nil {
-		data["download_state"] = g.DownloadState
-	}
-
-	if g.touched["Eta"] && g.Eta == nil {
-		data["eta"] = nil
-	} else if g.Eta != nil {
-		data["eta"] = g.Eta
-	}
-
-	if g.touched["ExpiresAt"] && g.ExpiresAt == nil {
-		data["expires_at"] = nil
-	} else if g.ExpiresAt != nil {
-		data["expires_at"] = g.ExpiresAt
-	}
-
-	if g.touched["Files"] && g.Files == nil {
-		data["files"] = nil
-	} else if g.Files != nil {
-		data["files"] = g.Files
-	}
-
-	if g.touched["Hash"] && g.Hash == nil {
-		data["hash"] = nil
-	} else if g.Hash != nil {
-		data["hash"] = g.Hash
-	}
-
-	if g.touched["Id"] && g.Id == nil {
-		data["id"] = nil
-	} else if g.Id != nil {
-		data["id"] = g.Id
-	}
-
-	if g.touched["InactiveCheck"] && g.InactiveCheck == nil {
-		data["inactive_check"] = nil
-	} else if g.InactiveCheck != nil {
-		data["inactive_check"] = g.InactiveCheck
-	}
-
-	if g.touched["Name"] && g.Name == nil {
-		data["name"] = nil
-	} else if g.Name != nil {
-		data["name"] = g.Name
-	}
-
-	if g.touched["Progress"] && g.Progress == nil {
-		data["progress"] = nil
-	} else if g.Progress != nil {
-		data["progress"] = g.Progress
-	}
-
-	if g.touched["Server"] && g.Server == nil {
-		data["server"] = nil
-	} else if g.Server != nil {
-		data["server"] = g.Server
-	}
-
-	if g.touched["Size"] && g.Size == nil {
-		data["size"] = nil
-	} else if g.Size != nil {
-		data["size"] = g.Size
-	}
-
-	if g.touched["TorrentFile"] && g.TorrentFile == nil {
-		data["torrent_file"] = nil
-	} else if g.TorrentFile != nil {
-		data["torrent_file"] = g.TorrentFile
-	}
-
-	if g.touched["UpdatedAt"] && g.UpdatedAt == nil {
-		data["updated_at"] = nil
-	} else if g.UpdatedAt != nil {
-		data["updated_at"] = g.UpdatedAt
-	}
-
-	if g.touched["UploadSpeed"] && g.UploadSpeed == nil {
-		data["upload_speed"] = nil
-	} else if g.UploadSpeed != nil {
-		data["upload_speed"] = g.UploadSpeed
-	}
-
-	return json.Marshal(data)
 }
 
 func (g GetUsenetListOkResponseData) String() string {
@@ -798,7 +339,6 @@ type DataFiles3 struct {
 	S3Path    *string  `json:"s3_path,omitempty"`
 	ShortName *string  `json:"short_name,omitempty"`
 	Size      *float64 `json:"size,omitempty"`
-	touched   map[string]bool
 }
 
 func (d *DataFiles3) GetId() *float64 {
@@ -809,19 +349,7 @@ func (d *DataFiles3) GetId() *float64 {
 }
 
 func (d *DataFiles3) SetId(id float64) {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["Id"] = true
 	d.Id = &id
-}
-
-func (d *DataFiles3) SetIdNil() {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["Id"] = true
-	d.Id = nil
 }
 
 func (d *DataFiles3) GetMd5() *string {
@@ -832,19 +360,7 @@ func (d *DataFiles3) GetMd5() *string {
 }
 
 func (d *DataFiles3) SetMd5(md5 string) {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["Md5"] = true
 	d.Md5 = &md5
-}
-
-func (d *DataFiles3) SetMd5Nil() {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["Md5"] = true
-	d.Md5 = nil
 }
 
 func (d *DataFiles3) GetMimetype() *string {
@@ -855,19 +371,7 @@ func (d *DataFiles3) GetMimetype() *string {
 }
 
 func (d *DataFiles3) SetMimetype(mimetype string) {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["Mimetype"] = true
 	d.Mimetype = &mimetype
-}
-
-func (d *DataFiles3) SetMimetypeNil() {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["Mimetype"] = true
-	d.Mimetype = nil
 }
 
 func (d *DataFiles3) GetName() *string {
@@ -878,19 +382,7 @@ func (d *DataFiles3) GetName() *string {
 }
 
 func (d *DataFiles3) SetName(name string) {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["Name"] = true
 	d.Name = &name
-}
-
-func (d *DataFiles3) SetNameNil() {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["Name"] = true
-	d.Name = nil
 }
 
 func (d *DataFiles3) GetS3Path() *string {
@@ -901,19 +393,7 @@ func (d *DataFiles3) GetS3Path() *string {
 }
 
 func (d *DataFiles3) SetS3Path(s3Path string) {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["S3Path"] = true
 	d.S3Path = &s3Path
-}
-
-func (d *DataFiles3) SetS3PathNil() {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["S3Path"] = true
-	d.S3Path = nil
 }
 
 func (d *DataFiles3) GetShortName() *string {
@@ -924,19 +404,7 @@ func (d *DataFiles3) GetShortName() *string {
 }
 
 func (d *DataFiles3) SetShortName(shortName string) {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["ShortName"] = true
 	d.ShortName = &shortName
-}
-
-func (d *DataFiles3) SetShortNameNil() {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["ShortName"] = true
-	d.ShortName = nil
 }
 
 func (d *DataFiles3) GetSize() *float64 {
@@ -947,67 +415,7 @@ func (d *DataFiles3) GetSize() *float64 {
 }
 
 func (d *DataFiles3) SetSize(size float64) {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["Size"] = true
 	d.Size = &size
-}
-
-func (d *DataFiles3) SetSizeNil() {
-	if d.touched == nil {
-		d.touched = map[string]bool{}
-	}
-	d.touched["Size"] = true
-	d.Size = nil
-}
-
-func (d DataFiles3) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if d.touched["Id"] && d.Id == nil {
-		data["id"] = nil
-	} else if d.Id != nil {
-		data["id"] = d.Id
-	}
-
-	if d.touched["Md5"] && d.Md5 == nil {
-		data["md5"] = nil
-	} else if d.Md5 != nil {
-		data["md5"] = d.Md5
-	}
-
-	if d.touched["Mimetype"] && d.Mimetype == nil {
-		data["mimetype"] = nil
-	} else if d.Mimetype != nil {
-		data["mimetype"] = d.Mimetype
-	}
-
-	if d.touched["Name"] && d.Name == nil {
-		data["name"] = nil
-	} else if d.Name != nil {
-		data["name"] = d.Name
-	}
-
-	if d.touched["S3Path"] && d.S3Path == nil {
-		data["s3_path"] = nil
-	} else if d.S3Path != nil {
-		data["s3_path"] = d.S3Path
-	}
-
-	if d.touched["ShortName"] && d.ShortName == nil {
-		data["short_name"] = nil
-	} else if d.ShortName != nil {
-		data["short_name"] = d.ShortName
-	}
-
-	if d.touched["Size"] && d.Size == nil {
-		data["size"] = nil
-	} else if d.Size != nil {
-		data["size"] = d.Size
-	}
-
-	return json.Marshal(data)
 }
 
 func (d DataFiles3) String() string {

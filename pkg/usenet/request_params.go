@@ -7,6 +7,7 @@ type RequestDownloadLink1RequestParams struct {
 	ZipLink     *string `explode:"true" serializationStyle:"form" queryParam:"zip_link"`
 	TorrentFile *string `explode:"true" serializationStyle:"form" queryParam:"torrent_file"`
 	UserIp      *string `explode:"true" serializationStyle:"form" queryParam:"user_ip"`
+	Redirect    *string `explode:"true" serializationStyle:"form" queryParam:"redirect"`
 }
 
 func (params *RequestDownloadLink1RequestParams) SetToken(token string) {
@@ -26,6 +27,9 @@ func (params *RequestDownloadLink1RequestParams) SetTorrentFile(torrentFile stri
 }
 func (params *RequestDownloadLink1RequestParams) SetUserIp(userIp string) {
 	params.UserIp = &userIp
+}
+func (params *RequestDownloadLink1RequestParams) SetRedirect(redirect string) {
+	params.Redirect = &redirect
 }
 
 type GetUsenetListRequestParams struct {

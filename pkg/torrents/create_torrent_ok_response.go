@@ -2,14 +2,14 @@ package torrents
 
 import (
 	"encoding/json"
+	"torbox-sdk-go/pkg/util"
 )
 
 type CreateTorrentOkResponse struct {
 	Data    *CreateTorrentOkResponseData `json:"data,omitempty"`
 	Detail  *string                      `json:"detail,omitempty"`
-	Error   any                          `json:"error,omitempty"`
+	Error   *util.Nullable[any]          `json:"error,omitempty"`
 	Success *bool                        `json:"success,omitempty"`
-	touched map[string]bool
 }
 
 func (c *CreateTorrentOkResponse) GetData() *CreateTorrentOkResponseData {
@@ -20,19 +20,7 @@ func (c *CreateTorrentOkResponse) GetData() *CreateTorrentOkResponseData {
 }
 
 func (c *CreateTorrentOkResponse) SetData(data CreateTorrentOkResponseData) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Data"] = true
 	c.Data = &data
-}
-
-func (c *CreateTorrentOkResponse) SetDataNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Data"] = true
-	c.Data = nil
 }
 
 func (c *CreateTorrentOkResponse) GetDetail() *string {
@@ -43,42 +31,22 @@ func (c *CreateTorrentOkResponse) GetDetail() *string {
 }
 
 func (c *CreateTorrentOkResponse) SetDetail(detail string) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Detail"] = true
 	c.Detail = &detail
 }
 
-func (c *CreateTorrentOkResponse) SetDetailNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Detail"] = true
-	c.Detail = nil
-}
-
-func (c *CreateTorrentOkResponse) GetError() any {
+func (c *CreateTorrentOkResponse) GetError() *util.Nullable[any] {
 	if c == nil {
 		return nil
 	}
 	return c.Error
 }
 
-func (c *CreateTorrentOkResponse) SetError(error any) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Error"] = true
-	c.Error = error
+func (c *CreateTorrentOkResponse) SetError(error util.Nullable[any]) {
+	c.Error = &error
 }
 
-func (c *CreateTorrentOkResponse) SetErrorNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Error"] = true
-	c.Error = nil
+func (c *CreateTorrentOkResponse) SetErrorNull() {
+	c.Error = &util.Nullable[any]{IsNull: true}
 }
 
 func (c *CreateTorrentOkResponse) GetSuccess() *bool {
@@ -89,49 +57,7 @@ func (c *CreateTorrentOkResponse) GetSuccess() *bool {
 }
 
 func (c *CreateTorrentOkResponse) SetSuccess(success bool) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Success"] = true
 	c.Success = &success
-}
-
-func (c *CreateTorrentOkResponse) SetSuccessNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Success"] = true
-	c.Success = nil
-}
-
-func (c CreateTorrentOkResponse) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if c.touched["Data"] && c.Data == nil {
-		data["data"] = nil
-	} else if c.Data != nil {
-		data["data"] = c.Data
-	}
-
-	if c.touched["Detail"] && c.Detail == nil {
-		data["detail"] = nil
-	} else if c.Detail != nil {
-		data["detail"] = c.Detail
-	}
-
-	if c.touched["Error"] && c.Error == nil {
-		data["error"] = nil
-	} else if c.Error != nil {
-		data["error"] = c.Error
-	}
-
-	if c.touched["Success"] && c.Success == nil {
-		data["success"] = nil
-	} else if c.Success != nil {
-		data["success"] = c.Success
-	}
-
-	return json.Marshal(data)
 }
 
 func (c CreateTorrentOkResponse) String() string {
@@ -149,7 +75,6 @@ type CreateTorrentOkResponseData struct {
 	Hash                   *string  `json:"hash,omitempty"`
 	QueuedId               *float64 `json:"queued_id,omitempty"`
 	TorrentId              *float64 `json:"torrent_id,omitempty"`
-	touched                map[string]bool
 }
 
 func (c *CreateTorrentOkResponseData) GetActiveLimit() *float64 {
@@ -160,19 +85,7 @@ func (c *CreateTorrentOkResponseData) GetActiveLimit() *float64 {
 }
 
 func (c *CreateTorrentOkResponseData) SetActiveLimit(activeLimit float64) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["ActiveLimit"] = true
 	c.ActiveLimit = &activeLimit
-}
-
-func (c *CreateTorrentOkResponseData) SetActiveLimitNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["ActiveLimit"] = true
-	c.ActiveLimit = nil
 }
 
 func (c *CreateTorrentOkResponseData) GetAuthId() *string {
@@ -183,19 +96,7 @@ func (c *CreateTorrentOkResponseData) GetAuthId() *string {
 }
 
 func (c *CreateTorrentOkResponseData) SetAuthId(authId string) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["AuthId"] = true
 	c.AuthId = &authId
-}
-
-func (c *CreateTorrentOkResponseData) SetAuthIdNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["AuthId"] = true
-	c.AuthId = nil
 }
 
 func (c *CreateTorrentOkResponseData) GetCurrentActiveDownloads() *float64 {
@@ -206,19 +107,7 @@ func (c *CreateTorrentOkResponseData) GetCurrentActiveDownloads() *float64 {
 }
 
 func (c *CreateTorrentOkResponseData) SetCurrentActiveDownloads(currentActiveDownloads float64) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["CurrentActiveDownloads"] = true
 	c.CurrentActiveDownloads = &currentActiveDownloads
-}
-
-func (c *CreateTorrentOkResponseData) SetCurrentActiveDownloadsNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["CurrentActiveDownloads"] = true
-	c.CurrentActiveDownloads = nil
 }
 
 func (c *CreateTorrentOkResponseData) GetHash() *string {
@@ -229,19 +118,7 @@ func (c *CreateTorrentOkResponseData) GetHash() *string {
 }
 
 func (c *CreateTorrentOkResponseData) SetHash(hash string) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Hash"] = true
 	c.Hash = &hash
-}
-
-func (c *CreateTorrentOkResponseData) SetHashNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Hash"] = true
-	c.Hash = nil
 }
 
 func (c *CreateTorrentOkResponseData) GetQueuedId() *float64 {
@@ -252,19 +129,7 @@ func (c *CreateTorrentOkResponseData) GetQueuedId() *float64 {
 }
 
 func (c *CreateTorrentOkResponseData) SetQueuedId(queuedId float64) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["QueuedId"] = true
 	c.QueuedId = &queuedId
-}
-
-func (c *CreateTorrentOkResponseData) SetQueuedIdNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["QueuedId"] = true
-	c.QueuedId = nil
 }
 
 func (c *CreateTorrentOkResponseData) GetTorrentId() *float64 {
@@ -275,61 +140,7 @@ func (c *CreateTorrentOkResponseData) GetTorrentId() *float64 {
 }
 
 func (c *CreateTorrentOkResponseData) SetTorrentId(torrentId float64) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["TorrentId"] = true
 	c.TorrentId = &torrentId
-}
-
-func (c *CreateTorrentOkResponseData) SetTorrentIdNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["TorrentId"] = true
-	c.TorrentId = nil
-}
-
-func (c CreateTorrentOkResponseData) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if c.touched["ActiveLimit"] && c.ActiveLimit == nil {
-		data["active_limit"] = nil
-	} else if c.ActiveLimit != nil {
-		data["active_limit"] = c.ActiveLimit
-	}
-
-	if c.touched["AuthId"] && c.AuthId == nil {
-		data["auth_id"] = nil
-	} else if c.AuthId != nil {
-		data["auth_id"] = c.AuthId
-	}
-
-	if c.touched["CurrentActiveDownloads"] && c.CurrentActiveDownloads == nil {
-		data["current_active_downloads"] = nil
-	} else if c.CurrentActiveDownloads != nil {
-		data["current_active_downloads"] = c.CurrentActiveDownloads
-	}
-
-	if c.touched["Hash"] && c.Hash == nil {
-		data["hash"] = nil
-	} else if c.Hash != nil {
-		data["hash"] = c.Hash
-	}
-
-	if c.touched["QueuedId"] && c.QueuedId == nil {
-		data["queued_id"] = nil
-	} else if c.QueuedId != nil {
-		data["queued_id"] = c.QueuedId
-	}
-
-	if c.touched["TorrentId"] && c.TorrentId == nil {
-		data["torrent_id"] = nil
-	} else if c.TorrentId != nil {
-		data["torrent_id"] = c.TorrentId
-	}
-
-	return json.Marshal(data)
 }
 
 func (c CreateTorrentOkResponseData) String() string {

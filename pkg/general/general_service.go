@@ -98,3 +98,59 @@ func (api *GeneralService) GetStats(ctx context.Context, apiVersion string) (*sh
 
 	return shared.NewTorboxApiResponse[GetStatsOkResponse](resp), nil
 }
+
+// ### Overview
+//
+// Gets most recent 100 changelogs from [https://feedback.torbox.app/changelog.](https://feedback.torbox.app/changelog.) This is useful for people who want updates on the TorBox changelog. Includes all the necessary items to make this compatible with RSS feed viewers for notifications, and proper HTML viewing.
+//
+// ### Authorization
+//
+// None needed.
+func (api *GeneralService) GetChangelogsRssFeed(ctx context.Context, apiVersion string) (*shared.TorboxApiResponse[[]byte], *shared.TorboxApiError) {
+	config := *api.getConfig()
+
+	request := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("GET").
+		WithPath("/{api_version}/api/changelogs/rss").
+		WithConfig(config).
+		AddPathParam("api_version", apiVersion).
+		WithContentType(httptransport.ContentTypeJson).
+		WithResponseContentType(httptransport.ContentTypeText).
+		Build()
+
+	client := restClient.NewRestClient[[]byte](config)
+	resp, err := client.Call(*request)
+	if err != nil {
+		return nil, shared.NewTorboxApiError[[]byte](err)
+	}
+
+	return shared.NewTorboxApiResponse[[]byte](resp), nil
+}
+
+// ### Overview
+//
+// Gets most recent 100 changelogs from [https://feedback.torbox.app/changelog.](https://feedback.torbox.app/changelog.) This is useful for developers who want to integrate the changelog into their apps for their users to see. Includes content in HTML and markdown for developers to easily render the text in a fancy yet simple way.
+//
+// ### Authorization
+//
+// None needed.
+func (api *GeneralService) GetChangelogsJson(ctx context.Context, apiVersion string) (*shared.TorboxApiResponse[GetChangelogsJsonOkResponse], *shared.TorboxApiError) {
+	config := *api.getConfig()
+
+	request := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("GET").
+		WithPath("/{api_version}/api/changelogs/json").
+		WithConfig(config).
+		AddPathParam("api_version", apiVersion).
+		WithContentType(httptransport.ContentTypeJson).
+		WithResponseContentType(httptransport.ContentTypeJson).
+		Build()
+
+	client := restClient.NewRestClient[GetChangelogsJsonOkResponse](config)
+	resp, err := client.Call(*request)
+	if err != nil {
+		return nil, shared.NewTorboxApiError[GetChangelogsJsonOkResponse](err)
+	}
+
+	return shared.NewTorboxApiResponse[GetChangelogsJsonOkResponse](resp), nil
+}

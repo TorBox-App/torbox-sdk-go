@@ -2,37 +2,29 @@ package torrents
 
 import (
 	"encoding/json"
+	"torbox-sdk-go/pkg/util"
 )
 
 type ControlTorrentOkResponse struct {
-	Data    any     `json:"data,omitempty"`
-	Detail  *string `json:"detail,omitempty"`
-	Error   any     `json:"error,omitempty"`
-	Success *bool   `json:"success,omitempty"`
-	touched map[string]bool
+	Data    *util.Nullable[any] `json:"data,omitempty"`
+	Detail  *string             `json:"detail,omitempty"`
+	Error   *util.Nullable[any] `json:"error,omitempty"`
+	Success *bool               `json:"success,omitempty"`
 }
 
-func (c *ControlTorrentOkResponse) GetData() any {
+func (c *ControlTorrentOkResponse) GetData() *util.Nullable[any] {
 	if c == nil {
 		return nil
 	}
 	return c.Data
 }
 
-func (c *ControlTorrentOkResponse) SetData(data any) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Data"] = true
-	c.Data = data
+func (c *ControlTorrentOkResponse) SetData(data util.Nullable[any]) {
+	c.Data = &data
 }
 
-func (c *ControlTorrentOkResponse) SetDataNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Data"] = true
-	c.Data = nil
+func (c *ControlTorrentOkResponse) SetDataNull() {
+	c.Data = &util.Nullable[any]{IsNull: true}
 }
 
 func (c *ControlTorrentOkResponse) GetDetail() *string {
@@ -43,42 +35,22 @@ func (c *ControlTorrentOkResponse) GetDetail() *string {
 }
 
 func (c *ControlTorrentOkResponse) SetDetail(detail string) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Detail"] = true
 	c.Detail = &detail
 }
 
-func (c *ControlTorrentOkResponse) SetDetailNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Detail"] = true
-	c.Detail = nil
-}
-
-func (c *ControlTorrentOkResponse) GetError() any {
+func (c *ControlTorrentOkResponse) GetError() *util.Nullable[any] {
 	if c == nil {
 		return nil
 	}
 	return c.Error
 }
 
-func (c *ControlTorrentOkResponse) SetError(error any) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Error"] = true
-	c.Error = error
+func (c *ControlTorrentOkResponse) SetError(error util.Nullable[any]) {
+	c.Error = &error
 }
 
-func (c *ControlTorrentOkResponse) SetErrorNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Error"] = true
-	c.Error = nil
+func (c *ControlTorrentOkResponse) SetErrorNull() {
+	c.Error = &util.Nullable[any]{IsNull: true}
 }
 
 func (c *ControlTorrentOkResponse) GetSuccess() *bool {
@@ -89,49 +61,7 @@ func (c *ControlTorrentOkResponse) GetSuccess() *bool {
 }
 
 func (c *ControlTorrentOkResponse) SetSuccess(success bool) {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Success"] = true
 	c.Success = &success
-}
-
-func (c *ControlTorrentOkResponse) SetSuccessNil() {
-	if c.touched == nil {
-		c.touched = map[string]bool{}
-	}
-	c.touched["Success"] = true
-	c.Success = nil
-}
-
-func (c ControlTorrentOkResponse) MarshalJSON() ([]byte, error) {
-	data := make(map[string]any)
-
-	if c.touched["Data"] && c.Data == nil {
-		data["data"] = nil
-	} else if c.Data != nil {
-		data["data"] = c.Data
-	}
-
-	if c.touched["Detail"] && c.Detail == nil {
-		data["detail"] = nil
-	} else if c.Detail != nil {
-		data["detail"] = c.Detail
-	}
-
-	if c.touched["Error"] && c.Error == nil {
-		data["error"] = nil
-	} else if c.Error != nil {
-		data["error"] = c.Error
-	}
-
-	if c.touched["Success"] && c.Success == nil {
-		data["success"] = nil
-	} else if c.Success != nil {
-		data["success"] = c.Success
-	}
-
-	return json.Marshal(data)
 }
 
 func (c ControlTorrentOkResponse) String() string {

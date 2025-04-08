@@ -9,12 +9,12 @@ import (
 )
 
 func validateArrayLength(field reflect.StructField, value reflect.Value) error {
-	if value.IsNil() {
+	kind := utils.GetReflectKind(value.Type())
+	if kind != reflect.Array && kind != reflect.Slice {
 		return nil
 	}
 
-	kind := utils.GetReflectKind(value.Type())
-	if kind != reflect.Array && kind != reflect.Slice {
+	if kind == reflect.Slice && value.IsNil() {
 		return nil
 	}
 
@@ -32,7 +32,8 @@ func validateArrayLength(field reflect.StructField, value reflect.Value) error {
 }
 
 func validateMinLength(field reflect.StructField, value reflect.Value) error {
-	if value.IsNil() {
+	kind := utils.GetReflectKind(value.Type())
+	if kind == reflect.Slice && value.IsNil() {
 		return nil
 	}
 
@@ -55,7 +56,8 @@ func validateMinLength(field reflect.StructField, value reflect.Value) error {
 }
 
 func validateMaxLength(field reflect.StructField, value reflect.Value) error {
-	if value.IsNil() {
+	kind := utils.GetReflectKind(value.Type())
+	if kind == reflect.Slice && value.IsNil() {
 		return nil
 	}
 
@@ -70,7 +72,7 @@ func validateMaxLength(field reflect.StructField, value reflect.Value) error {
 	}
 
 	if value.Len() > maxLengthInteger {
-		return fmt.Errorf("too long")
+		return fmt.Errorf("the field myArray needs a maximum length of %v, but it currently has %v", maxLengthInteger, value.Len())
 	}
 
 	return nil

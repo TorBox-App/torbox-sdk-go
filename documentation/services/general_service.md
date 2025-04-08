@@ -2,10 +2,12 @@
 
 A list of all methods in the `GeneralService` service. Click on the method name to view detailed information about that method.
 
-| Methods                     | Description                                                                                                                                            |
-| :-------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [GetUpStatus](#getupstatus) | ### Overview Simply gets if the TorBox API is available for use or not. Also might include information about downtimes. ### Authorization None needed. |
-| [GetStats](#getstats)       | ### Overview Simply gets general stats about the TorBox service. ### Authorization None needed.                                                        |
+| Methods                                       | Description                                                                                                                                                                                                                                                                                                                                                                           |
+| :-------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [GetUpStatus](#getupstatus)                   | ### Overview Simply gets if the TorBox API is available for use or not. Also might include information about downtimes. ### Authorization None needed.                                                                                                                                                                                                                                |
+| [GetStats](#getstats)                         | ### Overview Simply gets general stats about the TorBox service. ### Authorization None needed.                                                                                                                                                                                                                                                                                       |
+| [GetChangelogsRssFeed](#getchangelogsrssfeed) | ### Overview Gets most recent 100 changelogs from [https://feedback.torbox.app/changelog.](https://feedback.torbox.app/changelog.) This is useful for people who want updates on the TorBox changelog. Includes all the necessary items to make this compatible with RSS feed viewers for notifications, and proper HTML viewing. ### Authorization None needed.                      |
+| [GetChangelogsJson](#getchangelogsjson)       | ### Overview Gets most recent 100 changelogs from [https://feedback.torbox.app/changelog.](https://feedback.torbox.app/changelog.) This is useful for developers who want to integrate the changelog into their apps for their users to see. Includes content in HTML and markdown for developers to easily render the text in a fancy yet simple way. ### Authorization None needed. |
 
 ## GetUpStatus
 
@@ -32,6 +34,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
 )
 
 config := torboxapiconfig.NewConfig()
@@ -71,12 +74,93 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
 )
 
 config := torboxapiconfig.NewConfig()
 client := torboxapi.NewTorboxApi(config)
 
 response, err := client.General.GetStats(context.Background(), "apiVersion")
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## GetChangelogsRssFeed
+
+### Overview Gets most recent 100 changelogs from [https://feedback.torbox.app/changelog.](https://feedback.torbox.app/changelog.) This is useful for people who want updates on the TorBox changelog. Includes all the necessary items to make this compatible with RSS feed viewers for notifications, and proper HTML viewing. ### Authorization None needed.
+
+- HTTP Method: `GET`
+- Endpoint: `/{api_version}/api/changelogs/rss`
+
+**Parameters**
+
+| Name       | Type    | Required | Description                 |
+| :--------- | :------ | :------- | :-------------------------- |
+| ctx        | Context | ✅       | Default go language context |
+| apiVersion | string  | ✅       |                             |
+
+**Return Type**
+
+`[]byte`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "torbox-sdk-go/pkg/torboxapiconfig"
+  "torbox-sdk-go/pkg/torboxapi"
+
+)
+
+config := torboxapiconfig.NewConfig()
+client := torboxapi.NewTorboxApi(config)
+
+response, err := client.General.GetChangelogsRssFeed(context.Background(), "apiVersion")
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## GetChangelogsJson
+
+### Overview Gets most recent 100 changelogs from [https://feedback.torbox.app/changelog.](https://feedback.torbox.app/changelog.) This is useful for developers who want to integrate the changelog into their apps for their users to see. Includes content in HTML and markdown for developers to easily render the text in a fancy yet simple way. ### Authorization None needed.
+
+- HTTP Method: `GET`
+- Endpoint: `/{api_version}/api/changelogs/json`
+
+**Parameters**
+
+| Name       | Type    | Required | Description                 |
+| :--------- | :------ | :------- | :-------------------------- |
+| ctx        | Context | ✅       | Default go language context |
+| apiVersion | string  | ✅       |                             |
+
+**Return Type**
+
+`GetChangelogsJsonOkResponse`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "torbox-sdk-go/pkg/torboxapiconfig"
+  "torbox-sdk-go/pkg/torboxapi"
+
+)
+
+config := torboxapiconfig.NewConfig()
+client := torboxapi.NewTorboxApi(config)
+
+response, err := client.General.GetChangelogsJson(context.Background(), "apiVersion")
 if err != nil {
   panic(err)
 }

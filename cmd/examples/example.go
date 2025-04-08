@@ -10,6 +10,7 @@ import (
 	"torbox-sdk-go/pkg/torboxapi"
 	"torbox-sdk-go/pkg/torboxapiconfig"
 	"torbox-sdk-go/pkg/torrents"
+	"torbox-sdk-go/pkg/util"
 )
 
 func main() {
@@ -18,13 +19,14 @@ func main() {
 	config := torboxapiconfig.NewConfig()
 	client := torboxapi.NewTorboxApi(config)
 
-	request := torrents.CreateTorrentRequest{}
-	request.SetAllowZip("AllowZip")
-	request.SetAsQueued("AsQueued")
-	request.SetFile("")
-	request.SetMagnet("Magnet")
-	request.SetName("Name")
-	request.SetSeed("Seed")
+	request := torrents.CreateTorrentRequest{
+		AllowZip: util.ToPointer("AllowZip"),
+		AsQueued: util.ToPointer("AsQueued"),
+		File:     []byte{},
+		Magnet:   util.ToPointer("Magnet"),
+		Name:     util.ToPointer("Name"),
+		Seed:     util.ToPointer("Seed"),
+	}
 
 	response, err := client.Torrents.CreateTorrent(context.Background(), "apiVersion", request)
 	if err != nil {

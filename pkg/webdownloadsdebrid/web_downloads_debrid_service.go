@@ -109,7 +109,11 @@ func (api *WebDownloadsDebridService) ControlWebDownload(ctx context.Context, ap
 
 // ### Overview
 //
-// Requests the download link from the server. Because downloads are metered, TorBox cannot afford to allow free access to the links directly. This endpoint opens the link for 1 hour for downloads. Once a download is started, the user has nearly unlilimited time to download the file. The 1 hour time limit is simply for starting downloads. This prevents long term link sharing.
+// Requests the download link from the server. Because downloads are metered, TorBox cannot afford to allow free access to the links directly. This endpoint opens the link for 3 hours for downloads. Once a download is started, the user has nearly unlilimited time to download the file. The 1 hour time limit is simply for starting downloads. This prevents long term link sharing.
+//
+// ### Permalinks
+//
+// Instead of generating many CDN urls by requesting this endpoint, you can instead create a permalink such as: `https://api.torbox.app/v1/api/torrents/requestdl?token=APIKEY&torrent_id=NUMBER&file_id=NUMBER&redirect=true` and when a user clicks on it, it will automatically redirect them to the CDN link. This saves requests and doesn't abuse the API. Use this method rather than saving CDN links as they are not permanent. To invalidate these permalinks, simply reset your API token or delete the item from your dashboard.
 //
 // ### Authorization
 //
@@ -206,31 +210,31 @@ func (api *WebDownloadsDebridService) GetWebDownloadCachedAvailability(ctx conte
 //
 // A dynamic list of hosters that TorBox is capable of downloading through its paid service.
 //
-// - Name - a clean name for display use, the well known name of the service, should be recognizable to users.
+// - **Name** - a clean name for display use, the well known name of the service, should be recognizable to users.
 //
-// - Domains - an array of known domains that the hoster uses. While each may serve a different purpose it is still included.
+// - **Domains** - an array of known domains that the hoster uses. While each may serve a different purpose it is still included.
 //
-// - URL - the main url of the service. This should take you to the home page or a service page of the hoster.
+// - **URL** - the main url of the service. This should take you to the home page or a service page of the hoster.
 //
-// - Icon - a square image, usually a favicon or logo, that represents the service, should be recognizable as the hoster's icon.
+// - **Icon** - a square image, usually a favicon or logo, that represents the service, should be recognizable as the hoster's icon.
 //
-// - Status - whether this hoster can be used on TorBox or not at the current time. It is usually a good idea to check this value before submitting a download to TorBox's servers for download.
+// - **Status** - whether this hoster can be used on TorBox or not at the current time. It is usually a good idea to check this value before submitting a download to TorBox's servers for download.
 //
-// - Type - values are either "hoster" or "stream". Both do the same thing, but is good to differentiate services used for different things.
+// - **Type** - values are either "hoster" or "stream". Both do the same thing, but is good to differentiate services used for different things.
 //
-// - Note - a string value (or null) that may give helpful information about the current status or state of a hoster. This can and should be shown to end users.
+// - **Note** - a string value (or null) that may give helpful information about the current status or state of a hoster. This can and should be shown to end users.
 //
-// - Daily Link Limit - the number of downloads a user can use per day. As a user submits links, once they hit this number, the API will deny them from adding anymore of this type of link. A zero value means that it is unlimited.
+// - **Daily Link Limit** - the number of downloads a user can use per day. As a user submits links, once they hit this number, the API will deny them from adding anymore of this type of link. A zero value means that it is unlimited.
 //
-// - Daily Link Used - the number of downloads a user has already used. This endpoint currently doesn't update this value.
+// - **Daily Link Used** - the number of downloads a user has already used. Usually zero unless you send authentication to the endpoint. This will return accurate values.
 //
-// - Daily Bandwidth Limit - the value in bytes that a user is allowed to download from this hoster. A zero value means that it is unlimited. This endpoint doesn't currently implement this limit. It is recommended to use the Daily Link Limit instead.
+// - **Daily Bandwidth Limit** - the value in bytes that a user is allowed to download from this hoster. A zero value means that it is unlimited. It is recommended to use the Daily Link Limit instead.
 //
-// - Daily Bandwdith Used - the value in btes that a user has already used to download from this hoster. This endpoint currently doesn't update this value.
+// - **Daily Bandwidth Used** - the value in bytes that a user has already used to download from this hoster. Usually zero unless you send authentication to the endpoint. This will return accurate values.
 //
 // ### Authorization
 //
-// Requires an API key using the Authorization Bearer Header.
+// Optional authorization. Authorization is not required in this endpoint unless you want to get the user's live data. Requires an API key using the Authorization Bearer Header to get the live and accurate data for **Daily Link Used** and **Daily Bandwidth Used**.
 func (api *WebDownloadsDebridService) GetHosterList(ctx context.Context, apiVersion string) (*shared.TorboxApiResponse[GetHosterListOkResponse], *shared.TorboxApiError) {
 	config := *api.getConfig()
 

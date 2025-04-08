@@ -37,6 +37,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
   "torbox-sdk-go/pkg/notifications"
 )
 
@@ -44,8 +45,9 @@ config := torboxapiconfig.NewConfig()
 client := torboxapi.NewTorboxApi(config)
 
 
-params := notifications.GetRssNotificationFeedRequestParams{}
+params := notifications.GetRssNotificationFeedRequestParams{
 
+}
 
 response, err := client.Notifications.GetRssNotificationFeed(context.Background(), "apiVersion", params)
 if err != nil {
@@ -81,6 +83,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
 )
 
 config := torboxapiconfig.NewConfig()
@@ -120,6 +123,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
 )
 
 config := torboxapiconfig.NewConfig()
@@ -160,6 +164,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
 )
 
 config := torboxapiconfig.NewConfig()
@@ -199,6 +204,7 @@ import (
   "encoding/json"
   "torbox-sdk-go/pkg/torboxapiconfig"
   "torbox-sdk-go/pkg/torboxapi"
+
 )
 
 config := torboxapiconfig.NewConfig()
