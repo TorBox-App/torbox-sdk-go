@@ -80,7 +80,7 @@ type GetWebDownloadListOkResponseData struct {
 	Error            *string      `json:"error,omitempty"`
 	Eta              *float64     `json:"eta,omitempty"`
 	ExpiresAt        *string      `json:"expires_at,omitempty"`
-	Files            []DataFiles4 `json:"files,omitempty"`
+	Files            []DataFiles5 `json:"files,omitempty"`
 	Hash             *string      `json:"hash,omitempty"`
 	Id               *float64     `json:"id,omitempty"`
 	InactiveCheck    *float64     `json:"inactive_check,omitempty"`
@@ -214,14 +214,14 @@ func (g *GetWebDownloadListOkResponseData) SetExpiresAt(expiresAt string) {
 	g.ExpiresAt = &expiresAt
 }
 
-func (g *GetWebDownloadListOkResponseData) GetFiles() []DataFiles4 {
+func (g *GetWebDownloadListOkResponseData) GetFiles() []DataFiles5 {
 	if g == nil {
 		return nil
 	}
 	return g.Files
 }
 
-func (g *GetWebDownloadListOkResponseData) SetFiles(files []DataFiles4) {
+func (g *GetWebDownloadListOkResponseData) SetFiles(files []DataFiles5) {
 	g.Files = files
 }
 
@@ -343,7 +343,7 @@ func (g GetWebDownloadListOkResponseData) String() string {
 	return string(jsonData)
 }
 
-type DataFiles4 struct {
+type DataFiles5 struct {
 	Id        *float64 `json:"id,omitempty"`
 	Md5       *string  `json:"md5,omitempty"`
 	Mimetype  *string  `json:"mimetype,omitempty"`
@@ -353,87 +353,87 @@ type DataFiles4 struct {
 	Size      *float64 `json:"size,omitempty"`
 }
 
-func (d *DataFiles4) GetId() *float64 {
+func (d *DataFiles5) GetId() *float64 {
 	if d == nil {
 		return nil
 	}
 	return d.Id
 }
 
-func (d *DataFiles4) SetId(id float64) {
+func (d *DataFiles5) SetId(id float64) {
 	d.Id = &id
 }
 
-func (d *DataFiles4) GetMd5() *string {
+func (d *DataFiles5) GetMd5() *string {
 	if d == nil {
 		return nil
 	}
 	return d.Md5
 }
 
-func (d *DataFiles4) SetMd5(md5 string) {
+func (d *DataFiles5) SetMd5(md5 string) {
 	d.Md5 = &md5
 }
 
-func (d *DataFiles4) GetMimetype() *string {
+func (d *DataFiles5) GetMimetype() *string {
 	if d == nil {
 		return nil
 	}
 	return d.Mimetype
 }
 
-func (d *DataFiles4) SetMimetype(mimetype string) {
+func (d *DataFiles5) SetMimetype(mimetype string) {
 	d.Mimetype = &mimetype
 }
 
-func (d *DataFiles4) GetName() *string {
+func (d *DataFiles5) GetName() *string {
 	if d == nil {
 		return nil
 	}
 	return d.Name
 }
 
-func (d *DataFiles4) SetName(name string) {
+func (d *DataFiles5) SetName(name string) {
 	d.Name = &name
 }
 
-func (d *DataFiles4) GetS3Path() *string {
+func (d *DataFiles5) GetS3Path() *string {
 	if d == nil {
 		return nil
 	}
 	return d.S3Path
 }
 
-func (d *DataFiles4) SetS3Path(s3Path string) {
+func (d *DataFiles5) SetS3Path(s3Path string) {
 	d.S3Path = &s3Path
 }
 
-func (d *DataFiles4) GetShortName() *string {
+func (d *DataFiles5) GetShortName() *string {
 	if d == nil {
 		return nil
 	}
 	return d.ShortName
 }
 
-func (d *DataFiles4) SetShortName(shortName string) {
+func (d *DataFiles5) SetShortName(shortName string) {
 	d.ShortName = &shortName
 }
 
-func (d *DataFiles4) GetSize() *float64 {
+func (d *DataFiles5) GetSize() *float64 {
 	if d == nil {
 		return nil
 	}
 	return d.Size
 }
 
-func (d *DataFiles4) SetSize(size float64) {
+func (d *DataFiles5) SetSize(size float64) {
 	d.Size = &size
 }
 
-func (d DataFiles4) String() string {
+func (d DataFiles5) String() string {
 	jsonData, err := json.MarshalIndent(d, "", "  ")
 	if err != nil {
-		return "error converting struct: DataFiles4 to string"
+		return "error converting struct: DataFiles5 to string"
 	}
 	return string(jsonData)
 }

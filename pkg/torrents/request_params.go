@@ -1,13 +1,12 @@
 package torrents
 
 type RequestDownloadLinkRequestParams struct {
-	Token       *string `explode:"true" serializationStyle:"form" queryParam:"token"`
-	TorrentId   *string `explode:"true" serializationStyle:"form" queryParam:"torrent_id"`
-	FileId      *string `explode:"true" serializationStyle:"form" queryParam:"file_id"`
-	ZipLink     *string `explode:"true" serializationStyle:"form" queryParam:"zip_link"`
-	TorrentFile *string `explode:"true" serializationStyle:"form" queryParam:"torrent_file"`
-	UserIp      *string `explode:"true" serializationStyle:"form" queryParam:"user_ip"`
-	Redirect    *string `explode:"true" serializationStyle:"form" queryParam:"redirect"`
+	Token     *string `explode:"true" serializationStyle:"form" queryParam:"token"`
+	TorrentId *string `explode:"true" serializationStyle:"form" queryParam:"torrent_id"`
+	FileId    *string `explode:"true" serializationStyle:"form" queryParam:"file_id"`
+	ZipLink   *string `explode:"true" serializationStyle:"form" queryParam:"zip_link"`
+	UserIp    *string `explode:"true" serializationStyle:"form" queryParam:"user_ip"`
+	Redirect  *string `explode:"true" serializationStyle:"form" queryParam:"redirect"`
 }
 
 func (params *RequestDownloadLinkRequestParams) SetToken(token string) {
@@ -21,9 +20,6 @@ func (params *RequestDownloadLinkRequestParams) SetFileId(fileId string) {
 }
 func (params *RequestDownloadLinkRequestParams) SetZipLink(zipLink string) {
 	params.ZipLink = &zipLink
-}
-func (params *RequestDownloadLinkRequestParams) SetTorrentFile(torrentFile string) {
-	params.TorrentFile = &torrentFile
 }
 func (params *RequestDownloadLinkRequestParams) SetUserIp(userIp string) {
 	params.UserIp = &userIp

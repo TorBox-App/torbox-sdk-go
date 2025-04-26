@@ -284,3 +284,40 @@ func (api *TorrentsService) GetTorrentInfo(ctx context.Context, apiVersion strin
 
 	return shared.NewTorboxApiResponse[GetTorrentInfoOkResponse](resp), nil
 }
+
+// ### Overview
+//
+// Same as the GET route, but allows posting data such as magnet, and torrent files.
+//
+// Hashes will have precedence over magnets, and magnets will have precedence over torrent files.
+//
+// Only proper torrent files are accepted.
+//
+// At least one of hash, magnet, or torrent file is required.
+//
+// A general route that allows you to give a hash, and TorBox will return data about the torrent. This data is retrieved from the Bittorrent network, so expect it to take some time. If the request goes longer than 10 seconds, TorBox will cancel it. You can adjust this if you like, but the default is 10 seconds. This route is cached as well, so subsequent requests will be instant.
+//
+// ### Authorization
+//
+// None required.
+func (api *TorrentsService) GetTorrentInfo1(ctx context.Context, apiVersion string, getTorrentInfo1Request GetTorrentInfo1Request) (*shared.TorboxApiResponse[GetTorrentInfo1OkResponse], *shared.TorboxApiError) {
+	config := *api.getConfig()
+
+	request := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("POST").
+		WithPath("/{api_version}/api/torrents/torrentinfo").
+		WithConfig(config).
+		WithBody(getTorrentInfo1Request).
+		AddPathParam("api_version", apiVersion).
+		WithContentType(httptransport.ContentTypeMultipartFormData).
+		WithResponseContentType(httptransport.ContentTypeJson).
+		Build()
+
+	client := restClient.NewRestClient[GetTorrentInfo1OkResponse](config)
+	resp, err := client.Call(*request)
+	if err != nil {
+		return nil, shared.NewTorboxApiError[GetTorrentInfo1OkResponse](err)
+	}
+
+	return shared.NewTorboxApiResponse[GetTorrentInfo1OkResponse](resp), nil
+}

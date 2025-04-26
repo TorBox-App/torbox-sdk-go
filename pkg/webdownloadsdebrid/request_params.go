@@ -13,13 +13,12 @@ func (params *ControlWebDownloadRequestParams) SetId(id string) {
 }
 
 type RequestDownloadLink2RequestParams struct {
-	Token       *string `explode:"true" serializationStyle:"form" queryParam:"token"`
-	WebId       *string `explode:"true" serializationStyle:"form" queryParam:"web_id"`
-	FileId      *string `explode:"true" serializationStyle:"form" queryParam:"file_id"`
-	ZipLink     *string `explode:"true" serializationStyle:"form" queryParam:"zip_link"`
-	TorrentFile *string `explode:"true" serializationStyle:"form" queryParam:"torrent_file"`
-	UserIp      *string `explode:"true" serializationStyle:"form" queryParam:"user_ip"`
-	Redirect    *string `explode:"true" serializationStyle:"form" queryParam:"redirect"`
+	Token    *string `explode:"true" serializationStyle:"form" queryParam:"token"`
+	WebId    *string `explode:"true" serializationStyle:"form" queryParam:"web_id"`
+	FileId   *string `explode:"true" serializationStyle:"form" queryParam:"file_id"`
+	ZipLink  *string `explode:"true" serializationStyle:"form" queryParam:"zip_link"`
+	UserIp   *string `explode:"true" serializationStyle:"form" queryParam:"user_ip"`
+	Redirect *string `explode:"true" serializationStyle:"form" queryParam:"redirect"`
 }
 
 func (params *RequestDownloadLink2RequestParams) SetToken(token string) {
@@ -33,9 +32,6 @@ func (params *RequestDownloadLink2RequestParams) SetFileId(fileId string) {
 }
 func (params *RequestDownloadLink2RequestParams) SetZipLink(zipLink string) {
 	params.ZipLink = &zipLink
-}
-func (params *RequestDownloadLink2RequestParams) SetTorrentFile(torrentFile string) {
-	params.TorrentFile = &torrentFile
 }
 func (params *RequestDownloadLink2RequestParams) SetUserIp(userIp string) {
 	params.UserIp = &userIp

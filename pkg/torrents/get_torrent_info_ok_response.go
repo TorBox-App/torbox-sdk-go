@@ -69,10 +69,13 @@ func (g GetTorrentInfoOkResponse) String() string {
 }
 
 type GetTorrentInfoOkResponseData struct {
-	Files []DataFiles2 `json:"files,omitempty"`
-	Hash  *string      `json:"hash,omitempty"`
-	Name  *string      `json:"name,omitempty"`
-	Size  *float64     `json:"size,omitempty"`
+	Files    []DataFiles2 `json:"files,omitempty"`
+	Hash     *string      `json:"hash,omitempty"`
+	Name     *string      `json:"name,omitempty"`
+	Peers    *float64     `json:"peers,omitempty"`
+	Seeds    *float64     `json:"seeds,omitempty"`
+	Size     *float64     `json:"size,omitempty"`
+	Trackers []any        `json:"trackers,omitempty"`
 }
 
 func (g *GetTorrentInfoOkResponseData) GetFiles() []DataFiles2 {
@@ -108,6 +111,28 @@ func (g *GetTorrentInfoOkResponseData) SetName(name string) {
 	g.Name = &name
 }
 
+func (g *GetTorrentInfoOkResponseData) GetPeers() *float64 {
+	if g == nil {
+		return nil
+	}
+	return g.Peers
+}
+
+func (g *GetTorrentInfoOkResponseData) SetPeers(peers float64) {
+	g.Peers = &peers
+}
+
+func (g *GetTorrentInfoOkResponseData) GetSeeds() *float64 {
+	if g == nil {
+		return nil
+	}
+	return g.Seeds
+}
+
+func (g *GetTorrentInfoOkResponseData) SetSeeds(seeds float64) {
+	g.Seeds = &seeds
+}
+
 func (g *GetTorrentInfoOkResponseData) GetSize() *float64 {
 	if g == nil {
 		return nil
@@ -117,6 +142,17 @@ func (g *GetTorrentInfoOkResponseData) GetSize() *float64 {
 
 func (g *GetTorrentInfoOkResponseData) SetSize(size float64) {
 	g.Size = &size
+}
+
+func (g *GetTorrentInfoOkResponseData) GetTrackers() []any {
+	if g == nil {
+		return nil
+	}
+	return g.Trackers
+}
+
+func (g *GetTorrentInfoOkResponseData) SetTrackers(trackers []any) {
+	g.Trackers = trackers
 }
 
 func (g GetTorrentInfoOkResponseData) String() string {

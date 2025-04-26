@@ -1,5 +1,5 @@
 package torboxapiconfig
 
 const (
-	DEFAULT_ENVIRONMENT = "{{api_base}}"
+	DEFAULT_ENVIRONMENT = "https://api.torbox.app"
 )

@@ -25,7 +25,7 @@
 | DownloadState    | string              | ❌       |             |
 | Eta              | float64             | ❌       |             |
 | ExpiresAt        | string              | ❌       |             |
-| Files            | []usenet.DataFiles3 | ❌       |             |
+| Files            | []usenet.DataFiles4 | ❌       |             |
 | Hash             | string              | ❌       |             |
 | Id               | float64             | ❌       |             |
 | InactiveCheck    | float64             | ❌       |             |
@@ -37,7 +37,7 @@
 | UpdatedAt        | string              | ❌       |             |
 | UploadSpeed      | float64             | ❌       |             |
 
-# DataFiles3
+# DataFiles4
 
 **Properties**
 

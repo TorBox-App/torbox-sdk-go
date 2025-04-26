@@ -26,7 +26,7 @@
 | Error            | string                          | ❌       |             |
 | Eta              | float64                         | ❌       |             |
 | ExpiresAt        | string                          | ❌       |             |
-| Files            | []webdownloadsdebrid.DataFiles4 | ❌       |             |
+| Files            | []webdownloadsdebrid.DataFiles5 | ❌       |             |
 | Hash             | string                          | ❌       |             |
 | Id               | float64                         | ❌       |             |
 | InactiveCheck    | float64                         | ❌       |             |
@@ -38,7 +38,7 @@
 | UpdatedAt        | string                          | ❌       |             |
 | UploadSpeed      | float64                         | ❌       |             |
 
-# DataFiles4
+# DataFiles5
 
 **Properties**
 

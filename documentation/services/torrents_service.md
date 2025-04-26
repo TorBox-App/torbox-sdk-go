@@ -11,6 +11,7 @@ A list of all methods in the `TorrentsService` service. Click on the method name
 | [GetTorrentCachedAvailability](#gettorrentcachedavailability) | ### Overview Takes in a list of comma separated torrent hashes and checks if the torrent is cached. This endpoint only gets a max of around 100 at a time, due to http limits in queries. If you want to do more, you can simply do more hash queries. Such as: `?hash=XXXX&hash=XXXX&hash=XXXX` or `?hash=XXXX,XXXX&hash=XXXX&hash=XXXX,XXXX` and this will work too. Performance is very fast. Less than 1 second per 100. Time is approximately O(log n) time for those interested in taking it to its max. That is without caching as well. This endpoint stores a cache for an hour. You may also pass a `format` parameter with the format you want the data in. Options are either `object` or `list`. You can view examples of both below. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                         |
 | [ExportTorrentData](#exporttorrentdata)                       | ### Overview Exports the magnet or torrent file. Requires a type to be passed. If type is **magnet**, it will return a JSON response with the magnet as a string in the _data_ key. If type is **file**, it will return a bittorrent file as a download. Not compatible with cached downloads. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | [GetTorrentInfo](#gettorrentinfo)                             | ### Overview A general route that allows you to give a hash, and TorBox will return data about the torrent. This data is retrieved from the Bittorrent network, so expect it to take some time. If the request goes longer than 10 seconds, TorBox will cancel it. You can adjust this if you like, but the default is 10 seconds. This route is cached as well, so subsequent requests will be instant. ### Authorization None required.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| [GetTorrentInfo1](#gettorrentinfo1)                           | ### Overview Same as the GET route, but allows posting data such as magnet, and torrent files. Hashes will have precedence over magnets, and magnets will have precedence over torrent files. Only proper torrent files are accepted. At least one of hash, magnet, or torrent file is required. A general route that allows you to give a hash, and TorBox will return data about the torrent. This data is retrieved from the Bittorrent network, so expect it to take some time. If the request goes longer than 10 seconds, TorBox will cancel it. You can adjust this if you like, but the default is 10 seconds. This route is cached as well, so subsequent requests will be instant. ### Authorization None required.                                                                                                                                                                                                                                                                                                                                                                                           |
 
 ## CreateTorrent
 
@@ -333,6 +334,53 @@ params := torrents.GetTorrentInfoRequestParams{
 }
 
 response, err := client.Torrents.GetTorrentInfo(context.Background(), "apiVersion", params)
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## GetTorrentInfo1
+
+### Overview Same as the GET route, but allows posting data such as magnet, and torrent files. Hashes will have precedence over magnets, and magnets will have precedence over torrent files. Only proper torrent files are accepted. At least one of hash, magnet, or torrent file is required. A general route that allows you to give a hash, and TorBox will return data about the torrent. This data is retrieved from the Bittorrent network, so expect it to take some time. If the request goes longer than 10 seconds, TorBox will cancel it. You can adjust this if you like, but the default is 10 seconds. This route is cached as well, so subsequent requests will be instant. ### Authorization None required.
+
+- HTTP Method: `POST`
+- Endpoint: `/{api_version}/api/torrents/torrentinfo`
+
+**Parameters**
+
+| Name                   | Type                   | Required | Description                 |
+| :--------------------- | :--------------------- | :------- | :-------------------------- |
+| ctx                    | Context                | ✅       | Default go language context |
+| apiVersion             | string                 | ✅       |                             |
+| getTorrentInfo1Request | GetTorrentInfo1Request | ✅       |                             |
+
+**Return Type**
+
+`GetTorrentInfo1OkResponse`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "torbox-sdk-go/pkg/torboxapiconfig"
+  "torbox-sdk-go/pkg/torboxapi"
+  "torbox-sdk-go/pkg/util"
+  "torbox-sdk-go/pkg/torrents"
+)
+
+config := torboxapiconfig.NewConfig()
+client := torboxapi.NewTorboxApi(config)
+
+
+request := torrents.GetTorrentInfo1Request{
+  Hash: util.ToPointer("Hash"),
+}
+
+response, err := client.Torrents.GetTorrentInfo1(context.Background(), "apiVersion", request)
 if err != nil {
   panic(err)
 }

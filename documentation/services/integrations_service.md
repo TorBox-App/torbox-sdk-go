@@ -6,6 +6,7 @@ A list of all methods in the `IntegrationsService` service. Click on the method 
 | :-------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [AuthenticateOauth](#authenticateoauth) | ### Overview Allows you to get an authorization token for using the user's account. Callback is located at `/oauth/{provider}/callback` which will verify the token recieved from the OAuth, then redirect you finally to `https://torbox.app/{provider}/success?token={token}&expires_in={expires_in}&expires_at={expires_at}` #### Providers: - "google" -\> Google Drive - "dropbox" -\> Dropbox - "discord" -\> Discord - "onedrive" -\> Azure AD/Microsoft/Onedrive ### Authorization No authorization needed. This is a whitelabel OAuth solution.                                                                                            |
 | [QueueGoogleDrive](#queuegoogledrive)   | ### Overview Queues a job to upload the specified file or zip to the Google Drive account sent with the `google_token` key. To get this key, either get an OAuth2 token using `/oauth/google` or your own solution. Make sure when creating the OAuth link, you add the scope `https://www.googleapis.com/auth/drive.file` so TorBox has access to the user's Drive. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                   |
+| [QueuePixeldrain](#queuepixeldrain)     | ### Overview Queues a job to upload the specified file or zip to Pixeldrain. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | [QueueOnedrive](#queueonedrive)         | ### Overview Queues a job to upload the specified file or zip to the OneDrive sent with the `onedrive_token` key. To get this key, either get an OAuth2 token using `/oauth/onedrive` or your own solution. Make sure when creating the OAuth link you use the scope `files.readwrite.all`. This is compatible with all different types of Microsoft accounts. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                         |
 | [QueueGofile](#queuegofile)             | ### Overview Queues a job to upload the specified file or zip to the GoFile account sent with the `gofile_token` _(optional)_. To get this key, login to your GoFile account and go [here](https://gofile.io/myProfile). Copy the **Account API Token**. This is what you will use as the `gofile_token`, if you choose to use it. If you don't use an Account API Token, GoFile will simply create an anonymous file. This file will expire after inactivity. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                         |
 | [Queue1fichier](#queue1fichier)         | ### Overview Queues a job to upload the specified file or zip to the 1Fichier account sent with the `onefichier_token` key (optional). To get this key you must be a Premium or Premium Gold member at 1Fichier. If you are upgraded, [go to the parameters page](https://1fichier.com/console/params.pl), and get an **API Key**. This is what you will use as the `onefichier_token`, if you choose to use it. If you don't use an API Key, 1Fichier will simply create an anonymous file. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                           |
@@ -89,6 +90,47 @@ config := torboxapiconfig.NewConfig()
 client := torboxapi.NewTorboxApi(config)
 
 response, err := client.Integrations.QueueGoogleDrive(context.Background(), "apiVersion", request)
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## QueuePixeldrain
+
+### Overview Queues a job to upload the specified file or zip to Pixeldrain. ### Authorization Requires an API key using the Authorization Bearer Header.
+
+- HTTP Method: `POST`
+- Endpoint: `/{api_version}/api/integration/pixeldrain`
+
+**Parameters**
+
+| Name       | Type    | Required | Description                 |
+| :--------- | :------ | :------- | :-------------------------- |
+| ctx        | Context | ✅       | Default go language context |
+| apiVersion | string  | ✅       |                             |
+| body       | []byte  | ✅       |                             |
+
+**Return Type**
+
+`any`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "torbox-sdk-go/pkg/torboxapiconfig"
+  "torbox-sdk-go/pkg/torboxapi"
+
+)
+
+config := torboxapiconfig.NewConfig()
+client := torboxapi.NewTorboxApi(config)
+
+response, err := client.Integrations.QueuePixeldrain(context.Background(), "apiVersion", request)
 if err != nil {
   panic(err)
 }

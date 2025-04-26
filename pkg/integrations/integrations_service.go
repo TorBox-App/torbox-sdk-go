@@ -114,6 +114,35 @@ func (api *IntegrationsService) QueueGoogleDrive(ctx context.Context, apiVersion
 
 // ### Overview
 //
+// Queues a job to upload the specified file or zip to Pixeldrain.
+//
+// ### Authorization
+//
+// Requires an API key using the Authorization Bearer Header.
+func (api *IntegrationsService) QueuePixeldrain(ctx context.Context, apiVersion string) (*shared.TorboxApiResponse[any], *shared.TorboxApiError) {
+	config := *api.getConfig()
+
+	request := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("POST").
+		WithPath("/{api_version}/api/integration/pixeldrain").
+		WithConfig(config).
+		AddHeader("CONTENT-TYPE", "application/json").
+		AddPathParam("api_version", apiVersion).
+		WithContentType(httptransport.ContentTypeJson).
+		WithResponseContentType(httptransport.ContentTypeJson).
+		Build()
+
+	client := restClient.NewRestClient[any](config)
+	resp, err := client.Call(*request)
+	if err != nil {
+		return nil, shared.NewTorboxApiError[any](err)
+	}
+
+	return shared.NewTorboxApiResponse[any](resp), nil
+}
+
+// ### Overview
+//
 // Queues a job to upload the specified file or zip to the OneDrive sent with the `onedrive_token` key. To get this key, either get an OAuth2 token using `/oauth/onedrive` or your own solution. Make sure when creating the OAuth link you use the scope `files.readwrite.all`. This is compatible with all different types of Microsoft accounts.
 //
 // ### Authorization

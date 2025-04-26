@@ -154,3 +154,34 @@ func (api *GeneralService) GetChangelogsJson(ctx context.Context, apiVersion str
 
 	return shared.NewTorboxApiResponse[GetChangelogsJsonOkResponse](resp), nil
 }
+
+// ### Overview
+//
+// Gets CDN speedtest files. This can be used for speedtesting TorBox for users or other usages, such as checking download speeds for verification. Provides all necessary data such as region, server name, and even coordinates. Uses the requesting IP to determine if the server is the closest to the user.
+//
+// You also have the ability to choose between long tests or short tests via the "test_length" parameter. You may also force the region selection by passing the "region" as a specific region.
+//
+// ### Authorization
+//
+// None needed.
+func (api *GeneralService) GetSpeedtestFiles(ctx context.Context, apiVersion string, params GetSpeedtestFilesRequestParams) (*shared.TorboxApiResponse[any], *shared.TorboxApiError) {
+	config := *api.getConfig()
+
+	request := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("GET").
+		WithPath("/{api_version}/api/speedtest").
+		WithConfig(config).
+		AddPathParam("api_version", apiVersion).
+		WithOptions(params).
+		WithContentType(httptransport.ContentTypeJson).
+		WithResponseContentType(httptransport.ContentTypeJson).
+		Build()
+
+	client := restClient.NewRestClient[any](config)
+	resp, err := client.Call(*request)
+	if err != nil {
+		return nil, shared.NewTorboxApiError[any](err)
+	}
+
+	return shared.NewTorboxApiResponse[any](resp), nil
+}
