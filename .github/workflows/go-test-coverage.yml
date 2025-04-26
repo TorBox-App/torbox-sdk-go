@@ -1,0 +1,25 @@
+name: go-test-coverage
+
+on:
+  push:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [ stable ]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ matrix.go-version }}
+    - name: generate test coverage
+      run: make check-coverage
+    - name: check test coverage
+      uses: vladopajic/go-test-coverage@v2
+      with:
+        config: ./config/.testcoverage.yml
