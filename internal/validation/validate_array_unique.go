@@ -5,6 +5,8 @@ import (
 	"reflect"
 )
 
+// validateArrayIsUnique validates that all elements in an array or slice are unique when 'uniqueItems:"true"' tag is present.
+// Returns an error if duplicate elements are found. Nil values are skipped.
 func validateArrayIsUnique(field reflect.StructField, value reflect.Value) error {
 	unique, found := field.Tag.Lookup("uniqueItems")
 	if !found || unique != "true" || value.IsNil() {

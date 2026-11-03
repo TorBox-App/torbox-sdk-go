@@ -1,0 +1,20 @@
+{
+  "name": "Go Dev Container",
+
+  "image": "golang:1.18-buster",
+
+  "customizations": {
+    "vscode": {
+      "extensions": ["golang.go"]
+    }
+  },
+
+  "postCreateCommand": "go mod tidy",
+
+  "runArgs": ["--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"],
+
+  "mounts": ["source=${localEnv:HOME}/go/pkg/mod,target=/go/pkg/mod,type=bind"]
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
+}

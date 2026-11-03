@@ -2,7 +2,12 @@
 
 **Properties**
 
-| Name | Type   | Required | Description                                                           |
-| :--- | :----- | :------- | :-------------------------------------------------------------------- |
-| File | []byte | ❌       | An NZB File. Optional.                                                |
-| Link | string | ❌       | An accessible link to an NZB file. Cannot be a redirection. Optional. |
+| Name            | Type   | Required | Description |
+| :-------------- | :----- | :------- | :---------- |
+| File            | []byte | ❌       |             |
+| Link            | string | ❌       |             |
+| Name            | string | ❌       |             |
+| Password        | string | ❌       |             |
+| PostProcessing  | string | ❌       |             |
+| AsQueued        | string | ❌       |             |
+| AddOnlyIfCached | string | ❌       |             |

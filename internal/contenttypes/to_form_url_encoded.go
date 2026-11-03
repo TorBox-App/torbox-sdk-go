@@ -2,12 +2,14 @@ package contenttypes
 
 import (
 	"bytes"
+	"example.com/main-api-sdk/internal/utils"
 	"fmt"
 	"net/url"
 	"reflect"
-	"torbox-sdk-go/internal/utils"
 )
 
+// ToFormUrlEncoded serializes a struct to URL-encoded form format for request bodies.
+// Uses struct field json tags as form keys. Supports string, int, float, and bool types.
 func ToFormUrlEncoded(data any) (*bytes.Reader, error) {
 	val := utils.GetReflectValueFromAny(data)
 
@@ -20,7 +22,13 @@ func ToFormUrlEncoded(data any) (*bytes.Reader, error) {
 
 	for i := 0; i < val.NumField(); i++ {
 		field := dataType.Field(i)
-		fieldValue := utils.GetReflectValue(val.Field(i))
+		rawField := val.Field(i)
+
+		if utils.IsNilable(rawField) && rawField.IsNil() {
+			continue
+		}
+
+		fieldValue := utils.GetReflectValue(rawField)
 
 		if !fieldValue.CanInterface() {
 			continue

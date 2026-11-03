@@ -5,6 +5,8 @@ import (
 	"fmt"
 )
 
+// ToText serializes string data to bytes for text/plain request bodies.
+// Returns an error if the data is not a string.
 func ToText(data any) (*bytes.Reader, error) {
 	switch v := data.(type) {
 	case string:

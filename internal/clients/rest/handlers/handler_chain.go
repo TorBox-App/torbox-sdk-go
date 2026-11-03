@@ -1,24 +1,34 @@
 package handlers
 
 import (
-	"torbox-sdk-go/internal/clients/rest/httptransport"
+	"example.com/main-api-sdk/internal/clients/rest/httptransport"
 )
 
-type Handler[T any] interface {
-	Handle(req httptransport.Request) (*httptransport.Response[T], *httptransport.ErrorResponse[T])
-	SetNext(handler Handler[T])
+// Handler defines the interface for request processing in the handler chain.
+// Each handler can process both regular and streaming requests.
+// T is the response type, E is the error type.
+type Handler[T any, E any] interface {
+	Handle(req httptransport.Request) (*httptransport.Response[T], *httptransport.ErrorResponse[E])
+	HandleStream(req httptransport.Request) (*httptransport.Stream[T], *httptransport.ErrorResponse[E])
+	SetNext(handler Handler[T, E])
 }
 
-type HandlerChain[T any] struct {
-	head Handler[T]
-	tail Handler[T]
+// HandlerChain manages a chain of handlers for processing requests.
+// Implements the chain of responsibility pattern for request/response processing.
+type HandlerChain[T any, E any] struct {
+	head Handler[T, E]
+	tail Handler[T, E]
 }
 
-func BuildHandlerChain[T any]() *HandlerChain[T] {
-	return &HandlerChain[T]{}
+// BuildHandlerChain creates a new empty handler chain.
+// Handlers can be added using AddHandler to build the processing pipeline.
+func BuildHandlerChain[T any, E any]() *HandlerChain[T, E] {
+	return &HandlerChain[T, E]{}
 }
 
-func (chain *HandlerChain[T]) AddHandler(handler Handler[T]) *HandlerChain[T] {
+// AddHandler appends a handler to the end of the chain.
+// Returns the chain for method chaining. Handlers execute in the order they are added.
+func (chain *HandlerChain[T, E]) AddHandler(handler Handler[T, E]) *HandlerChain[T, E] {
 	if chain.head == nil {
 		chain.head = handler
 		chain.tail = handler
@@ -31,6 +41,14 @@ func (chain *HandlerChain[T]) AddHandler(handler Handler[T]) *HandlerChain[T] {
 	return chain
 }
 
-func (chain *HandlerChain[T]) CallApi(request httptransport.Request) (*httptransport.Response[T], *httptransport.ErrorResponse[T]) {
+// CallApi processes a regular HTTP request through the handler chain.
+// Returns the processed response or an error response.
+func (chain *HandlerChain[T, E]) CallApi(request httptransport.Request) (*httptransport.Response[T], *httptransport.ErrorResponse[E]) {
 	return chain.head.Handle(request)
+}
+
+// StreamApi processes a streaming HTTP request through the handler chain.
+// Returns a stream for consuming response chunks or an error response.
+func (chain *HandlerChain[T, E]) StreamApi(request httptransport.Request) (*httptransport.Stream[T], *httptransport.ErrorResponse[E]) {
+	return chain.head.HandleStream(request)
 }

@@ -7,6 +7,8 @@ import (
 	"strconv"
 )
 
+// FromFormData deserializes multipart/form-data into a struct.
+// Uses 'form' tags to map form fields to struct fields. Supports string, int, float, and bool types.
 func FromFormData(formData []byte, dest interface{}) error {
 	// Parse the form data into url.Values
 	data, err := url.ParseQuery(string(formData))
@@ -22,6 +24,7 @@ func FromFormData(formData []byte, dest interface{}) error {
 	val = val.Elem()
 
 	// Iterate over each field in the struct
+	fieldsSet := 0
 	for i := 0; i < val.NumField(); i++ {
 		field := val.Type().Field(i)
 		fieldValue := val.Field(i)
@@ -36,32 +39,52 @@ func FromFormData(formData []byte, dest interface{}) error {
 		if formValues, ok := data[formKey]; ok && len(formValues) > 0 {
 			formValue := formValues[0]
 
+			// Handle pointer fields by dereferencing
+			actualValue := fieldValue
+			if fieldValue.Kind() == reflect.Ptr {
+				if fieldValue.IsNil() {
+					// Create a new value of the underlying type
+					actualValue = reflect.New(fieldValue.Type().Elem())
+					fieldValue.Set(actualValue)
+				}
+				actualValue = actualValue.Elem()
+			}
+
 			// Set the value on the struct field based on its type
-			switch fieldValue.Kind() {
+			switch actualValue.Kind() {
 			case reflect.String:
-				fieldValue.SetString(formValue)
+				actualValue.SetString(formValue)
+				fieldsSet++
 			case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 				intVal, err := strconv.ParseInt(formValue, 10, 64)
 				if err != nil {
 					return fmt.Errorf("failed to parse int for field %s: %v", field.Name, err)
 				}
-				fieldValue.SetInt(intVal)
+				actualValue.SetInt(intVal)
+				fieldsSet++
 			case reflect.Float32, reflect.Float64:
 				floatVal, err := strconv.ParseFloat(formValue, 64)
 				if err != nil {
 					return fmt.Errorf("failed to parse float for field %s: %v", field.Name, err)
 				}
-				fieldValue.SetFloat(floatVal)
+				actualValue.SetFloat(floatVal)
+				fieldsSet++
 			case reflect.Bool:
 				boolVal, err := strconv.ParseBool(formValue)
 				if err != nil {
 					return fmt.Errorf("failed to parse bool for field %s: %v", field.Name, err)
 				}
-				fieldValue.SetBool(boolVal)
+				actualValue.SetBool(boolVal)
+				fieldsSet++
 			default:
 				return fmt.Errorf("unsupported field type for field %s", field.Name)
 			}
 		}
 	}
+
+	if fieldsSet == 0 {
+		return fmt.Errorf("no form fields were set - form data may be invalid or empty")
+	}
+
 	return nil
 }

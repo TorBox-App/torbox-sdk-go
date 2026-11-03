@@ -2,33 +2,32 @@ package main
 
 import (
 	"bufio"
-	"context"
 	"fmt"
 	"os"
 	"strings"
 
-	"torbox-sdk-go/pkg/torboxapi"
-	"torbox-sdk-go/pkg/torboxapiconfig"
-	"torbox-sdk-go/pkg/torrents"
-	"torbox-sdk-go/pkg/util"
+	"context"
+	"example.com/main-api-sdk"
+	"example.com/main-api-sdk/mainapisdk1"
 )
 
 func main() {
 	loadEnv()
 
-	config := torboxapiconfig.NewConfig()
-	client := torboxapi.NewTorboxApi(config)
+	config := mainapisdk.NewConfig()
+	client := mainapisdk.NewMainAPISDK(config)
 
-	request := torrents.CreateTorrentRequest{
-		AllowZip: util.ToPointer("AllowZip"),
-		AsQueued: util.ToPointer("AsQueued"),
-		File:     []byte{},
-		Magnet:   util.ToPointer("Magnet"),
-		Name:     util.ToPointer("Name"),
-		Seed:     util.ToPointer("Seed"),
+	request := mainapisdk1.CreateTorrentRequest{
+		File:            mainapisdk.Nullable[[]byte]([]byte{}),
+		Magnet:          mainapisdk.Nullable[string]("string"),
+		Seed:            mainapisdk.Nullable[string]("int"),
+		AllowZip:        mainapisdk.Nullable[string]("boolean"),
+		Name:            mainapisdk.Nullable[string]("string"),
+		AsQueued:        mainapisdk.Nullable[string]("boolean"),
+		AddOnlyIfCached: mainapisdk.Nullable[string]("boolean"),
 	}
 
-	response, err := client.Torrents.CreateTorrent(context.Background(), "apiVersion", request)
+	response, err := client.MainAPISDK1.CreateTorrent(context.Background(), "api_version", request)
 	if err != nil {
 		panic(err)
 	}
