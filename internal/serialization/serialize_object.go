@@ -6,11 +6,14 @@ import (
 	"strings"
 )
 
+// paramMap represents a key-value pair for query parameter serialization.
 type paramMap struct {
 	Key   string
 	Value string
 }
 
+// SerializeObject serializes a struct to query parameter format with nested bracket notation.
+// Converts struct fields to key[fieldName]=value format for complex query parameters.
 func SerializeObject(key string, input any) []paramMap {
 	val := reflect.ValueOf(input)
 	typ := reflect.TypeOf(input)
@@ -44,6 +47,8 @@ func SerializeObject(key string, input any) []paramMap {
 	return params
 }
 
+// SerializeValue serializes any value to a string representation for query parameters.
+// Handles primitives, arrays/slices, and nested structs recursively.
 func SerializeValue(key string, input any) string {
 	val := reflect.ValueOf(input)
 	typ := reflect.TypeOf(input)
@@ -71,10 +76,14 @@ func SerializeValue(key string, input any) string {
 	}
 }
 
+// SerializePrimitive converts primitive types to their string representation.
+// Uses fmt.Sprintf for consistent formatting.
 func SerializePrimitive(input any) string {
 	return fmt.Sprintf("%v", input)
 }
 
+// getJsonName extracts the JSON field name from a struct field's json tag.
+// Returns the first part of the json tag before any comma.
 func getJsonName(field reflect.StructField) string {
 	jsonTag := field.Tag.Get("json")
 	return strings.Split(jsonTag, ",")[0]

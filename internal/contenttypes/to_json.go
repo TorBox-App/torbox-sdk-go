@@ -5,7 +5,9 @@ import (
 	"encoding/json"
 )
 
-func ToJson(data any) (*bytes.Reader, error) {
+// ToJSON serializes data to JSON format for HTTP request bodies.
+// Returns a bytes.Reader containing the JSON-encoded data, or nil if data is nil.
+func ToJSON(data any) (*bytes.Reader, error) {
 	if data == nil {
 		return nil, nil
 	}

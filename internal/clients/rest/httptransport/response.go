@@ -5,13 +5,18 @@ import (
 	"net/http"
 )
 
+// Response represents an HTTP response with deserialized data.
+// Generic type T specifies the expected response data type.
 type Response[T any] struct {
 	StatusCode int
 	Headers    map[string]string
 	Body       []byte
 	Data       T
+	Raw        *http.Response
 }
 
+// Clone creates a deep copy of the Response including headers.
+// Returns a new Response with copied values.
 func (r *Response[T]) Clone() Response[T] {
 	if r == nil {
 		return Response[T]{
@@ -27,6 +32,8 @@ func (r *Response[T]) Clone() Response[T] {
 	return clone
 }
 
+// NewResponse creates a Response from an http.Response.
+// Reads and stores the body, extracts headers, and initializes the response structure.
 func NewResponse[T any](resp *http.Response) (*Response[T], error) {
 	defer resp.Body.Close()
 
@@ -46,6 +53,7 @@ func NewResponse[T any](resp *http.Response) (*Response[T], error) {
 		Headers:    responseHeaders,
 		Body:       body,
 		Data:       *placeholderData,
+		Raw:        resp,
 	}, nil
 }
 

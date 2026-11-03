@@ -1,4 +1,4 @@
-module torbox-sdk-go
+module example.com/main-api-sdk
 
 
-go 1.18
+go 1.22

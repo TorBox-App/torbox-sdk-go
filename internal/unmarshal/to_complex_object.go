@@ -7,10 +7,12 @@ import (
 	"reflect"
 	"strconv"
 
-	"torbox-sdk-go/internal/utils"
-	"torbox-sdk-go/internal/validation"
+	"example.com/main-api-sdk/internal/utils"
+	"example.com/main-api-sdk/internal/validation"
 )
 
+// candidate represents a potential type match when deserializing a oneOf discriminated union.
+// Tracks validation status and field counts to determine the best match.
 type candidate struct {
 	obj           any
 	valid         bool
@@ -19,23 +21,28 @@ type candidate struct {
 	kind          reflect.Kind
 }
 
+// ToComplexObject unmarshals JSON data into a discriminated union (oneOf) struct.
+// Attempts to unmarshal into all possible types, validates each, and selects the best match
+// based on required/optional field counts. Removes non-matching candidates from the result.
 func ToComplexObject[T any](data []byte, result *T) error {
 	err := unmarshalIntoProps(data, result)
 	if err != nil {
 		return err
 	}
 
-	candidates := createCandidatesFromProps(result)
+	candidates := createCandidatesFromProps(data, result)
 	chosenCandidateIndex := chooseCandidateIndex(candidates)
 	if chosenCandidateIndex == -1 {
 		return errors.New("cannot unmarshal response, no valid candidate found")
 	}
+
 	removeOtherCandidates(result, chosenCandidateIndex)
 
 	return nil
 }
 
-// Try to Unmarshal the input data into the properties of a given struct.
+// unmarshalIntoProps attempts to unmarshal JSON data into all fields of a oneOf struct.
+// Tries to parse the data as each possible type (struct, array, primitive) and sets matching fields.
 func unmarshalIntoProps(data []byte, obj any) error {
 	types := reflect.TypeOf(obj).Elem()
 	values := reflect.ValueOf(obj).Elem()
@@ -80,7 +87,10 @@ func unmarshalIntoProps(data []byte, obj any) error {
 	return nil
 }
 
-func createCandidatesFromProps(obj any) []candidate {
+// createCandidatesFromProps creates a candidate entry for each non-nil field in the oneOf struct.
+// Validates each candidate and counts required/optional fields for ranking.
+// Struct candidates that are missing required JSON keys are marked invalid and excluded from selection.
+func createCandidatesFromProps(data []byte, obj any) []candidate {
 	values := utils.GetReflectValue(reflect.ValueOf(obj))
 	types := utils.GetReflectType(reflect.TypeOf(obj))
 
@@ -90,7 +100,8 @@ func createCandidatesFromProps(obj any) []candidate {
 		kind := utils.GetReflectKind(types.Field(i).Type)
 
 		var c candidate
-		if fieldValue.IsNil() {
+		isNilable := utils.IsNilable(fieldValue)
+		if isNilable && fieldValue.IsNil() {
 			c = candidate{
 				obj:           nil,
 				valid:         false,
@@ -102,7 +113,7 @@ func createCandidatesFromProps(obj any) []candidate {
 			value := fieldValue.Interface()
 			c = candidate{
 				obj:           value,
-				valid:         isValid(value),
+				valid:         isValid(value) && ValidateRequiredJSONKeys(data, value) == nil,
 				requiredCount: countFields(value, validation.IsRequiredField),
 				optionalCount: countFields(value, validation.IsOptionalField),
 				kind:          kind,
@@ -133,6 +144,8 @@ func createCandidatesFromProps(obj any) []candidate {
 	return candidates
 }
 
+// countFields recursively counts fields matching the predicate (required or optional) in a struct.
+// Used to rank candidates by how many required/optional fields were successfully unmarshaled.
 func countFields(c any, isFieldRequiredOrOptional func(reflect.StructField) bool) int {
 	values := utils.GetReflectValue(reflect.ValueOf(c))
 	types := utils.GetReflectType(reflect.TypeOf(c))
@@ -146,7 +159,8 @@ func countFields(c any, isFieldRequiredOrOptional func(reflect.StructField) bool
 		fieldValue := values.Field(i)
 		fieldType := types.Field(i)
 
-		if fieldValue.IsNil() {
+		isNilable := utils.IsNilable(fieldValue)
+		if isNilable && fieldValue.IsNil() {
 			continue
 		}
 
@@ -163,6 +177,7 @@ func countFields(c any, isFieldRequiredOrOptional func(reflect.StructField) bool
 	return count
 }
 
+// countArrayFields counts matching fields across all elements in an array.
 func countArrayFields(candidates any, isFieldRequiredOrOptional func(reflect.StructField) bool) int {
 	count := 0
 	values := utils.GetReflectValue(reflect.ValueOf(candidates))
@@ -174,11 +189,14 @@ func countArrayFields(candidates any, isFieldRequiredOrOptional func(reflect.Str
 	return count
 }
 
+// isValid checks if a candidate passes all validation constraints.
 func isValid(candidate any) bool {
 	err := validation.ValidateData(candidate)
 	return err == nil
 }
 
+// chooseCandidateIndex selects the best matching candidate from the list.
+// Prefers non-primitive types first, then falls back to primitives in order: bool, int, float, string.
 func chooseCandidateIndex(candidates []candidate) int {
 	chosenCandidateIndex := chooseNonPrimitiveCandidate(candidates)
 
@@ -189,6 +207,8 @@ func chooseCandidateIndex(candidates []candidate) int {
 	return chosenCandidateIndex
 }
 
+// chooseNonPrimitiveCandidate selects the best non-primitive (struct/array) candidate.
+// Prioritizes candidates with more required fields, then more optional fields.
 func chooseNonPrimitiveCandidate(candidates []candidate) int {
 	chosenCandidateIndex := -1
 	chosenCandidateRequiredCount := -1
@@ -205,6 +225,8 @@ func chooseNonPrimitiveCandidate(candidates []candidate) int {
 	return chosenCandidateIndex
 }
 
+// isBetterCandidate determines if a candidate is better than the currently chosen one.
+// A candidate is better if it has more required fields, or equal required but more optional fields.
 func isBetterCandidate(c candidate, chosenCandidateRequiredCount int, chosenCandidateOptionalCount int) bool {
 	if !c.valid || isPrimitive(c.kind) {
 		return false
@@ -221,6 +243,8 @@ func isBetterCandidate(c candidate, chosenCandidateRequiredCount int, chosenCand
 	return false
 }
 
+// choosePrimitiveCandidate selects the first non-nil primitive candidate in priority order.
+// Priority: bool > int > float > string.
 func choosePrimitiveCandidate(candidates []candidate) int {
 	predicates := []func(kind reflect.Kind) bool{isBool, isInteger, isFloat, isString}
 
@@ -234,6 +258,8 @@ func choosePrimitiveCandidate(candidates []candidate) int {
 	return -1
 }
 
+// removeOtherCandidates zeroes out all fields except the chosen candidate.
+// Ensures only the matched oneOf variant remains in the result struct.
 func removeOtherCandidates(obj any, chosenCandidateIndex int) {
 	values := utils.GetReflectValue(reflect.ValueOf(obj))
 	types := utils.GetReflectType(reflect.TypeOf(obj))
@@ -246,6 +272,7 @@ func removeOtherCandidates(obj any, chosenCandidateIndex int) {
 	}
 }
 
+// findFirstNonNil finds the first candidate matching the kind predicate.
 func findFirstNonNil(candidates []candidate, predicate func(kind reflect.Kind) bool) int {
 	for i, c := range candidates {
 		if c.obj != nil && predicate(c.kind) {
