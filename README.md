@@ -1,10 +1,10 @@
-# MainAPISDK Go SDK 1.0.0
+# MainAPISDK Go SDK 1.0.7
 
 Welcome to the MainAPISDK SDK documentation. This guide will help you get started with integrating and using the MainAPISDK SDK in your project.
 
 ## Versions
 
-- SDK version: `1.0.0`
+- SDK version: `1.0.7`
 
 ## About the API
 

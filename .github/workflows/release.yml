@@ -10,9 +10,9 @@ on:
 env:
   # SDK identity baked in at generation time from the in-memory build context,
   # so the workflow never reads go.mod or any other file at runtime.
-  SDK_VERSION: '1.0.0'
+  SDK_VERSION: '1.0.7'
   SDK_MODULE_PATH: 'example.com/main-api-sdk'
-  RELEASE_TAG: 'v1.0.0'
+  RELEASE_TAG: 'v1.0.7'
 
 jobs:
   release:
