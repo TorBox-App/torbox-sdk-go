@@ -423,6 +423,8 @@ params := mainapisdk1.GetTorrentListRequestParams{
   ID: mainapisdk.Nullable[string]("id"),
   Offset: mainapisdk.Nullable[string]("offset"),
   Limit: mainapisdk.Nullable[string]("limit"),
+  Active: mainapisdk.Nullable[string]("active"),
+  Files: mainapisdk.Nullable[string]("files"),
 }
 
 response, err := client.MainAPISDK1.GetTorrentList(context.Background(), "api_version", params)
@@ -714,7 +716,7 @@ client := mainapisdk.NewMainAPISDK(config)
 
 
 request := mainapisdk1.EditTorrentItemRequest{
-  TorrentID: mainapisdk.Nullable[float64](float64(76)),
+  TorrentID: mainapisdk.Nullable[float64](float64(88)),
   Name: mainapisdk.Nullable[string]("string"),
   Tags: mainapisdk.Nullable[[]string]([]string{}),
   AlternativeHashes: mainapisdk.Nullable[[]string]([]string{}),
@@ -1070,6 +1072,8 @@ params := mainapisdk1.GetUsenetListRequestParams{
   ID: mainapisdk.Nullable[string]("id"),
   Offset: mainapisdk.Nullable[string]("offset"),
   Limit: mainapisdk.Nullable[string]("limit"),
+  Active: mainapisdk.Nullable[string]("active"),
+  Files: mainapisdk.Nullable[string]("files"),
 }
 
 response, err := client.MainAPISDK1.GetUsenetList(context.Background(), "api_version", params)
@@ -1212,7 +1216,7 @@ client := mainapisdk.NewMainAPISDK(config)
 
 
 request := mainapisdk1.EditUsenetItemRequest{
-  UsenetDownloadID: mainapisdk.Nullable[float64](float64(35)),
+  UsenetDownloadID: mainapisdk.Nullable[float64](float64(21)),
   Name: mainapisdk.Nullable[string]("string"),
   Tags: mainapisdk.Nullable[[]string]([]string{}),
   AlternativeHashes: mainapisdk.Nullable[[]string]([]string{}),
@@ -1639,6 +1643,8 @@ params := mainapisdk1.GetWebDownloadListRequestParams{
   ID: mainapisdk.Nullable[string]("id"),
   Offset: mainapisdk.Nullable[string]("offset"),
   Limit: mainapisdk.Nullable[string]("limit"),
+  Active: mainapisdk.Nullable[string]("active"),
+  Files: mainapisdk.Nullable[string]("files"),
 }
 
 response, err := client.MainAPISDK1.GetWebDownloadList(context.Background(), "api_version", params)
@@ -1828,7 +1834,7 @@ client := mainapisdk.NewMainAPISDK(config)
 
 
 request := mainapisdk1.EditWebDownloadItemRequest{
-  WebdlID: mainapisdk.Nullable[float64](float64(29)),
+  WebdlID: mainapisdk.Nullable[float64](float64(16)),
   Name: mainapisdk.Nullable[string]("string"),
   Tags: mainapisdk.Nullable[[]string]([]string{}),
   AlternativeHashes: mainapisdk.Nullable[[]string]([]string{}),

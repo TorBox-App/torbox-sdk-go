@@ -1,6 +1,6 @@
 {
-  "sdkGenVersion": "3.17.0",
-  "resolvedGeneratorVersion": "3.17.0",
+  "sdkGenVersion": "3.20.0",
+  "resolvedGeneratorVersion": "3.20.0",
   "config": {
     "schemaVersion": "sdk-config-ir/v1",
     "source": {
@@ -14,7 +14,7 @@
       "language": "go",
       "sourceOrigin": "postman",
       "sdkName": "main-api-sdk",
-      "sdkVersion": "1.0.0"
+      "sdkVersion": "1.0.7"
     },
     "api": {
       "baseUrl": "",
@@ -166,9 +166,9 @@
   "fileHashes": {
     ".devcontainer/devcontainer.json": "7018c8458ca3183f37ce0188bf0f51e25cd3c82318014edec372681cd42dab70",
     ".env.example": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    ".github/workflows/release.yml": "1e671abe3b9c17f9171731ed907e398c50b92c59c137cdd0006b15f4f7234db1",
+    ".github/workflows/release.yml": "cbbe5baf450e17a368619b28ed56de9c5a00ecb50a650d79d934a3ce7c8257d1",
     ".gitignore": "180c3eb119b9e17a0a3d319d5dc7f86a8232c9a61404f647310dd489d3c1805c",
-    "README.md": "4ae33fd6b5f9e47c4ea8d95ab1e965a76987416b8375b2630f62541525bf9957",
+    "README.md": "62a2ec05bbb9fafda565e9538655f02c784f738e07503587365e971237df2669",
     "cmd/examples/example.go": "0b52cc6574322205e15b173d855d84dccf69b58916b135f6d800472e17345b19",
     "config.go": "c6d0fffb4b35d917f5b90528f49c4944be07aa32f7943d86279879922cfeb759",
     "documentation/models/async_create_torrent_request.md": "6b247f945cf25b3886190438549bcd6ccbe9528a1192b5e0b6a7046d96ba0164",
@@ -187,8 +187,8 @@
     "documentation/models/main_api_sdk_request_download_links_post_request_1.md": "c31576c825a09c5bddaa4e2f64cf871e6501833ba76b9ea78d6adb43bd4f8d73",
     "documentation/models/main_api_sdk_request_download_links_post_request_2.md": "834db430cf46f184576d2d1c0fb8c6f01ca90bbb2e2fe8e59fa03e00c468a218",
     "documentation/models/main_api_sdk_request_download_links_post_request_3.md": "a29836a9d10a9ba383bd02e8ae9c05e5bd31466ed9f28bb0b70b71811d0466b7",
-    "documentation/services/main_api_sdk.md": "aad3cc7c46ade82e65accfc220d7d2a80840b397980b509d94b073f2c0db58b5",
-    "documentation/snippets/snippets.json": "07c3d69fa9a6f0b47548ae021770a156acf9e2da966391c3d1c01fe9b85b7008",
+    "documentation/services/main_api_sdk.md": "a1d1310952881cf601f8195bcc9c39b982d8f111de2b251b964332931648efb7",
+    "documentation/snippets/snippets.json": "b41ff40394f79400a53393ca92092e9acf6a09ffa5bc0cfd14fa42081bfb2e23",
     "go.mod": "c31907009ec0c8b13609870854d645cc2fd0b8a8c36c958cd84948f2722a3ee7",
     "internal/clients/rest/client.go": "a53a68db484b43674bf48eed185b02ce73a6f95ad2513bd12beeb0bf40db8a30",
     "internal/clients/rest/handlers/bearer_token_handler.go": "d6d40d56d187b79a16bf338398c613f861a43ef5c36e8c3936b65cd1fe0a8c2c",
@@ -203,7 +203,7 @@
     "internal/clients/rest/hooks/hook.go": "08b261862e8dc59f464e5bc7e3f63f3c7bbcd4896ba72c7fc74aaf448d8a5dc5",
     "internal/clients/rest/httptransport/content-type.go": "bf9b150892f991bee60287cb70b0aef16aeac2dcbdbd7c273b71645ced107e4f",
     "internal/clients/rest/httptransport/error_response.go": "1476bf7f8e3f10d76e9e593406088586fbdc52426b931dc77f3eeec3e2723714",
-    "internal/clients/rest/httptransport/request-builder.go": "5370bba293674e226d7dc7605f4c99ac27aec544438fa768a495d988288906d0",
+    "internal/clients/rest/httptransport/request-builder.go": "f3f5c96d000a316f2468cb8bd4e54e5d7c975c598a4b5fbb497d86795321e9f8",
     "internal/clients/rest/httptransport/request.go": "8732003bbc328113e977e1d64db2403c22dc4c80104184d75f5188fca7f1134f",
     "internal/clients/rest/httptransport/response.go": "3e857e91b61c254ab28782b7ef5f725be107c1b18bbab0ee35911689fff18be0",
     "internal/clients/rest/httptransport/stream.go": "78846eaf98bfb461a26bd892c7f34805a6716cb0376423c5bf0abec183b54204",
@@ -253,11 +253,11 @@
     "mainapisdk1/main_api_sdk_request_download_links_post_request_1.go": "046dde7b2fd5712682367980bb75592beb4d83710facb3ddc885203a38e3a034",
     "mainapisdk1/main_api_sdk_request_download_links_post_request_2.go": "115d8f49b5786c83ac1d820555fa58ae365b25e0b5f60a8cce54245b76484cc6",
     "mainapisdk1/main_api_sdk_request_download_links_post_request_3.go": "867ac9bb8fe8496fd843997b94941f8c661e903eff5f234ca14299872d8b4792",
-    "mainapisdk1/request_params.go": "9ef6ee8b225c811808f5429cb7945c9731f803871e9e4bac4eea51122ef4a203",
+    "mainapisdk1/request_params.go": "333b776925db3bd347a74bfcfb1b17e208bab38fa2c68b99f3b3df9d774dec3e",
     "mainapisdk1/service.go": "bacc37e8281b7d6451ae7d8c55f48f8ea1d80af596ed00efb6a332b8f7200fbf",
     "mainapisdkconfig/config.go": "66e0de52271b46a29190c528702357dedca6263289eba3741be44244e700ae84",
     "mainapisdkconfig/environments.go": "10cdb50f649805c5c93e39fe97bb2b188e69b2d8c7285860c069f89a4b0580c3",
-    "mainapisdkconfig/version.go": "30b58e7ab50ef0845f6ccf34d92ad991da451997979b210167d4fa2b88f88631",
+    "mainapisdkconfig/version.go": "53c5f791b5374376bed694153c94c5d54a7bf44d61671498d89500b0355ca876",
     "param/nullable.go": "adb58c419544f785a9e3147bf7599d091319c4654e145a9a4a48dd7ee8639675",
     "param/to_pointer.go": "280f89a77398ce6384bdead43a8a6bae37e02f59bf565c8759bd9073a83a5e3e",
     "sharedmodels/main_api_sdk_error.go": "4ccdcb10067eb84439f861e30a9bdd47c8eaf7c3baf6369c49c6432547f4cd1c",

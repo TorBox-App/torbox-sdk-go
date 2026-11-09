@@ -38,6 +38,8 @@ type GetTorrentListRequestParams struct {
 	ID          *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"id"`
 	Offset      *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"offset"`
 	Limit       *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	Active      *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"active"`
+	Files       *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"files"`
 }
 
 // GetTorrentCachedAvailabilityRequestParams holds the optional parameters for the API request.
@@ -94,6 +96,8 @@ type GetUsenetListRequestParams struct {
 	ID          *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"id"`
 	Offset      *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"offset"`
 	Limit       *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	Active      *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"active"`
+	Files       *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"files"`
 }
 
 // GetUsenetCachedAvailabilityRequestParams holds the optional parameters for the API request.
@@ -137,6 +141,8 @@ type GetWebDownloadListRequestParams struct {
 	ID          *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"id"`
 	Offset      *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"offset"`
 	Limit       *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"limit"`
+	Active      *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"active"`
+	Files       *param.Nullable[string] `explode:"true" serializationStyle:"form" queryParam:"files"`
 }
 
 // GetWebDownloadCachedAvailabilityRequestParams holds the optional parameters for the API request.
