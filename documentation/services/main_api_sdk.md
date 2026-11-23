@@ -75,6 +75,15 @@ A list of all methods in the `MainAPISDK1` service. Click on the method name to 
 | [ControlQueuedDownloads](#controlqueueddownloads)                               | ### Overview Controls a queued torrent. By sending the queued torrent's ID and the type of operation you want to perform, it will perform that action on the queued torrent. Operations are either: - **Delete** `deletes the queued download from your account` - **Start** `starts a queued download, cannot be used with the "all" parameter` ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | [CreateStream](#createstream)                                                   | ### Overview Creates a new stream based off of the data provided. #### Selecting Subtitles and Audios We use indexes to determine which audio and subtitle you would like to select. To view all available indexes, you must request this endpoint intially with "null" or 0, for the chosen indexes. This will return a metadata dictionary in the response, which will contain the list of audios and subtitles available for this stream. When choosing a subtitle or audio stream, use the **relative index**, starting from 0, rather than the "index" value. This is important for selecting the correct index. Once your user gets a selection of audios and subtitles available, you can submit this to the endpoint again to get the chosen stream. - **null** - Selecting no subtitle. Not available for audio as one must always be selected. - **0** - Selecting first subtitle or audio #### Selecting Resolution Similar to the subtitles and audios, we use indexes to determine the resolution chosen. Unlike the above, these are predetermined. We do not upscale video, so if for example, you pass a 1080p video, and request it with resolution, 7, it will stay at 1080p. Please see the below for options. - **null** - Original video resolution. No downscaling will take place. - **0** - 144p - **1** - 240p - **2** - 360p - **3** - 480p - **4** - 720p - **5** - 1080p - **6** - 1440p - **7** - 2160p #### Types This endpoint allows you to handle torrents, usenet and web downloads all in one. This is why the "type" parameter is available. It defaults to "torrent". - **torrent** - Torrents - **usenet** - Usenet downloads - **webdownload** - Web Downloads #### Important Notes - Only text based subtitles are supported. If a non-text based subtitle is selected, it will be ignored. - If a subtitle or audio index does not exist on the stream, it will be ignored. - There are a lot of edge-case videos, if something doesn't work, don't hesitate to report the download hash and file_id of the failing video file. - This is a **Pro** only feature. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                       |
 | [GetStreamData](#getstreamdata)                                                 | ### Overview Gets stream data from an already created stream. Requires the presigned token and user API token from the original request. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| [GetUserTags](#getusertags)                                                     | ### Overview Gets the tags attached to a user account, with the downloads using each tag, their count and total size. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| [EditTag](#edittag)                                                             | ### Overview Renames a tag. This new name is case sensitive. The ID is the tag's ID from the `/mytags`. Fails with `DUPLICATE_ITEM` when another of the user's tags already has the same name, in any casing. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| [ControlTag](#controltag)                                                       | ### Overview Controls a tag. Currently, the only operation is "delete", which deletes the tag and removes it from every download using it; the downloads stay in your account and are otherwise unmodified. The ID is the tag's ID from `/mytags` endpoint. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| [ChatWithAssistant](#chatwithassistant)                                         | ### Overview Send a message to the AI Assistant. Optionally include a `session_id` to resume a previous conversation. If no `session_id` is given, the AI will have no previous context and will create a new conversation. Also included is a way to upload `files` in base64 allowing you to attach a file that the AI Assistant can use. We also allow you to send `blocks` which is a list of strings that state what additional features your chat interface includes. If no `blocks` are sent, responses are sent in plain text and markdown (for things like tables or bolding text). ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| [GetAssistantUsage](#getassistantusage)                                         | ### Overview Gets the current user's AI assistant usage. Users are limited to a certain number of tokens daily, and this endpoint tells you exactly how much is left as a percentage. This makes it easy for developers so they don't have to spend time counting tokens, which is usually inaccurate. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| [GetAssistantConversations](#getassistantconversations)                         | ### Overview Gets the user's open conversations. Conversations are sorted newest first. Each conversation is kept for 30 days after its last message. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| [GetAssistantConversation](#getassistantconversation)                           | ### Overview Get a specific user conversation with the AI assistant. You can pass the `since` parameter with a Unix timestamp, and will show any revisions since that time, this way, you don't waste bandwidth retrieving and updating the entire conversation. If no update has been made since, the data return will be null. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| [DeleteAssistantConversation](#deleteassistantconversation)                     | ### Overview Deletes a specific conversation with the AI assistant. Usage persists from the conversation. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| [DeleteAllAssistantConversations](#deleteallassistantconversations)             | ### Overview Deletes all conversations for a user's account. Usage persists from the conversations. ### Authorization Requires an API key using the Authorization Bearer Header.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 ## CreateTorrent
 
@@ -423,6 +432,8 @@ params := mainapisdk1.GetTorrentListRequestParams{
   ID: mainapisdk.Nullable[string]("id"),
   Offset: mainapisdk.Nullable[string]("offset"),
   Limit: mainapisdk.Nullable[string]("limit"),
+  Active: mainapisdk.Nullable[string]("active"),
+  Files: mainapisdk.Nullable[string]("files"),
 }
 
 response, err := client.MainAPISDK1.GetTorrentList(context.Background(), "api_version", params)
@@ -714,7 +725,7 @@ client := mainapisdk.NewMainAPISDK(config)
 
 
 request := mainapisdk1.EditTorrentItemRequest{
-  TorrentID: mainapisdk.Nullable[float64](float64(76)),
+  TorrentID: mainapisdk.Nullable[float64](float64(81)),
   Name: mainapisdk.Nullable[string]("string"),
   Tags: mainapisdk.Nullable[[]string]([]string{}),
   AlternativeHashes: mainapisdk.Nullable[[]string]([]string{}),
@@ -1070,6 +1081,8 @@ params := mainapisdk1.GetUsenetListRequestParams{
   ID: mainapisdk.Nullable[string]("id"),
   Offset: mainapisdk.Nullable[string]("offset"),
   Limit: mainapisdk.Nullable[string]("limit"),
+  Active: mainapisdk.Nullable[string]("active"),
+  Files: mainapisdk.Nullable[string]("files"),
 }
 
 response, err := client.MainAPISDK1.GetUsenetList(context.Background(), "api_version", params)
@@ -1212,7 +1225,7 @@ client := mainapisdk.NewMainAPISDK(config)
 
 
 request := mainapisdk1.EditUsenetItemRequest{
-  UsenetDownloadID: mainapisdk.Nullable[float64](float64(35)),
+  UsenetDownloadID: mainapisdk.Nullable[float64](float64(56)),
   Name: mainapisdk.Nullable[string]("string"),
   Tags: mainapisdk.Nullable[[]string]([]string{}),
   AlternativeHashes: mainapisdk.Nullable[[]string]([]string{}),
@@ -1639,6 +1652,8 @@ params := mainapisdk1.GetWebDownloadListRequestParams{
   ID: mainapisdk.Nullable[string]("id"),
   Offset: mainapisdk.Nullable[string]("offset"),
   Limit: mainapisdk.Nullable[string]("limit"),
+  Active: mainapisdk.Nullable[string]("active"),
+  Files: mainapisdk.Nullable[string]("files"),
 }
 
 response, err := client.MainAPISDK1.GetWebDownloadList(context.Background(), "api_version", params)
@@ -1828,7 +1843,7 @@ client := mainapisdk.NewMainAPISDK(config)
 
 
 request := mainapisdk1.EditWebDownloadItemRequest{
-  WebdlID: mainapisdk.Nullable[float64](float64(29)),
+  WebdlID: mainapisdk.Nullable[float64](float64(10)),
   Name: mainapisdk.Nullable[string]("string"),
   Tags: mainapisdk.Nullable[[]string]([]string{}),
   AlternativeHashes: mainapisdk.Nullable[[]string]([]string{}),
@@ -3369,6 +3384,401 @@ params := mainapisdk1.GetStreamDataRequestParams{
 }
 
 response, err := client.MainAPISDK1.GetStreamData(context.Background(), "api_version", params)
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## GetUserTags
+
+### Overview Gets the tags attached to a user account, with the downloads using each tag, their count and total size. ### Authorization Requires an API key using the Authorization Bearer Header.
+
+- HTTP Method: `GET`
+- Endpoint: `/{api_version}/api/tags/mytags`
+
+**Parameters**
+
+| Name       | Type    | Required | Description                 |
+| :--------- | :------ | :------- | :-------------------------- |
+| ctx        | Context | ✅       | Default go language context |
+| apiVersion | string  | ✅       |                             |
+
+**Return Type**
+
+`[]byte`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "context"
+  "example.com/main-api-sdk"
+)
+
+config := mainapisdk.NewConfig()
+config.SetAccessToken("ACCESS_TOKEN")
+client := mainapisdk.NewMainAPISDK(config)
+
+response, err := client.MainAPISDK1.GetUserTags(context.Background(), "api_version")
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## EditTag
+
+### Overview Renames a tag. This new name is case sensitive. The ID is the tag's ID from the `/mytags`. Fails with `DUPLICATE_ITEM` when another of the user's tags already has the same name, in any casing. ### Authorization Requires an API key using the Authorization Bearer Header.
+
+- HTTP Method: `PUT`
+- Endpoint: `/{api_version}/api/tags/edittag`
+
+**Parameters**
+
+| Name           | Type           | Required | Description                 |
+| :------------- | :------------- | :------- | :-------------------------- |
+| ctx            | Context        | ✅       | Default go language context |
+| apiVersion     | string         | ✅       |                             |
+| editTagRequest | EditTagRequest | ✅       |                             |
+
+**Return Type**
+
+`[]byte`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "context"
+  "example.com/main-api-sdk"
+  "example.com/main-api-sdk/mainapisdk1"
+)
+
+config := mainapisdk.NewConfig()
+config.SetAccessToken("ACCESS_TOKEN")
+client := mainapisdk.NewMainAPISDK(config)
+
+
+request := mainapisdk1.EditTagRequest{
+  ID: mainapisdk.Nullable[float64](float64(68)),
+  NewName: mainapisdk.Nullable[string]("string"),
+}
+
+response, err := client.MainAPISDK1.EditTag(context.Background(), "api_version", request)
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## ControlTag
+
+### Overview Controls a tag. Currently, the only operation is "delete", which deletes the tag and removes it from every download using it; the downloads stay in your account and are otherwise unmodified. The ID is the tag's ID from `/mytags` endpoint. ### Authorization Requires an API key using the Authorization Bearer Header.
+
+- HTTP Method: `POST`
+- Endpoint: `/{api_version}/api/tags/controltag`
+
+**Parameters**
+
+| Name              | Type              | Required | Description                 |
+| :---------------- | :---------------- | :------- | :-------------------------- |
+| ctx               | Context           | ✅       | Default go language context |
+| apiVersion        | string            | ✅       |                             |
+| controlTagRequest | ControlTagRequest | ✅       |                             |
+
+**Return Type**
+
+`[]byte`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "context"
+  "example.com/main-api-sdk"
+  "example.com/main-api-sdk/mainapisdk1"
+)
+
+config := mainapisdk.NewConfig()
+config.SetAccessToken("ACCESS_TOKEN")
+client := mainapisdk.NewMainAPISDK(config)
+
+
+request := mainapisdk1.ControlTagRequest{
+  ID: mainapisdk.Nullable[float64](float64(78)),
+  Operation: mainapisdk.Nullable[string]("delete"),
+}
+
+response, err := client.MainAPISDK1.ControlTag(context.Background(), "api_version", request)
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## ChatWithAssistant
+
+### Overview Send a message to the AI Assistant. Optionally include a `session_id` to resume a previous conversation. If no `session_id` is given, the AI will have no previous context and will create a new conversation. Also included is a way to upload `files` in base64 allowing you to attach a file that the AI Assistant can use. We also allow you to send `blocks` which is a list of strings that state what additional features your chat interface includes. If no `blocks` are sent, responses are sent in plain text and markdown (for things like tables or bolding text). ### Authorization Requires an API key using the Authorization Bearer Header.
+
+- HTTP Method: `POST`
+- Endpoint: `/{api_version}/api/assistant/chat`
+
+**Parameters**
+
+| Name                     | Type                     | Required | Description                 |
+| :----------------------- | :----------------------- | :------- | :-------------------------- |
+| ctx                      | Context                  | ✅       | Default go language context |
+| apiVersion               | string                   | ✅       |                             |
+| chatWithAssistantRequest | ChatWithAssistantRequest | ✅       |                             |
+
+**Return Type**
+
+`[]byte`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "context"
+  "example.com/main-api-sdk"
+  "example.com/main-api-sdk/mainapisdk1"
+)
+
+config := mainapisdk.NewConfig()
+config.SetAccessToken("ACCESS_TOKEN")
+client := mainapisdk.NewMainAPISDK(config)
+
+
+request := mainapisdk1.ChatWithAssistantRequest{
+  Message: mainapisdk.Nullable[string]("string"),
+  SessionID: mainapisdk.Nullable[string]("string"),
+  Files: mainapisdk.Nullable[[]string]([]string{}),
+  Blocks: mainapisdk.Nullable[[]string]([]string{}),
+}
+
+response, err := client.MainAPISDK1.ChatWithAssistant(context.Background(), "api_version", request)
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## GetAssistantUsage
+
+### Overview Gets the current user's AI assistant usage. Users are limited to a certain number of tokens daily, and this endpoint tells you exactly how much is left as a percentage. This makes it easy for developers so they don't have to spend time counting tokens, which is usually inaccurate. ### Authorization Requires an API key using the Authorization Bearer Header.
+
+- HTTP Method: `GET`
+- Endpoint: `/{api_version}/api/assistant/usage`
+
+**Parameters**
+
+| Name       | Type    | Required | Description                 |
+| :--------- | :------ | :------- | :-------------------------- |
+| ctx        | Context | ✅       | Default go language context |
+| apiVersion | string  | ✅       |                             |
+
+**Return Type**
+
+`[]byte`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "context"
+  "example.com/main-api-sdk"
+)
+
+config := mainapisdk.NewConfig()
+config.SetAccessToken("ACCESS_TOKEN")
+client := mainapisdk.NewMainAPISDK(config)
+
+response, err := client.MainAPISDK1.GetAssistantUsage(context.Background(), "api_version")
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## GetAssistantConversations
+
+### Overview Gets the user's open conversations. Conversations are sorted newest first. Each conversation is kept for 30 days after its last message. ### Authorization Requires an API key using the Authorization Bearer Header.
+
+- HTTP Method: `GET`
+- Endpoint: `/{api_version}/api/assistant/conversations`
+
+**Parameters**
+
+| Name       | Type    | Required | Description                 |
+| :--------- | :------ | :------- | :-------------------------- |
+| ctx        | Context | ✅       | Default go language context |
+| apiVersion | string  | ✅       |                             |
+
+**Return Type**
+
+`[]byte`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "context"
+  "example.com/main-api-sdk"
+)
+
+config := mainapisdk.NewConfig()
+config.SetAccessToken("ACCESS_TOKEN")
+client := mainapisdk.NewMainAPISDK(config)
+
+response, err := client.MainAPISDK1.GetAssistantConversations(context.Background(), "api_version")
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## GetAssistantConversation
+
+### Overview Get a specific user conversation with the AI assistant. You can pass the `since` parameter with a Unix timestamp, and will show any revisions since that time, this way, you don't waste bandwidth retrieving and updating the entire conversation. If no update has been made since, the data return will be null. ### Authorization Requires an API key using the Authorization Bearer Header.
+
+- HTTP Method: `GET`
+- Endpoint: `/{api_version}/api/assistant/conversations/{session_id}`
+
+**Parameters**
+
+| Name       | Type                                  | Required | Description                   |
+| :--------- | :------------------------------------ | :------- | :---------------------------- |
+| ctx        | Context                               | ✅       | Default go language context   |
+| apiVersion | string                                | ✅       |                               |
+| sessionID  | string                                | ✅       |                               |
+| params     | GetAssistantConversationRequestParams | ✅       | Additional request parameters |
+
+**Return Type**
+
+`[]byte`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "context"
+  "example.com/main-api-sdk"
+  "example.com/main-api-sdk/mainapisdk1"
+)
+
+config := mainapisdk.NewConfig()
+config.SetAccessToken("ACCESS_TOKEN")
+client := mainapisdk.NewMainAPISDK(config)
+
+
+params := mainapisdk1.GetAssistantConversationRequestParams{
+  Since: mainapisdk.Nullable[string]("since"),
+}
+
+response, err := client.MainAPISDK1.GetAssistantConversation(context.Background(), "api_version", "session_id", params)
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## DeleteAssistantConversation
+
+### Overview Deletes a specific conversation with the AI assistant. Usage persists from the conversation. ### Authorization Requires an API key using the Authorization Bearer Header.
+
+- HTTP Method: `DELETE`
+- Endpoint: `/{api_version}/api/assistant/conversations/{session_id}`
+
+**Parameters**
+
+| Name       | Type    | Required | Description                 |
+| :--------- | :------ | :------- | :-------------------------- |
+| ctx        | Context | ✅       | Default go language context |
+| apiVersion | string  | ✅       |                             |
+| sessionID  | string  | ✅       |                             |
+
+**Return Type**
+
+`[]byte`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "context"
+  "example.com/main-api-sdk"
+)
+
+config := mainapisdk.NewConfig()
+config.SetAccessToken("ACCESS_TOKEN")
+client := mainapisdk.NewMainAPISDK(config)
+
+response, err := client.MainAPISDK1.DeleteAssistantConversation(context.Background(), "api_version", "session_id")
+if err != nil {
+  panic(err)
+}
+
+fmt.Println(response)
+```
+
+## DeleteAllAssistantConversations
+
+### Overview Deletes all conversations for a user's account. Usage persists from the conversations. ### Authorization Requires an API key using the Authorization Bearer Header.
+
+- HTTP Method: `DELETE`
+- Endpoint: `/{api_version}/api/assistant/conversations`
+
+**Parameters**
+
+| Name       | Type    | Required | Description                 |
+| :--------- | :------ | :------- | :-------------------------- |
+| ctx        | Context | ✅       | Default go language context |
+| apiVersion | string  | ✅       |                             |
+
+**Return Type**
+
+`[]byte`
+
+**Example Usage Code Snippet**
+
+```go
+import (
+  "fmt"
+  "encoding/json"
+  "context"
+  "example.com/main-api-sdk"
+)
+
+config := mainapisdk.NewConfig()
+config.SetAccessToken("ACCESS_TOKEN")
+client := mainapisdk.NewMainAPISDK(config)
+
+response, err := client.MainAPISDK1.DeleteAllAssistantConversations(context.Background(), "api_version")
 if err != nil {
   panic(err)
 }

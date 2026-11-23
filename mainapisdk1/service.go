@@ -87,6 +87,15 @@ type Service struct {
 	controlQueuedDownloadsConfig                []mainapisdkconfig.RequestOption
 	createStreamConfig                          []mainapisdkconfig.RequestOption
 	getStreamDataConfig                         []mainapisdkconfig.RequestOption
+	getUserTagsConfig                           []mainapisdkconfig.RequestOption
+	editTagConfig                               []mainapisdkconfig.RequestOption
+	controlTagConfig                            []mainapisdkconfig.RequestOption
+	chatWithAssistantConfig                     []mainapisdkconfig.RequestOption
+	getAssistantUsageConfig                     []mainapisdkconfig.RequestOption
+	getAssistantConversationsConfig             []mainapisdkconfig.RequestOption
+	getAssistantConversationConfig              []mainapisdkconfig.RequestOption
+	deleteAssistantConversationConfig           []mainapisdkconfig.RequestOption
+	deleteAllAssistantConversationsConfig       []mainapisdkconfig.RequestOption
 }
 
 func NewService() *Service {
@@ -697,6 +706,78 @@ func (api *Service) SetCreateStreamConfig(opts ...mainapisdkconfig.RequestOption
 // precedence over service-level config. Per-call options still take highest precedence.
 func (api *Service) SetGetStreamDataConfig(opts ...mainapisdkconfig.RequestOption) *Service {
 	api.getStreamDataConfig = opts
+	return api
+}
+
+// SetGetUserTagsConfig sets method-level configuration for GetUserTags.
+// Options are applied to every future call to GetUserTags and take
+// precedence over service-level config. Per-call options still take highest precedence.
+func (api *Service) SetGetUserTagsConfig(opts ...mainapisdkconfig.RequestOption) *Service {
+	api.getUserTagsConfig = opts
+	return api
+}
+
+// SetEditTagConfig sets method-level configuration for EditTag.
+// Options are applied to every future call to EditTag and take
+// precedence over service-level config. Per-call options still take highest precedence.
+func (api *Service) SetEditTagConfig(opts ...mainapisdkconfig.RequestOption) *Service {
+	api.editTagConfig = opts
+	return api
+}
+
+// SetControlTagConfig sets method-level configuration for ControlTag.
+// Options are applied to every future call to ControlTag and take
+// precedence over service-level config. Per-call options still take highest precedence.
+func (api *Service) SetControlTagConfig(opts ...mainapisdkconfig.RequestOption) *Service {
+	api.controlTagConfig = opts
+	return api
+}
+
+// SetChatWithAssistantConfig sets method-level configuration for ChatWithAssistant.
+// Options are applied to every future call to ChatWithAssistant and take
+// precedence over service-level config. Per-call options still take highest precedence.
+func (api *Service) SetChatWithAssistantConfig(opts ...mainapisdkconfig.RequestOption) *Service {
+	api.chatWithAssistantConfig = opts
+	return api
+}
+
+// SetGetAssistantUsageConfig sets method-level configuration for GetAssistantUsage.
+// Options are applied to every future call to GetAssistantUsage and take
+// precedence over service-level config. Per-call options still take highest precedence.
+func (api *Service) SetGetAssistantUsageConfig(opts ...mainapisdkconfig.RequestOption) *Service {
+	api.getAssistantUsageConfig = opts
+	return api
+}
+
+// SetGetAssistantConversationsConfig sets method-level configuration for GetAssistantConversations.
+// Options are applied to every future call to GetAssistantConversations and take
+// precedence over service-level config. Per-call options still take highest precedence.
+func (api *Service) SetGetAssistantConversationsConfig(opts ...mainapisdkconfig.RequestOption) *Service {
+	api.getAssistantConversationsConfig = opts
+	return api
+}
+
+// SetGetAssistantConversationConfig sets method-level configuration for GetAssistantConversation.
+// Options are applied to every future call to GetAssistantConversation and take
+// precedence over service-level config. Per-call options still take highest precedence.
+func (api *Service) SetGetAssistantConversationConfig(opts ...mainapisdkconfig.RequestOption) *Service {
+	api.getAssistantConversationConfig = opts
+	return api
+}
+
+// SetDeleteAssistantConversationConfig sets method-level configuration for DeleteAssistantConversation.
+// Options are applied to every future call to DeleteAssistantConversation and take
+// precedence over service-level config. Per-call options still take highest precedence.
+func (api *Service) SetDeleteAssistantConversationConfig(opts ...mainapisdkconfig.RequestOption) *Service {
+	api.deleteAssistantConversationConfig = opts
+	return api
+}
+
+// SetDeleteAllAssistantConversationsConfig sets method-level configuration for DeleteAllAssistantConversations.
+// Options are applied to every future call to DeleteAllAssistantConversations and take
+// precedence over service-level config. Per-call options still take highest precedence.
+func (api *Service) SetDeleteAllAssistantConversationsConfig(opts ...mainapisdkconfig.RequestOption) *Service {
+	api.deleteAllAssistantConversationsConfig = opts
 	return api
 }
 
@@ -3614,6 +3695,336 @@ func (api *Service) GetStreamData(ctx context.Context, apiVersion string, params
 		WithConfig(config).
 		AddPathParam("api_version", apiVersion).
 		WithOptions(params).
+		WithContentType(httptransport.ContentTypeJSON).
+		WithResponseContentType(httptransport.ContentTypeJSON).
+		WithSecuritySchemes([]httptransport.AuthScheme{httptransport.AuthSchemeBearer}).
+		Build()
+
+	httpClient := restClient.NewRestClient[[]byte, []byte](config, api.getHook())
+	resp, err := httpClient.Call(*httpRequest)
+	if err != nil {
+		return nil, sharedmodels.NewMainAPISDKError[[]byte](err)
+	}
+
+	return resp.Data, nil
+}
+
+// ### Overview
+//
+// Gets the tags attached to a user account, with the downloads using each tag, their count and total size.
+//
+// ### Authorization
+//
+// Requires an API key using the Authorization Bearer Header.
+func (api *Service) GetUserTags(ctx context.Context, apiVersion string, opts ...mainapisdkconfig.RequestOption) ([]byte, error) {
+	config := *api.config()
+	for _, opt := range api.getUserTagsConfig {
+		opt(&config)
+	}
+	for _, opt := range opts {
+		opt(&config)
+	}
+
+	httpRequest := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("GET").
+		WithPath("/{api_version}/api/tags/mytags").
+		WithConfig(config).
+		AddPathParam("api_version", apiVersion).
+		WithContentType(httptransport.ContentTypeJSON).
+		WithResponseContentType(httptransport.ContentTypeJSON).
+		WithSecuritySchemes([]httptransport.AuthScheme{httptransport.AuthSchemeBearer}).
+		Build()
+
+	httpClient := restClient.NewRestClient[[]byte, []byte](config, api.getHook())
+	resp, err := httpClient.Call(*httpRequest)
+	if err != nil {
+		return nil, sharedmodels.NewMainAPISDKError[[]byte](err)
+	}
+
+	return resp.Data, nil
+}
+
+// ### Overview
+//
+// Renames a tag. This new name is case sensitive. The ID is the tag's ID from the `/mytags`. Fails with `DUPLICATE_ITEM` when another of the user's tags already has the same name, in any casing.
+//
+// ### Authorization
+//
+// Requires an API key using the Authorization Bearer Header.
+func (api *Service) EditTag(ctx context.Context, apiVersion string, editTagRequest EditTagRequest, opts ...mainapisdkconfig.RequestOption) ([]byte, error) {
+	config := *api.config()
+	for _, opt := range api.editTagConfig {
+		opt(&config)
+	}
+	for _, opt := range opts {
+		opt(&config)
+	}
+
+	httpRequest := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("PUT").
+		WithPath("/{api_version}/api/tags/edittag").
+		WithConfig(config).
+		WithBody(editTagRequest).
+		AddHeader("CONTENT-TYPE", "application/json").
+		AddPathParam("api_version", apiVersion).
+		WithContentType(httptransport.ContentTypeJSON).
+		WithResponseContentType(httptransport.ContentTypeJSON).
+		WithSecuritySchemes([]httptransport.AuthScheme{httptransport.AuthSchemeBearer}).
+		Build()
+
+	httpClient := restClient.NewRestClient[[]byte, []byte](config, api.getHook())
+	resp, err := httpClient.Call(*httpRequest)
+	if err != nil {
+		return nil, sharedmodels.NewMainAPISDKError[[]byte](err)
+	}
+
+	return resp.Data, nil
+}
+
+// ### Overview
+//
+// Controls a tag. Currently, the only operation is "delete", which deletes the tag and removes it from every download using it; the downloads stay in your account and are otherwise unmodified. The ID is the tag's ID from `/mytags` endpoint.
+//
+// ### Authorization
+//
+// Requires an API key using the Authorization Bearer Header.
+func (api *Service) ControlTag(ctx context.Context, apiVersion string, controlTagRequest ControlTagRequest, opts ...mainapisdkconfig.RequestOption) ([]byte, error) {
+	config := *api.config()
+	for _, opt := range api.controlTagConfig {
+		opt(&config)
+	}
+	for _, opt := range opts {
+		opt(&config)
+	}
+
+	httpRequest := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("POST").
+		WithPath("/{api_version}/api/tags/controltag").
+		WithConfig(config).
+		WithBody(controlTagRequest).
+		AddHeader("CONTENT-TYPE", "application/json").
+		AddPathParam("api_version", apiVersion).
+		WithContentType(httptransport.ContentTypeJSON).
+		WithResponseContentType(httptransport.ContentTypeJSON).
+		WithSecuritySchemes([]httptransport.AuthScheme{httptransport.AuthSchemeBearer}).
+		Build()
+
+	httpClient := restClient.NewRestClient[[]byte, []byte](config, api.getHook())
+	resp, err := httpClient.Call(*httpRequest)
+	if err != nil {
+		return nil, sharedmodels.NewMainAPISDKError[[]byte](err)
+	}
+
+	return resp.Data, nil
+}
+
+// ### Overview
+//
+// Send a message to the AI Assistant. Optionally include a `session_id` to resume a previous conversation. If no `session_id` is given, the AI will have no previous context and will create a new conversation.
+//
+// Also included is a way to upload `files` in base64 allowing you to attach a file that the AI Assistant can use.
+//
+// We also allow you to send `blocks` which is a list of strings that state what additional features your chat interface includes. If no `blocks` are sent, responses are sent in plain text and markdown (for things like tables or bolding text).
+//
+// ### Authorization
+//
+// Requires an API key using the Authorization Bearer Header.
+func (api *Service) ChatWithAssistant(ctx context.Context, apiVersion string, chatWithAssistantRequest ChatWithAssistantRequest, opts ...mainapisdkconfig.RequestOption) ([]byte, error) {
+	config := *api.config()
+	for _, opt := range api.chatWithAssistantConfig {
+		opt(&config)
+	}
+	for _, opt := range opts {
+		opt(&config)
+	}
+
+	httpRequest := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("POST").
+		WithPath("/{api_version}/api/assistant/chat").
+		WithConfig(config).
+		WithBody(chatWithAssistantRequest).
+		AddHeader("CONTENT-TYPE", "application/json").
+		AddPathParam("api_version", apiVersion).
+		WithContentType(httptransport.ContentTypeJSON).
+		WithResponseContentType(httptransport.ContentTypeJSON).
+		WithSecuritySchemes([]httptransport.AuthScheme{httptransport.AuthSchemeBearer}).
+		Build()
+
+	httpClient := restClient.NewRestClient[[]byte, []byte](config, api.getHook())
+	resp, err := httpClient.Call(*httpRequest)
+	if err != nil {
+		return nil, sharedmodels.NewMainAPISDKError[[]byte](err)
+	}
+
+	return resp.Data, nil
+}
+
+// ### Overview
+//
+// Gets the current user's AI assistant usage. Users are limited to a certain number of tokens daily, and this endpoint tells you exactly how much is left as a percentage. This makes it easy for developers so they don't have to spend time counting tokens, which is usually inaccurate.
+//
+// ### Authorization
+//
+// Requires an API key using the Authorization Bearer Header.
+func (api *Service) GetAssistantUsage(ctx context.Context, apiVersion string, opts ...mainapisdkconfig.RequestOption) ([]byte, error) {
+	config := *api.config()
+	for _, opt := range api.getAssistantUsageConfig {
+		opt(&config)
+	}
+	for _, opt := range opts {
+		opt(&config)
+	}
+
+	httpRequest := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("GET").
+		WithPath("/{api_version}/api/assistant/usage").
+		WithConfig(config).
+		AddPathParam("api_version", apiVersion).
+		WithContentType(httptransport.ContentTypeJSON).
+		WithResponseContentType(httptransport.ContentTypeJSON).
+		WithSecuritySchemes([]httptransport.AuthScheme{httptransport.AuthSchemeBearer}).
+		Build()
+
+	httpClient := restClient.NewRestClient[[]byte, []byte](config, api.getHook())
+	resp, err := httpClient.Call(*httpRequest)
+	if err != nil {
+		return nil, sharedmodels.NewMainAPISDKError[[]byte](err)
+	}
+
+	return resp.Data, nil
+}
+
+// ### Overview
+//
+// Gets the user's open conversations. Conversations are sorted newest first. Each conversation is kept for 30 days after its last message.
+//
+// ### Authorization
+//
+// Requires an API key using the Authorization Bearer Header.
+func (api *Service) GetAssistantConversations(ctx context.Context, apiVersion string, opts ...mainapisdkconfig.RequestOption) ([]byte, error) {
+	config := *api.config()
+	for _, opt := range api.getAssistantConversationsConfig {
+		opt(&config)
+	}
+	for _, opt := range opts {
+		opt(&config)
+	}
+
+	httpRequest := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("GET").
+		WithPath("/{api_version}/api/assistant/conversations").
+		WithConfig(config).
+		AddPathParam("api_version", apiVersion).
+		WithContentType(httptransport.ContentTypeJSON).
+		WithResponseContentType(httptransport.ContentTypeJSON).
+		WithSecuritySchemes([]httptransport.AuthScheme{httptransport.AuthSchemeBearer}).
+		Build()
+
+	httpClient := restClient.NewRestClient[[]byte, []byte](config, api.getHook())
+	resp, err := httpClient.Call(*httpRequest)
+	if err != nil {
+		return nil, sharedmodels.NewMainAPISDKError[[]byte](err)
+	}
+
+	return resp.Data, nil
+}
+
+// ### Overview
+//
+// Get a specific user conversation with the AI assistant.
+//
+// You can pass the `since` parameter with a Unix timestamp, and will show any revisions since that time, this way, you don't waste bandwidth retrieving and updating the entire conversation. If no update has been made since, the data return will be null.
+//
+// ### Authorization
+//
+// Requires an API key using the Authorization Bearer Header.
+func (api *Service) GetAssistantConversation(ctx context.Context, apiVersion string, sessionID string, params GetAssistantConversationRequestParams, opts ...mainapisdkconfig.RequestOption) ([]byte, error) {
+	config := *api.config()
+	for _, opt := range api.getAssistantConversationConfig {
+		opt(&config)
+	}
+	for _, opt := range opts {
+		opt(&config)
+	}
+
+	httpRequest := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("GET").
+		WithPath("/{api_version}/api/assistant/conversations/{session_id}").
+		WithConfig(config).
+		AddPathParam("api_version", apiVersion).
+		AddPathParam("session_id", sessionID).
+		WithOptions(params).
+		WithContentType(httptransport.ContentTypeJSON).
+		WithResponseContentType(httptransport.ContentTypeJSON).
+		WithSecuritySchemes([]httptransport.AuthScheme{httptransport.AuthSchemeBearer}).
+		Build()
+
+	httpClient := restClient.NewRestClient[[]byte, []byte](config, api.getHook())
+	resp, err := httpClient.Call(*httpRequest)
+	if err != nil {
+		return nil, sharedmodels.NewMainAPISDKError[[]byte](err)
+	}
+
+	return resp.Data, nil
+}
+
+// ### Overview
+//
+// Deletes a specific conversation with the AI assistant. Usage persists from the conversation.
+//
+// ### Authorization
+//
+// Requires an API key using the Authorization Bearer Header.
+func (api *Service) DeleteAssistantConversation(ctx context.Context, apiVersion string, sessionID string, opts ...mainapisdkconfig.RequestOption) ([]byte, error) {
+	config := *api.config()
+	for _, opt := range api.deleteAssistantConversationConfig {
+		opt(&config)
+	}
+	for _, opt := range opts {
+		opt(&config)
+	}
+
+	httpRequest := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("DELETE").
+		WithPath("/{api_version}/api/assistant/conversations/{session_id}").
+		WithConfig(config).
+		AddPathParam("api_version", apiVersion).
+		AddPathParam("session_id", sessionID).
+		WithContentType(httptransport.ContentTypeJSON).
+		WithResponseContentType(httptransport.ContentTypeJSON).
+		WithSecuritySchemes([]httptransport.AuthScheme{httptransport.AuthSchemeBearer}).
+		Build()
+
+	httpClient := restClient.NewRestClient[[]byte, []byte](config, api.getHook())
+	resp, err := httpClient.Call(*httpRequest)
+	if err != nil {
+		return nil, sharedmodels.NewMainAPISDKError[[]byte](err)
+	}
+
+	return resp.Data, nil
+}
+
+// ### Overview
+//
+// Deletes all conversations for a user's account. Usage persists from the conversations.
+//
+// ### Authorization
+//
+// Requires an API key using the Authorization Bearer Header.
+func (api *Service) DeleteAllAssistantConversations(ctx context.Context, apiVersion string, opts ...mainapisdkconfig.RequestOption) ([]byte, error) {
+	config := *api.config()
+	for _, opt := range api.deleteAllAssistantConversationsConfig {
+		opt(&config)
+	}
+	for _, opt := range opts {
+		opt(&config)
+	}
+
+	httpRequest := httptransport.NewRequestBuilder().WithContext(ctx).
+		WithMethod("DELETE").
+		WithPath("/{api_version}/api/assistant/conversations").
+		WithConfig(config).
+		AddPathParam("api_version", apiVersion).
 		WithContentType(httptransport.ContentTypeJSON).
 		WithResponseContentType(httptransport.ContentTypeJSON).
 		WithSecuritySchemes([]httptransport.AuthScheme{httptransport.AuthSchemeBearer}).
