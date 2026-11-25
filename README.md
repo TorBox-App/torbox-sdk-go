@@ -5,7 +5,7 @@ Go client for the [TorBox API](https://api-docs.torbox.app). Generated from the
 [OpenAPI spec](https://api.torbox.app/openapi.json) and published automatically when the API changes.
 
 ```bash
-go get github.com/TorBox-App/torbox-sdk-go/v9@v9.3.1-20261125.4
+go get github.com/TorBox-App/torbox-sdk-go/v9@v9.3.2026112508
 ```
 
 ## Quick start

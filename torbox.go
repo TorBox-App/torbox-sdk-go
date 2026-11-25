@@ -17,7 +17,7 @@ import (
 const DefaultBaseURL = "https://api.torbox.app"
 
 // SDKVersion is the version of this SDK.
-const SDKVersion = "9.3.1-20261125.4"
+const SDKVersion = "9.3.2026112508"
 
 // Error is an answer with success=false or an error status. Code is the stable error code (e.g. BAD_TOKEN),
 // Detail the message for people. Status is 0 when a 200 answer said success=false.
