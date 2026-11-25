@@ -1,16 +1,24 @@
-# Binaries and executables
-*.exe
-*.exe~
-*.dll
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.o
+*.a
 *.so
-*.dylib
 
-# Output of go coverage
-*.out
+# Folders
+_obj
+_test
 
-# Environment variables
-.env
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
 
-# OS generated files
-.DS_Store
-Thumbs.db
+*.cgo1.go
+*.cgo2.c
+_cgo_defun.c
+_cgo_gotypes.go
+_cgo_export.*
+
+_testmain.go
+
+*.exe
+*.test
+*.prof

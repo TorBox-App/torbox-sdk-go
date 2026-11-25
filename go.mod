@@ -1,4 +1,3 @@
-module example.com/main-api-sdk
+module github.com/TorBox-App/torbox-sdk-go/v9
 
-
-go 1.22
+go 1.23.0
